@@ -79,6 +79,11 @@ const routers = [
                                 name: 'walletImportPrivatekey',
                                 // @ts-ignore
                                 component: () => import('@/views/wallet/wallet-functions/wallet-import/wallet-import-privatekey/WalletImportPrivatekey.vue'),
+                            },{
+                                path: '/walletImportLedger',
+                                name: 'walletImportLedger',
+                                // @ts-ignore
+                                component: () => import('@/views/wallet/wallet-import-ledger/WalletImportLedger.vue'),
                             }
                         ]
                     },

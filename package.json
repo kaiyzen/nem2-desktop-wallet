@@ -8,10 +8,12 @@
         "test:unit": "vue-cli-service test:unit"
     },
     "dependencies": {
+        "@ledgerhq/hw-transport-webusb": "^4.68.2",
         "@types/crypto-js": "^3.1.43",
         "@types/vue-moment": "^4.0.0",
         "animate.css": "^3.7.2",
         "axios": "^0.19.0",
+        "bip32-path": "^0.4.2",
         "bufferutil": "^4.0.1",
         "core-js": "^2.6.5",
         "crypto": "^1.0.1",

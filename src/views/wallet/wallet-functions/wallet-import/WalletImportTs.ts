@@ -31,7 +31,8 @@ export class WalletImportTs extends Vue {
         keystore: '',
         password: '',
     }
-
+    ledger = {
+    }
 
     jumpToView(n, index) {
         let list = this.navigatorList
@@ -90,7 +91,12 @@ export class WalletImportTs extends Vue {
                     keystore: '',
                     password: '',
                 }
-                break
+                break;
+            case 'ledger':
+                this.$store.commit('SET_WALLET_LIST',[{name:'a'}])
+                this.$store.commit('SET_HAS_WALLET',true)
+                this.success(this['$t']('Successfully_imported_wallet'),'')
+                break;
         }
     }
 
