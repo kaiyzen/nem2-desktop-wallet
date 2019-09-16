@@ -311,6 +311,7 @@ export const en_US = {
     mnemonic: 'Mnemonic',
     privatekey: 'Private Key',
     keystore: 'Keystore',
+    ledger: 'Ledger',
     import: 'Import ',
     back: 'Back',
     mnemonic_description: 'The mnemonic is a 24-word seed file. By importing this seed file, you can restore your wallet. Please keep it safe and keep it confidential.',

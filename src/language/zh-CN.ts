@@ -306,6 +306,7 @@ export const zh_CN = {
     mnemonic: '助记词',
     privatekey: '私钥',
     keystore: 'keystore',
+    ledger: 'Ledger',
     import: '导入',
     input_mnemonic: '输入助记词',
     enter_24_words_please_pay_attention_to_the_order_separated_by_a_space_between_each_word: '输入24个单词，请注意顺序，每个单词之间用一个空格隔开',
