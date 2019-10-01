@@ -165,29 +165,31 @@ export class AppWallet {
         }
     }
 
-    // export const getAccountByLedger = async (name, account, netType, node?, currentXEM1?, currentXEM2?) => {
-    //     let storeWallet = {}
-    //     storeWallet = {
-    //         name: name,
-    //         address: account.address,
-    //         networkType: netType,
-    //         publicKey: account.publicKey,
-    //         privateKey: "privateKey",
-    //         password: "password",
-    //         publicAccount: account.publicAccount,
-    //         mosaics: [],
-    //         balance: 0,
-    //         algo: "ledger"
-    //     }
-    //     if (!node) return storeWallet
-    //     await setWalletMosaic(storeWallet, node, currentXEM1, currentXEM2).then((data) => {
-    //         storeWallet = data
-    //     })
-    //     await setMultisigAccount(storeWallet, node).then((data) => {
-    //         storeWallet = data
-    //     })
-    //     return storeWallet
-    // }
+    createFromLedger(
+        name: string,
+        networkType: NetworkType,
+        path: string,
+        publicKey: string,
+        address: string,
+        store: any): AppWallet {
+        try {
+            const accountName = store.state.account.accountName
+            const accountMap = localRead('accountMap') === '' ? {} : JSON.parse(localRead('accountMap'))
+            this.name = name
+            this.address = address
+            this.publicKey = publicKey
+            this.networkType = networkType
+            this.active = true
+            this.path = path
+            this.accountTitle = this.generateWalletTitle(CreateWalletType.ledger, CoinType.xem, NetworkType[networkType])
+            this.sourceType = CreateWalletType.ledger
+            localSave('accountMap', JSON.stringify(accountMap))
+            this.addNewWalletToList(store)
+            return this
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 
     getAccount(password: Password): Account {
         // @WALLETS: update after nem2-sdk EncryptedPrivateKey constructor definition is fixed

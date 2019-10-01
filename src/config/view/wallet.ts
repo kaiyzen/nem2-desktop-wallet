@@ -23,6 +23,10 @@ const _walletImportNavigatorConfig = [
         title: 'keystore',
         name: 'walletImportKeystore',
         isSelected: false
+    }, {
+        title: 'ledger',
+        name: 'walletImportLedger',
+        isSelected: false
     }
 ]
 

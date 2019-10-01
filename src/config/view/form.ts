@@ -107,5 +107,10 @@ export const formDataConfig = {
         networkType: 0,
         accountIndex: 0,
         walletName: 'Trezor Wallet'
+    },
+    ledgerImportForm: {
+        networkType: 0,
+        accountIndex: 0,
+        walletName: 'Ledger Wallet'
     }
 }

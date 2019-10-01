@@ -1,102 +1,109 @@
-import {Message} from "@/config"
+import {mapState} from 'vuex'
 import {Component, Vue} from 'vue-property-decorator'
-import {NetworkType} from "nem2-sdk"
+import {formDataConfig} from "@/config/view/form";
+import {networkTypeConfig} from '@/config/view/setting'
+import { Address } from 'nem2-sdk';
+import {Message} from "@/config/index.ts"
+import {AppInfo, StoreAccount, AppWallet} from '@/core/model'
 
 import Nem from "./hw-app-nem.js"
 // import { NemLedger } from "@/core/api/LedgerApi"
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
 // import {encryptKey, getAccountByLedger, saveLocalWallet} from "@/core/utils/wallet"
 
-@Component
+@Component({
+    computed: {
+        ...mapState({
+            activeAccount: 'account',
+            app: 'app'
+        })
+    }
+})
 export class WalletImportLedgerTs extends Vue {
+    activeAccount: StoreAccount
+    app: AppInfo
+    NetworkTypeList = networkTypeConfig
     account = {}
-    form = {
-        networkType: 0,
-        walletName: '',
-    }
-    NetworkTypeList = [
-        {
-            value: NetworkType.MIJIN_TEST,
-            label: 'MIJIN_TEST'
-        }, {
-            value: NetworkType.MAIN_NET,
-            label: 'MAIN_NET'
-        }, {
-            value: NetworkType.TEST_NET,
-            label: 'TEST_NET'
-        }, {
-            value: NetworkType.MIJIN,
-            label: 'MIJIN'
-        },
-    ]
+    showCheckPWDialog = false
+    // TODO: prefill values (account Index and wallet name)
+    // based on number of existing trezor accounts
+    ledgerForm = formDataConfig.ledgerImportForm
 
-    get getNode () {
-        return this.$store.state.account.node
+    get getNode() {
+        return this.activeAccount.node
     }
 
-    get currentXEM1(){
-        return this.$store.state.account.currentXEM1
+    get currentXEM1() {
+        return this.activeAccount.currentXEM1
     }
 
-    get currentXEM2(){
-        return this.$store.state.account.currentXEM2
-    }
-
-    async importWallet() {
-        if (!this.checkImport()) return
-        // this.loginWallet(this.account)
-        const transport = await TransportWebUSB.create();
-        const nemH = new Nem(transport);
-
-        const account = await nemH.getAddress("44'/43'/144'/0'/0'");
-        transport.close();
-        
-        this.loginWallet(account);
-    }
-
-    checkImport() {
-        if (this.form.networkType == 0) {
-            this.$Notice.error({
-                title: this.$t(Message.PLEASE_SWITCH_NETWORK) + ''
-            })
-            return false
-        }
-        if (!this.form.walletName || this.form.walletName == '') {
-            this.$Notice.error({
-                title: this.$t(Message.WALLET_NAME_INPUT_ERROR) + ''
-            })
-            return false
-        }
-        return true
-    }
-
-    loginWallet(account) {
-        const that = this
-        const walletName: any = this.form.walletName;
-        const netType: NetworkType = this.form.networkType;
-        const walletList = this.$store.state.app.walletList
-        const style = 'walletItem_bg_' + walletList.length % 3
-        // getAccountByLedger(walletName, account, netType, this.getNode, this.currentXEM1, this.currentXEM2)
-        //     .then((wallet)=>{
-        //         let storeWallet = wallet
-        //         storeWallet['style'] = style
-        //         that.$store.commit('SET_WALLET', storeWallet)
-        //         const encryptObj = encryptKey('privateKey', 'password')
-        //         saveLocalWallet(storeWallet, encryptObj, null,{})
-        //         this.toWalletDetails()
-        //     })
+    get walletList() {
+        return this.app.walletList
     }
 
     toWalletDetails() {
         this.$Notice.success({
-            title: this['$t']('Import_ledger_account_successfully') + '',
-        });
+            title: this['$t']('Imported_wallet_successfully') + ''
+        })
         this.$store.commit('SET_HAS_WALLET', true)
-        this.$emit('toWalletDetails')
+        this.$router.push('dashBoard')
     }
 
     toBack() {
-        this.$emit('closeImport')
+        this.$router.push('initAccount')
     }
 
+    // checkImport() {
+    //     const { accountIndex, networkType, walletName } = this.ledgerForm;
+    //     if (!walletName || walletName == '') {
+    //         this.showNotice(this.$t(Message.WALLET_NAME_INPUT_ERROR))
+    //         return false
+    //     }
+    //     return true
+    // }
+
+    // showNotice(text) {
+    //     this.$Notice.destroy()
+    //     this.$Notice.error({
+    //         title: text + ''
+    //     })
+    // }
+
+    async importAccountFromLedger() {
+        const { accountIndex, networkType, walletName } = this.ledgerForm
+
+        // await this.checkImport();
+
+        this.$store.commit('SET_UI_DISABLED', {
+            isDisabled: true,
+            message: "ledger_awaiting_interaction"
+        });
+
+        const transport = await TransportWebUSB.create();
+        const nemH = new Nem(transport);
+
+        const accountResult = await nemH.getAccount(`m/44'/43'/${networkType}'/0'/${accountIndex}'`)
+
+        const publicKey = accountResult.publicKey;
+        const serializedPath = accountResult.path;
+        const address = accountResult.address;
+
+        new AppWallet().createFromLedger(
+            walletName,
+            networkType,
+            serializedPath,
+            publicKey,
+            address,
+            this.$store
+        );
+
+        transport.close();
+
+        this.$store.commit('SET_UI_DISABLED', {
+            isDisabled: false,
+            message: ""
+        });
+
+        this.toWalletDetails();
+    }
 }

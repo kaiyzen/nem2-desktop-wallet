@@ -2,6 +2,7 @@ import {Component, Vue} from 'vue-property-decorator'
 import WalletImportKeystore from '@/views/wallet/wallet-functions/wallet-import/wallet-import-keystore/WalletImportKeystore.vue'
 import WalletImportPrivatekey from '@/views/wallet/wallet-functions/wallet-import/wallet-import-privatekey/WalletImportPrivatekey.vue'
 import AccountImportHardware from '@/views/login/init-seed/account-import-hardware/AccountImportHardware.vue'
+import WalletImportLedger from '@/views/wallet/wallet-import-ledger/WalletImportLedger.vue'
 import { networkTypeConfig } from '@/config/view/setting'
 import { walletImportNavigatorConfig } from '@/config/view/wallet'
 
@@ -9,6 +10,7 @@ import { walletImportNavigatorConfig } from '@/config/view/wallet'
     components: {
         WalletImportKeystore,
         WalletImportPrivatekey,
+        WalletImportLedger,
         AccountImportHardware
     },
 })

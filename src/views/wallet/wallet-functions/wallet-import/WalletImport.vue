@@ -21,6 +21,9 @@
             @toWalletDetails="toWalletDetails"
             @closeImport="closeImport">
           </AccountImportHardware>
+          <WalletImportLedger v-else-if="tabIndex === 2" @toWalletDetails="toWalletDetails"
+            @closeImport="closeImport">
+          </WalletImportLedger>
         </div>
       </div>
     </div>

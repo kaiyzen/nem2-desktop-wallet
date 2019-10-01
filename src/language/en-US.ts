@@ -727,6 +727,13 @@ export const en_US = {
     choose_account_index: 'Choose account index (0 - 1,000,000)',
     trezor_awaiting_interaction: 'Please finish interacting with Trezor',
 
+    //ledger
+    connect_ledger_title: 'Connect to a Ledger Hardware Wallet',
+    connect_ledger_prompt: 'Connect to Ledger',
+    connect_ledger_description: 'Import a wallet from a Ledger device',
+    ledger_description: 'Ledger will keep your private keys secure and only expose signature for signing transactions',
+    ledger_awaiting_interaction: 'Please finish interacting with Ledger',
+
     Please_choose_account_name: 'Please choose account name',
     account_password: 'Account password',
     hint: 'Hint',
