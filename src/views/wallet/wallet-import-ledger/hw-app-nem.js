@@ -32,7 +32,7 @@ export default class Nem {
      * @param ed25519
      * @return an object with a publicKey, address and (optionally) chainCode
      * @example
-     * const result = await nem.getAaccount(bip32path);
+     * const result = await nem.getAccount(bip32path);
      * const { publicKey, address } = result;
      */
     async getAccount(path) {

@@ -7,7 +7,7 @@ import {Message} from "@/config/index.ts"
 import {AppInfo, StoreAccount, AppWallet} from '@/core/model'
 
 import Nem from "./hw-app-nem.js"
-// import { NemLedger } from "@/core/api/LedgerApi"
+import { NemLedger } from "@/core/api/LedgerApi"
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
 // import {encryptKey, getAccountByLedger, saveLocalWallet} from "@/core/utils/wallet"
 
@@ -29,17 +29,13 @@ export class WalletImportLedgerTs extends Vue {
     // based on number of existing trezor accounts
     ledgerForm = formDataConfig.ledgerImportForm
 
-    get getNode() {
-        return this.activeAccount.node
-    }
+    // get getNode() {
+    //     return this.activeAccount.node
+    // }
 
-    get currentXEM1() {
-        return this.activeAccount.currentXEM1
-    }
-
-    get walletList() {
-        return this.app.walletList
-    }
+    // get walletList() {
+    //     return this.app.walletList
+    // }
 
     toWalletDetails() {
         this.$Notice.success({
@@ -80,7 +76,7 @@ export class WalletImportLedgerTs extends Vue {
         });
 
         const transport = await TransportWebUSB.create();
-        const nemH = new Nem(transport);
+        const nemH = new NemLedger(transport, "NEM");
 
         const accountResult = await nemH.getAccount(`m/44'/43'/${networkType}'/0'/${accountIndex}'`)
 

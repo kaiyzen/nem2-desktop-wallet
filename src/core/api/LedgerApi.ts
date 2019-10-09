@@ -1,4 +1,4 @@
-import { BIPPath } from "bip32-path";
+import * as BIPPath from "bip32-path";
 // import LedgerNode from '@ledgerhq/hw-transport-u2f';
 // import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
 // import { LedgerTransport, SendParams } from './ledgerTransport';
@@ -20,9 +20,9 @@ import { BIPPath } from "bip32-path";
 const MAX_CHUNK_SIZE = 255;
 
 export class NemLedger {
-    transport;
+    transport: any;
 
-    constructor(transport, scrambleKey = "NEM") {
+    constructor(transport: any, scrambleKey: string) {
         this.transport = transport;
         transport.decorateAppAPIMethods(this, ["getAddress", "signTransaction", "getAppConfiguration"], scrambleKey);
     }
@@ -39,7 +39,7 @@ export class NemLedger {
      * const result = await nem.getAddress(bip32path);
      * const { publicKey, address } = result;
      */
-    async getAddress(path) {
+    async getAccount(path) {
         const display = false;
         const chainCode = false;
         const ed25519 = true;
@@ -71,5 +71,74 @@ export class NemLedger {
         result.publicKey = response.slice(1 + addressLength + 1, 1 + addressLength + 1 + publicKeyLength).toString("hex");
         result.path = path;
         return result;
+    }
+
+    /**
+     * sign a NEM transaction with a given BIP 32 path
+     *
+     * @param path a path in BIP 32 format
+     * @param rawTxHex a raw transaction hex string
+     * @return a signature as hex string
+     * @example
+     * const signature = await nem.signTransaction(bip32path, "0390544100000000000000008A440493150000009029ECB35BFB8D51833381AA7947B9A4A21BA83712F338054B190001005369676E2066726F6D204C6564676572204E616E6F20532E44B262C46CEABB852823000000000000");
+     */
+    async signTransaction(path, rawTxHex) {
+        const bipPath = BIPPath.fromString(path).toPathArray();
+        const rawTx = new Buffer(rawTxHex, "hex");
+        const curveMask = 0x80;
+
+        const apdus = [];
+        let offset = 0;
+        let twiceTransfer;
+
+        //The length of APDU buffer is 255Bytes
+        if (rawTx.length > 446) {
+            throw new Error("The transaction is too long.");
+        } else {
+            twiceTransfer = rawTx.length > 234 ? true : false;
+        }
+
+        while (offset !== rawTx.length) {
+            const maxChunkSize = offset === 0 ? MAX_CHUNK_SIZE - 1 - bipPath.length * 4 : MAX_CHUNK_SIZE;
+            const chunkSize = offset + maxChunkSize > rawTx.length ? rawTx.length - offset : maxChunkSize;
+            const apdu = {
+                cla: 0xe0,
+                ins: 0x04,
+                p1: offset === 0 ? 0x00 : 0x80,
+                p2: curveMask,
+                data: offset === 0 ? Buffer.alloc(1 + bipPath.length * 4 + chunkSize) : Buffer.alloc(chunkSize)
+            };
+
+            if (offset === 0) {
+                apdu.data.writeInt8(bipPath.length, 0);
+                bipPath.forEach((segment, index) => {
+                    apdu.data.writeUInt32BE(segment, 1 + index * 4);
+                });
+                rawTx.copy(apdu.data, 1 + bipPath.length * 4, offset, offset + chunkSize);
+                if (!twiceTransfer) {
+                    apdu.p1 = 0x90;
+                }
+            } else {
+                rawTx.copy(apdu.data, 0, offset, offset + chunkSize);
+            }
+
+            apdus.push(apdu);
+            offset += chunkSize;
+        }
+
+        let response = Buffer.alloc(0);
+        for (let apdu of apdus) {
+            response = await this.transport.send(apdu.cla, apdu.ins, apdu.p1, apdu.p2, apdu.data);
+        }
+
+        // the last 2 bytes are status code from the hardware
+        //return response.slice(0, response.length - 2).toString("hex");
+
+        let h = response.toString("hex");
+        return {
+            signature: h.slice(0, 128),
+            publicKey: h.slice(130, 194),
+            path: path
+        };
     }
 }
