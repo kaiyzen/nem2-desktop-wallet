@@ -1,4 +1,9 @@
-import * as BIPPath from "bip32-path";
+import * as BIPPath from 'bip32-path'
+import { TransferTransaction,
+    Transaction,
+    SignedTransaction,
+    Convert,
+    } from 'nem2-sdk'
 // import LedgerNode from '@ledgerhq/hw-transport-u2f';
 // import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
 // import { LedgerTransport, SendParams } from './ledgerTransport';
@@ -36,7 +41,7 @@ export class NemLedger {
      * @param ed25519
      * @return an object with a publicKey, address and (optionally) chainCode
      * @example
-     * const result = await nem.getAddress(bip32path);
+     * const result = await NemLedger.getAddress(bip32path);
      * const { publicKey, address } = result;
      */
     async getAccount(path) {
@@ -77,21 +82,22 @@ export class NemLedger {
      * sign a NEM transaction with a given BIP 32 path
      *
      * @param path a path in BIP 32 format
-     * @param rawTxHex a raw transaction hex string
-     * @return a signature as hex string
+     * @param rawPayload a raw payload transaction hex string
+     * @param networkGenerationHash the network generation hash of block 1
+     * @return a SignedTransaction
      * @example
-     * const signature = await nem.signTransaction(bip32path, "0390544100000000000000008A440493150000009029ECB35BFB8D51833381AA7947B9A4A21BA83712F338054B190001005369676E2066726F6D204C6564676572204E616E6F20532E44B262C46CEABB852823000000000000");
+     * const signature = await NemLedger.signTransaction(bip32path, "B40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000190544140420F0000000000FBA412E61900000090FC443D62754C19452DC196C3C8CDC86782F36565BEC9A41D1000010057656C636F6D6520546F204E454D32B0348BFF6E081A7A0100000000000000", "DEEF3950CFF3995F3AAD88AA5C593ADA6A6833D744611769E3E66F3942B2838B");
      */
-    async signTransaction(path, rawTxHex) {
+    async signTransaction(path, rawPayload, networkGenerationHash) {
         const bipPath = BIPPath.fromString(path).toPathArray();
-        const rawTx = new Buffer(rawTxHex, "hex");
+        const rawTx = new Buffer(networkGenerationHash + rawPayload.slice(8 + 128 + 64, rawPayload.length), "hex");
         const curveMask = 0x80;
 
         const apdus = [];
         let offset = 0;
         let twiceTransfer;
 
-        //The length of APDU buffer is 255Bytes
+        //The length of the APDU buffer is 255Bytes
         if (rawTx.length > 446) {
             throw new Error("The transaction is too long.");
         } else {
@@ -131,14 +137,29 @@ export class NemLedger {
             response = await this.transport.send(apdu.cla, apdu.ins, apdu.p1, apdu.p2, apdu.data);
         }
 
-        // the last 2 bytes are status code from the hardware
-        //return response.slice(0, response.length - 2).toString("hex");
-
+        //Response from Ledger
         let h = response.toString("hex");
-        return {
-            signature: h.slice(0, 128),
-            publicKey: h.slice(130, 194),
-            path: path
-        };
+        
+        let signature = h.slice(0, 128);
+        let signer = h.slice(130, 194);
+        let payload = rawPayload.slice(0, 8) + 
+            signature + 
+            signer + 
+            rawPayload.slice(8 + 128 + 64, rawPayload.length);
+        let transferTransaction = TransferTransaction.createFromPayload(rawPayload);
+        let generationHashBytes = Array.from(Convert.hexToUint8(networkGenerationHash));
+        let transactionHash = Transaction.createTransactionHash(
+            payload,
+            generationHashBytes,
+            transferTransaction.networkType
+        );
+
+        return new SignedTransaction(
+            payload,
+            transactionHash,
+            signer,
+            transferTransaction.type,
+            transferTransaction.networkType
+        );
     }
 }

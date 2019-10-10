@@ -5,11 +5,9 @@ import {networkTypeConfig} from '@/config/view/setting'
 import { Address } from 'nem2-sdk';
 import {Message} from "@/config/index.ts"
 import {AppInfo, StoreAccount, AppWallet} from '@/core/model'
-
-import Nem from "./hw-app-nem.js"
+import "regenerator-runtime";
 import { NemLedger } from "@/core/api/LedgerApi"
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
-// import {encryptKey, getAccountByLedger, saveLocalWallet} from "@/core/utils/wallet"
 
 @Component({
     computed: {
@@ -26,7 +24,7 @@ export class WalletImportLedgerTs extends Vue {
     account = {}
     showCheckPWDialog = false
     // TODO: prefill values (account Index and wallet name)
-    // based on number of existing trezor accounts
+    // based on number of existing ledger accounts
     ledgerForm = formDataConfig.ledgerImportForm
 
     // get getNode() {
@@ -77,8 +75,7 @@ export class WalletImportLedgerTs extends Vue {
 
         const transport = await TransportWebUSB.create();
         const nemH = new NemLedger(transport, "NEM");
-
-        const accountResult = await nemH.getAccount(`m/44'/43'/${networkType}'/0'/${accountIndex}'`)
+        const accountResult = await nemH.getAccount(`m/44'/43'/${networkType}'/0'/${accountIndex}'`);
 
         const publicKey = accountResult.publicKey;
         const serializedPath = accountResult.path;

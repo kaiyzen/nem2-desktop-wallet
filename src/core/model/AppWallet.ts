@@ -8,6 +8,7 @@ import {
     WalletAlgorithm,
     Listener,
     AccountHttp, Address, AggregateTransaction, TransactionHttp,
+    Transaction,
 } from 'nem2-sdk'
 import CryptoJS from 'crypto-js'
 import {Message, networkConfig} from "@/config"
@@ -15,6 +16,9 @@ import {AppLock, localRead, localSave, createSubWalletByPath} from "@/core/utils
 import {CreateWalletType} from "@/core/model"
 import {AppState} from './types'
 import {announceBondedWithLock} from '@/core/services'
+import "regenerator-runtime";
+import {NemLedger} from '@/core/api/LedgerApi'
+import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
 
 export class AppWallet {
     constructor(wallet?: {
@@ -369,18 +373,32 @@ export class AppWallet {
         }
     }
 
-    signAndAnnounceNormal(password: Password, node: string, generationHash: string, transactionList: Array<any>, that: any): void {
-        const account = this.getAccount(password)
-        const signature = account.sign(transactionList[0], generationHash)
+    async signAndAnnounceNormal(password: Password, node: string, generationHash: string, transactionList: Array<any>, that: any): Promise<void> {
+        let signature;
         const message = that.$t(Message.SUCCESS)
-        console.log(transactionList)
-        console.log(signature)
+        if (this.sourceType === CreateWalletType.ledger) {
+            const transport = await TransportWebUSB.create();
+            const nemH = new NemLedger(transport, "NEM");
+            signature = await nemH.signTransaction(
+                this.path,
+                transactionList[0].serialize(),
+                generationHash
+                )
+            console.log(signature);
+        } else {
+            const account = this.getAccount(password)
+            signature = account.sign(transactionList[0], generationHash)
+            console.log(transactionList)
+            console.log(signature)
+        }
+        
         new TransactionHttp(node).announce(signature).subscribe(
             _ => that.$Notice.success({title: message}),
             error => {
                 throw new Error(error)
             }
         )
+
     }
 
     // @TODO: review

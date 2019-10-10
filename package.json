@@ -28,6 +28,7 @@
         "nem2-sdk": "^0.14.3",
         "node-pre-gyp": "^0.13.0",
         "node-uuid": "^1.4.8",
+        "regenerator-runtime": "^0.13.3",
         "rxjs": "^6.5.3",
         "trezor-connect": "^7.0.5",
         "typescript": "^3.6.3",
