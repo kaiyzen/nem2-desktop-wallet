@@ -391,14 +391,6 @@ export class AppWallet {
             console.log(transactionList)
             console.log(signature)
         }
-        
-        new TransactionHttp(node).announce(signature).subscribe(
-            _ => that.$Notice.success({title: message}),
-            error => {
-                throw new Error(error)
-            }
-        )
-
     }
 
     // @TODO: review

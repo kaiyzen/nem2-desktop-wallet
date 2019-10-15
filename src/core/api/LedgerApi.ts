@@ -12,7 +12,7 @@ import { TransferTransaction,
  * NEM API
  *
  * @example
- * import Nem from "@ledgerhq/hw-app-nem";
+ * import { NemLedger } from "@/core/api/LedgerApi"
  * const nem = new Nem(transport);
    recognize networkId by bip32Path;
       "44'/43'/networkId'/walletIndex'/accountIndex'"
