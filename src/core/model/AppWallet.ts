@@ -374,23 +374,35 @@ export class AppWallet {
     }
 
     async signAndAnnounceNormal(password: Password, node: string, generationHash: string, transactionList: Array<any>, that: any): Promise<void> {
-        let signature;
-        const message = that.$t(Message.SUCCESS)
-        if (this.sourceType === CreateWalletType.ledger) {
-            const transport = await TransportWebUSB.create();
-            const nemH = new NemLedger(transport, "NEM");
-            signature = await nemH.signTransaction(
-                this.path,
-                transactionList[0].serialize(),
-                generationHash
-                )
-            console.log(signature);
-        } else {
-            const account = this.getAccount(password)
-            signature = account.sign(transactionList[0], generationHash)
-            console.log(transactionList)
+            var signature;
+            const message = that.$t(Message.SUCCESS)
+            if (this.sourceType === CreateWalletType.ledger) {
+                const transport = await TransportWebUSB.create();
+                const nemH = new NemLedger(transport, "NEM");
+                await nemH.signTransaction(
+                    this.path,
+                    transactionList[0].serialize(),
+                    generationHash,
+                    this.networkType
+                    )
+                .then(sig => {
+                    signature = sig;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+                transport.close();
+            } else {
+                const account = this.getAccount(password)
+                signature = account.sign(transactionList[0], generationHash)
+                console.log(transactionList)
+                console.log(signature)
+            }
             console.log(signature)
-        }
+            new TransactionHttp(node).announce(signature).subscribe(
+                _ => that.$Notice.success({title: message}),
+                error => { throw new Error(error) }
+            )
     }
 
     // @TODO: review

@@ -3,6 +3,7 @@ import { TransferTransaction,
     Transaction,
     SignedTransaction,
     Convert,
+    NetworkType,
     } from 'nem2-sdk'
 // import LedgerNode from '@ledgerhq/hw-transport-u2f';
 // import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
@@ -88,7 +89,7 @@ export class NemLedger {
      * @example
      * const signature = await NemLedger.signTransaction(bip32path, "B40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000190544140420F0000000000FBA412E61900000090FC443D62754C19452DC196C3C8CDC86782F36565BEC9A41D1000010057656C636F6D6520546F204E454D32B0348BFF6E081A7A0100000000000000", "DEEF3950CFF3995F3AAD88AA5C593ADA6A6833D744611769E3E66F3942B2838B");
      */
-    async signTransaction(path, rawPayload, networkGenerationHash) {
+    async signTransaction(path: string, rawPayload: string, networkGenerationHash: string, networkType: NetworkType) {
         const bipPath = BIPPath.fromString(path).toPathArray();
         const rawTx = new Buffer(networkGenerationHash + rawPayload.slice(8 + 128 + 64, rawPayload.length), "hex");
         const curveMask = 0x80;
@@ -136,30 +137,33 @@ export class NemLedger {
         for (let apdu of apdus) {
             response = await this.transport.send(apdu.cla, apdu.ins, apdu.p1, apdu.p2, apdu.data);
         }
-
         //Response from Ledger
         let h = response.toString("hex");
-        
+
         let signature = h.slice(0, 128);
         let signer = h.slice(130, 194);
         let payload = rawPayload.slice(0, 8) + 
             signature + 
             signer + 
             rawPayload.slice(8 + 128 + 64, rawPayload.length);
-        let transferTransaction = TransferTransaction.createFromPayload(rawPayload);
+
         let generationHashBytes = Array.from(Convert.hexToUint8(networkGenerationHash));
         let transactionHash = Transaction.createTransactionHash(
             payload,
             generationHashBytes,
-            transferTransaction.networkType
+            networkType
         );
+        let transferTransactionType = 0x0000;
+        transferTransactionType = Convert.toByte(rawPayload.slice(204, 205), rawPayload.slice(205, 206)) 
+        transferTransactionType |= Convert.toByte(rawPayload.slice(206, 207), rawPayload.slice(207, 208)) << 8
 
-        return new SignedTransaction(
+        let signedTransaction = new SignedTransaction(
             payload,
             transactionHash,
             signer,
-            transferTransaction.type,
-            transferTransaction.networkType
+            transferTransactionType,
+            networkType
         );
+        return signedTransaction
     }
 }
