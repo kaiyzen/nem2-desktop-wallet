@@ -1,13 +1,9 @@
 import * as BIPPath from 'bip32-path'
-import { TransferTransaction,
-    Transaction,
+import { Transaction,
     SignedTransaction,
     Convert,
     NetworkType,
     } from 'nem2-sdk'
-// import LedgerNode from '@ledgerhq/hw-transport-u2f';
-// import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
-// import { LedgerTransport, SendParams } from './ledgerTransport';
 
 /**
  * NEM API

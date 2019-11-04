@@ -75,7 +75,23 @@ export class WalletImportLedgerTs extends Vue {
 
         const transport = await TransportWebUSB.create();
         const nemH = new NemLedger(transport, "NEM");
-        const accountResult = await nemH.getAccount(`m/44'/43'/${networkType}'/0'/${accountIndex}'`);
+        var accountResult;
+        await nemH.getAccount(`m/44'/43'/${networkType}'/0'/${accountIndex}'`)
+        .then (result => {
+            transport.close();
+            accountResult = result;
+        })
+        .catch (error => {
+            transport.close();
+            this.$Notice.error({
+                title: this['$t'](error.statusText) + ''
+            });
+            this.$store.commit('SET_UI_DISABLED', {
+                isDisabled: false,
+                message: ""
+            });
+            throw new Error(error);
+        })
 
         const publicKey = accountResult.publicKey;
         const serializedPath = accountResult.path;
@@ -89,8 +105,6 @@ export class WalletImportLedgerTs extends Vue {
             address,
             this.$store
         );
-
-        transport.close();
 
         this.$store.commit('SET_UI_DISABLED', {
             isDisabled: false,

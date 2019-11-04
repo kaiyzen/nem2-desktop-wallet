@@ -3,7 +3,7 @@ import {Message} from "@/config/index.ts"
 import {TransactionType, Password} from "nem2-sdk"
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
 import {AppLock} from "@/core/utils/appLock"
-import {AppAccounts, AppWallet, StoreAccount} from "@/core/model"
+import {AppAccounts, AppWallet, StoreAccount, CreateWalletType} from "@/core/model"
 
 @Component({
     computed: {...mapState({activeAccount: 'account'})},
@@ -67,12 +67,26 @@ export class CheckPasswordDialogTs extends Vue {
         this.$emit('closeCheckPWDialog')
     }
 
-    checkWalletPassword() {
+    async checkWalletPassword() {
         try {
             const isPasswordValid = new AppWallet(this.wallet).checkPassword(new Password(this.walletInputInfo.password))
             this.show = false
-            this.$emit('checkEnd', Boolean(isPasswordValid))
-            this.switchAnnounceType()
+            //Block interaction if the wallet is Ledger
+            if (this.wallet.sourceType == CreateWalletType.ledger) {
+                this.$store.commit('SET_UI_DISABLED', {
+                    isDisabled: true,
+                    message: "ledger_awaiting_interaction"
+                });
+                await this.switchAnnounceType()
+                this.$emit('checkEnd', true)
+                this.$store.commit('SET_UI_DISABLED', {
+                    isDisabled: false,
+                    message: ""
+                });
+            } else {
+                this.switchAnnounceType()
+                this.$emit('checkEnd', Boolean(isPasswordValid))
+            }
             this.checkPasswordDialogCancel()
         } catch (e) {
             this.$Notice.destroy()
@@ -126,17 +140,17 @@ export class CheckPasswordDialogTs extends Vue {
         this.show = this.showCheckPWDialog
     }
 
-    switchAnnounceType() {
+    async switchAnnounceType() {
         const {node, generationHash, transactionList} = this
         const password = new Password(this.walletInputInfo.password)
         let {lockFee} = this.otherDetails
         if (transactionList[0].type !== TransactionType.AGGREGATE_BONDED) {
             // normal transaction
-            new AppWallet(this.wallet).signAndAnnounceNormal(password, node, generationHash, transactionList, this)
+            await new AppWallet(this.wallet).signAndAnnounceNormal(password, node, generationHash, transactionList, this)
             return
         }
         // bonded transaction
-        new AppWallet(this.wallet).signAndAnnounceBonded( password,
+        await new AppWallet(this.wallet).signAndAnnounceBonded( password,
                                                           lockFee,
                                                           transactionList,
                                                           this.$store

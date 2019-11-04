@@ -15,10 +15,11 @@ import {Message, networkConfig} from "@/config"
 import {AppLock, localRead, localSave, createSubWalletByPath} from "@/core/utils"
 import {CreateWalletType} from "@/core/model"
 import {AppState} from './types'
-import {announceBondedWithLock} from '@/core/services'
+import {announceBondedWithLock, announceBondedWithLockForLedger} from '@/core/services'
 import "regenerator-runtime";
 import {NemLedger} from '@/core/api/LedgerApi'
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
+import { onErrorResumeNext } from 'rxjs'
 
 export class AppWallet {
     constructor(wallet?: {
@@ -374,35 +375,38 @@ export class AppWallet {
     }
 
     async signAndAnnounceNormal(password: Password, node: string, generationHash: string, transactionList: Array<any>, that: any): Promise<void> {
-            var signature;
-            const message = that.$t(Message.SUCCESS)
-            if (this.sourceType === CreateWalletType.ledger) {
-                const transport = await TransportWebUSB.create();
-                const nemH = new NemLedger(transport, "NEM");
-                await nemH.signTransaction(
-                    this.path,
-                    transactionList[0].serialize(),
-                    generationHash,
-                    this.networkType
-                    )
-                .then(sig => {
-                    signature = sig;
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+        var signature;
+        const message = that.$t(Message.SUCCESS)
+        if (this.sourceType === CreateWalletType.ledger) {
+            const transport = await TransportWebUSB.create();
+            const nemH = new NemLedger(transport, "NEM");
+            await nemH.signTransaction(
+                this.path,
+                transactionList[0].serialize(),
+                generationHash,
+                this.networkType
+                )
+            .then(sig => {
+                signature = sig;
+            })
+            .catch(error => {
                 transport.close();
-            } else {
-                const account = this.getAccount(password)
-                signature = account.sign(transactionList[0], generationHash)
-                console.log(transactionList)
-                console.log(signature)
-            }
+                that.$Notice.error({
+                    title: that['$t'](error.statusText) + ''
+                })
+                throw new Error(error)
+            })
+            transport.close();
+        } else {
+            const account = this.getAccount(password)
+            signature = account.sign(transactionList[0], generationHash)
+            console.log(transactionList)
             console.log(signature)
-            new TransactionHttp(node).announce(signature).subscribe(
-                _ => that.$Notice.success({title: message}),
-                error => { throw new Error(error) }
-            )
+        }
+        new TransactionHttp(node).announce(signature).subscribe(
+            _ => that.$Notice.success({title: message}),
+            error => { throw new Error(error) }
+        )
     }
 
     // @TODO: review
@@ -422,6 +426,13 @@ export class AppWallet {
             node,
             lockFee,
             store)
+        // announceBondedWithLockForLedger(aggregateTransaction,
+        //     this.address,
+        //     this.path,
+        //     listener,
+        //     node,
+        //     lockFee,
+        //     store)
     }
 }
 
