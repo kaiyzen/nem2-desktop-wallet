@@ -271,7 +271,16 @@
                         const oldGenerationHash = this.generationHash
                         await getNetworkGenerationHash(this)
                         await getCurrentBlockHeight(this.$store)
-
+                        /**
+                         * Delay network calls to avoid ban
+                         */
+                        setTimeout(async () => {
+                            try {
+                                setWalletsBalances(this.$store)
+                            } catch (error) {
+                                console.error("App -> mounted -> setTimeout -> error", error)
+                            }
+                        }, 1000)
 
                         /**
                          * ON GENERATION HASH CHANGE

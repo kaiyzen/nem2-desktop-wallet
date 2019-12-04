@@ -9,7 +9,6 @@ import {
 import {AppMosaic, AppWallet, MosaicNamespaceStatusType, AppState, AppNamespace} from '@/core/model'
 import {Store} from 'vuex'
 import {mosaicSortType} from "@/config/view/mosaic"
-import {namespaceSortTypes} from "@/core/services"
 
 /**
  * Custom implementation for performance gains

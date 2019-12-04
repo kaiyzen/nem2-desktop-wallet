@@ -1,30 +1,31 @@
-import { copyTxt } from '@/core/utils'
-import { ContactQR } from 'nem2-qr-library'
-import { AliasType, MultisigAccountInfo, PublicAccount } from 'nem2-sdk'
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import {copyTxt} from '@/core/utils'
+import {ContactQR} from 'nem2-qr-library'
+import {AliasType, MultisigAccountInfo, PublicAccount} from 'nem2-sdk'
+import {Component, Vue, Watch} from 'vue-property-decorator'
 import AddressBook from '@/views/wallet/wallet-details/wallet-function/address-book/AddressBook.vue'
 import KeystoreDialog from '@/views/wallet/wallet-details/keystore-dialog/KeystoreDialog.vue'
-import MnemonicDialog from '@/views/wallet/wallet-details/mnemonic-dialog/MnemonicDialog.vue'
 import PrivatekeyDialog from '@/views/wallet/wallet-details/privatekey-dialog/PrivatekeyDialog.vue'
 import WalletUpdatePassword from './wallet-function/wallet-update-password/WalletUpdatePassword.vue'
 import WalletHarvesting from '@/views/wallet/wallet-details/wallet-function/wallet-harvesting/WalletHarvesting.vue'
-import { mapState } from "vuex"
-import { AppWallet, AppInfo, StoreAccount, AppNamespace } from "@/core/model"
+import {mapState} from "vuex"
+import {AppWallet, AppInfo, StoreAccount, AppNamespace} from "@/core/model"
 import failureIcon from "@/common/img/monitor/failure.png"
 import Alias from '@/components/forms/alias/Alias.vue'
-import { of } from 'rxjs'
-import { pluck, concatMap } from 'rxjs/operators'
-
+import {of} from 'rxjs'
+import {pluck, concatMap} from 'rxjs/operators'
+import TheWalletUpdate from "@/views/wallet/wallet-switch/the-wallet-update/TheWalletUpdate.vue"
+import TheWalletDelete from '@/views/wallet/wallet-switch/the-wallet-delete/TheWalletDelete.vue'
 
 @Component({
     components: {
         Alias,
-        MnemonicDialog,
         PrivatekeyDialog,
         KeystoreDialog,
         AddressBook,
         WalletUpdatePassword,
         WalletHarvesting,
+        TheWalletUpdate,
+        TheWalletDelete
     },
     computed: {
         ...mapState({
@@ -34,13 +35,13 @@ import { pluck, concatMap } from 'rxjs/operators'
     },
     subscriptions() {
         const qrCode$ = this
-            .$watchAsObservable('qrCodeArgs', { immediate: true })
+            .$watchAsObservable('qrCodeArgs', {immediate: true})
             .pipe(pluck('newValue'),
                 concatMap((args) => {
                     if (args instanceof ContactQR) return args.toBase64()
                     return of(failureIcon)
                 }))
-        return { qrCode$ }
+        return {qrCode$}
     }
 })
 export class WalletDetailsTs extends Vue {
@@ -55,6 +56,8 @@ export class WalletDetailsTs extends Vue {
     bind: boolean = true
     fromNamespace: boolean = false
     activeNamespace: AppNamespace = null
+    showUpdateDialog = false
+    showDeleteDialog = false
 
     get wallet(): AppWallet {
         return this.activeAccount.wallet
@@ -89,7 +92,7 @@ export class WalletDetailsTs extends Vue {
 
     get selfAliases(): AppNamespace[] {
         return this.NamespaceList
-            .filter(({ alias }) =>
+            .filter(({alias}) =>
                 alias
                 && alias.type == AliasType.Address
                 && alias.address.plain() === this.getAddress
