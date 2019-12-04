@@ -67,7 +67,8 @@ export const flattenArrayOfStrings = (array: any[]): any[] => {
     const step1 = [].concat(...array).map(item => item)
     return [].concat(...step1).map(item => item)
 }
-export const getDefaultAccountNetworkType = () => {
+
+export function getDefaultAccountNetworkType(): NetworkType {
     const accountMap = localRead('accountMap')
     if (accountMap === '') return defaultNetworkConfig.DEFAULT_NETWORK_TYPE
     const networkList = Object.values(JSON.parse(accountMap)).map((item: any) => item.networkType)

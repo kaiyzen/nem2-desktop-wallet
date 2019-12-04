@@ -12,7 +12,7 @@
 
         <div class="form-input-item">
           <div>* {{$t('Set_network_type')}}</div>
-          <Select :placeholder="$t('choose_network')" v-model="formItem.networkType" required>
+          <Select :placeholder="$t('choose_network')" v-model="currentNetworkType" required>
             <Option :value="item.value" v-for="(item,index) in networkTypeList" :key="index">{{item.label}}
             </Option>
           </Select>
