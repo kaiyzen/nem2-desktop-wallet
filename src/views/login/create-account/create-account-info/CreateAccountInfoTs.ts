@@ -1,9 +1,9 @@
 import {Component, Vue} from 'vue-property-decorator'
 import {formDataConfig, Message} from "@/config"
-import {cloneData, networkPreference, localRead} from "@/core/utils"
+import {cloneData} from "@/core/utils"
 import {AppAccounts, AppAccount, StoreAccount} from '@/core/model'
 import {networkTypeConfig} from "@/config/view/setting"
-import {NetworkType, Password} from "nem2-sdk"
+import {NetworkType} from "nem2-sdk"
 import {mapState} from "vuex"
 
 @Component({

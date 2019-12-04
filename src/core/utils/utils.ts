@@ -1,4 +1,5 @@
 import {NetworkType} from "nem2-sdk"
+import {defaultNetworkConfig} from "@/config"
 
 export const copyTxt = (txt) => {
     return new Promise((resolve) => {
@@ -66,9 +67,9 @@ export const flattenArrayOfStrings = (array: any[]): any[] => {
     const step1 = [].concat(...array).map(item => item)
     return [].concat(...step1).map(item => item)
 }
-export const networkPreference = () => {
+export const getDefaultAccountNetworkType = () => {
     const accountMap = localRead('accountMap')
-    if (!accountMap) return NetworkType.MIJIN_TEST
+    if (accountMap === '') return defaultNetworkConfig.DEFAULT_NETWORK_TYPE
     const networkList = Object.values(JSON.parse(accountMap)).map((item: any) => item.networkType)
     return [
         {
