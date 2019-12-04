@@ -152,15 +152,28 @@
   .walletItem_bg_0 {
     transition: width .2s;
     background-image: url("../../../common/img/wallet/wallet-detail/walletDetailBgNormal1.png");
-    width: 400px !important;
+    width: 390px !important;
     position: relative;
-    box-shadow: 0px 0px 7px 0px rgba(20, 119, 149, 0.75);
+    box-shadow: 0 0 7px 0 rgba(20, 119, 149, 0.75);
+  }
+
+  .walletItem_bg_0::after {
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-left-color: rgba(60, 107, 159);
+    right: -19px;
+    bottom: 40px;
+    content: '';
+
   }
 
   .walletItem_bg_0.active {
     width: 400px !important;
     position: relative;
-    box-shadow: 0px 0px 7px 0px rgba(20, 119, 149, 0.75);
+    box-shadow: 0 0 7px 0 rgba(20, 119, 149, 0.75);
   }
 
 
@@ -172,7 +185,7 @@
   .walletItem_bg_1.active {
     width: 400px !important;
     position: relative;
-    box-shadow: 0px 0px 7px 0px rgba(227, 112, 49, 0.75);
+    box-shadow: 0 0 7px 0 rgba(227, 112, 49, 0.75);
   }
 
 
@@ -184,7 +197,7 @@
   .walletItem_bg_2.active {
     width: 400px !important;
     position: relative;
-    box-shadow: 0px 0px 7px 0px rgba(51, 45, 36.75);
+    box-shadow: 0 0 7px 0 rgba(51, 45, 36.75);
   }
 
   .options {
