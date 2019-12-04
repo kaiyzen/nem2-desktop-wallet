@@ -1,6 +1,6 @@
 <template>
   <div class="monitor-dashboard-wrapper radius secondary_page_animate">
-    <div class="top_network_info">
+    <div class="top_network_info radius">
       <div class="top_wallet_info">
         <div class="netWork radius">
           <div class="title">

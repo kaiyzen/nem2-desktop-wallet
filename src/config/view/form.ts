@@ -1,5 +1,6 @@
 import {NetworkType, MosaicSupplyChangeAction} from "nem2-sdk"
 import {defaultNetworkConfig, FEE_SPEEDS} from '../constants'
+import {networkPreference} from "@/core/utils"
 
 export const formDataConfig = {
     settingPassword: {
@@ -20,7 +21,7 @@ export const formDataConfig = {
         password: '',
         passwordAgain: '',
         hint: '',
-        networkType: defaultNetworkConfig.DEFAULT_NETWORK_TYPE,
+        networkType: networkPreference(),
     },
     importKeystoreConfig: {
         walletName: 'keystore-wallet',

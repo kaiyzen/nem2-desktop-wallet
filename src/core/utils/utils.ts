@@ -1,3 +1,5 @@
+import {NetworkType} from "nem2-sdk"
+
 export const copyTxt = (txt) => {
     return new Promise((resolve) => {
         const input = document.createElement('input')
@@ -58,9 +60,32 @@ export const getTopValueInObject = (object: any): any => {
 
 /**
  * Flattens an array that can have elements nested up to 2 levels
- * @param array 
+ * @param array
  */
 export const flattenArrayOfStrings = (array: any[]): any[] => {
     const step1 = [].concat(...array).map(item => item)
     return [].concat(...step1).map(item => item)
+}
+export const networkPreference = () => {
+    const accountMap = localRead('accountMap')
+    if (!accountMap) return NetworkType.MIJIN_TEST
+    const networkList = Object.values(JSON.parse(accountMap)).map((item: any) => item.networkType)
+    return [
+        {
+            length: networkList.filter(networkType => networkType == NetworkType.MIJIN_TEST).length,
+            type: NetworkType.MIJIN_TEST
+        },
+        {
+            length: networkList.filter(networkType => networkType == NetworkType.TEST_NET).length,
+            type: NetworkType.TEST_NET
+        },
+        {
+            length: networkList.filter(networkType => networkType == NetworkType.MIJIN).length,
+            type: NetworkType.MIJIN
+        },
+        {
+            length: networkList.filter(networkType => networkType == NetworkType.MAIN_NET).length,
+            type: NetworkType.MAIN_NET
+        }
+    ].sort((a, b) => b.length - a.length)[0].type
 }

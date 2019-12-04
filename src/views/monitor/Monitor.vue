@@ -87,7 +87,7 @@
                 </span>
               </div>
               <div class="complete_container">
-                <div class="complete" @click="showMosaicMap">{{$t('complete')}}</div>
+                <div class="complete" @click="showMosaicMap">{{$t('Close')}}</div>
               </div>
               <div class="mosaic_data"></div>
             </div>

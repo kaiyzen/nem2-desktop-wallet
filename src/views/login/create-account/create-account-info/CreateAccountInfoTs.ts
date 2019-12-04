@@ -1,6 +1,6 @@
 import {Component, Vue} from 'vue-property-decorator'
 import {formDataConfig, Message} from "@/config"
-import {cloneData} from "@/core/utils"
+import {cloneData, networkPreference, localRead} from "@/core/utils"
 import {AppAccounts, AppAccount, StoreAccount} from '@/core/model'
 import {networkTypeConfig} from "@/config/view/setting"
 import {NetworkType, Password} from "nem2-sdk"
@@ -23,8 +23,14 @@ export class CreateAccountInfoTs extends Vue {
         return this.activeAccount.currentAccount.name
     }
 
+
+    get appAccount(): AppAccount {
+        let {accountName, password, networkType, hint} = this.formItem
+        return AppAccount.create(password, accountName, [], hint, networkType)
+    }
+
     checkInput() {
-        const {accountName, currentNetType, password, passwordAgain} = this.formItem
+        const {accountName, networkType, password, passwordAgain} = this.formItem
         const appAccounts = AppAccounts()
         if (appAccounts.getAccountFromLocalStorage(accountName)) {
             this.$Notice.error({title: this.$t(Message.ACCOUNT_NAME_EXISTS_ERROR) + ''})
@@ -42,16 +48,11 @@ export class CreateAccountInfoTs extends Vue {
             this.$Notice.error({title: this.$t(Message.INCONSISTENT_PASSWORD_ERROR) + ''})
             return false
         }
-        if (!(currentNetType in NetworkType)) {
+        if (!(networkType in NetworkType)) {
             this.$Notice.error({title: this.$t(Message.NETWORK_TYPE_INVALID) + ''})
             return false
         }
         return true
-    }
-
-    get appAccount(): AppAccount {
-        let {accountName, password, currentNetType, hint} = this.formItem
-        return AppAccount.create(password, accountName, [], hint, currentNetType)
     }
 
     submit() {
@@ -68,4 +69,5 @@ export class CreateAccountInfoTs extends Vue {
         this.appAccount.delete()
         this.$router.push('login')
     }
+
 }
