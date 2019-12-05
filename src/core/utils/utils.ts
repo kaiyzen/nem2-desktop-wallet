@@ -71,23 +71,7 @@ export const flattenArrayOfStrings = (array: any[]): any[] => {
 export function getDefaultAccountNetworkType(): NetworkType {
     const accountMap = localRead('accountMap')
     if (accountMap === '') return defaultNetworkConfig.DEFAULT_NETWORK_TYPE
-    const networkList = Object.values(JSON.parse(accountMap)).map((item: any) => item.networkType)
-    return [
-        {
-            length: networkList.filter(networkType => networkType == NetworkType.MIJIN_TEST).length,
-            type: NetworkType.MIJIN_TEST
-        },
-        {
-            length: networkList.filter(networkType => networkType == NetworkType.TEST_NET).length,
-            type: NetworkType.TEST_NET
-        },
-        {
-            length: networkList.filter(networkType => networkType == NetworkType.MIJIN).length,
-            type: NetworkType.MIJIN
-        },
-        {
-            length: networkList.filter(networkType => networkType == NetworkType.MAIN_NET).length,
-            type: NetworkType.MAIN_NET
-        }
-    ].sort((a, b) => b.length - a.length)[0].type
+    // use the last created account network type
+    const accounts:any[] = Object.values(JSON.parse(accountMap)).reverse()
+    return accounts[0].networkType
 }

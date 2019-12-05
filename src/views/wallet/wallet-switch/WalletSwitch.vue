@@ -29,7 +29,7 @@
                 <div class="options">
                   <span class="mosaics">
                     <Icon type="logo-buffer"/>
-                    <span>{{ item.mosaicTypes ? formatNumber(item.mosaicTypes) : 0 }}</span>
+                    <span>{{ item.numberOfMosaics  ? formatNumber(item.numberOfMosaics ) : 0 }}</span>
                   </span>
                   <span @click="showDeleteDialog=true" class="delete">
                     <Icon type="md-trash"/>

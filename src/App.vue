@@ -241,7 +241,7 @@
             /**
              * ON ACCOUNT CHANGE
              */
-            this.$watchAsObservable('accountName')
+            this.$watchAsObservable('accountName', {immediate: true})
                 .pipe(
                     throttleTime(6000, asyncScheduler, {leading: true, trailing: true}),
                 ).subscribe(({newValue, oldValue}) => {

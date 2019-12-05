@@ -37,17 +37,17 @@ export const setWalletsBalances = async (store: Store<AppState>): Promise<void> 
         const balances = accountsInfo.map(ai => {
             return {
                 ...getBalanceFromAccountInfo(ai, networkCurrency),
-                mosaicTypes: ai.mosaics.length
+                numberOfMosaics : ai.mosaics.length
             }
         })
         const appWalletsWithBalance = walletList
             .map(wallet => {
                 const balanceFromAccountInfo = balances.find(({address}) => wallet.address === address)
-                if (balanceFromAccountInfo === undefined) return {...wallet, balance: 0, mosaicTypes: 0}
+                if (balanceFromAccountInfo === undefined) return {...wallet, balance: 0, numberOfMosaics : 0}
                 return {
                     ...wallet,
                     balance: balanceFromAccountInfo.balance,
-                    mosaicTypes: balanceFromAccountInfo.mosaicTypes
+                    numberOfMosaics : balanceFromAccountInfo.numberOfMosaics
                 }
             })
 
