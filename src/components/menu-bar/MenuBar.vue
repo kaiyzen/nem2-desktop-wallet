@@ -17,11 +17,11 @@
     <div class="left_navigator">
       <div class="navigator_icon">
         <div v-for="(route, index) in routes"
-                :key="index"
-                :class="[
+             :key="index"
+             :class="[
               $route.matched.map(({path}) => path).includes(route.path) ? 'active_panel' : '',
               !walletList.length ? 'un_click' : 'pointer']"
-                @click=" !walletList.length ?'': $router.push(route.path)"
+             @click=" !walletList.length ?'': $router.push(route.path)"
         >
           <span
                   :style="$route.matched.map(({path}) => path).includes(route.path)
@@ -55,9 +55,10 @@
           </div>
         </div>
         <div class="app_controller clear">
-          <div :class="[isNodeHealthy?'point_healthy':'point_unhealthy']">
-            <Poptip placement="bottom-end">
-              <i class="pointer point" @click="showNodeList = !showNodeList"/>
+          <div
+               :class="[isNodeHealthy?'point_healthy':'point_unhealthy']">
+            <Poptip @click="showNodeList = !showNodeList" class="pointer" placement="bottom-end">
+              <i class=" point"/>
               <span class="network_type_text" v-if="wallet">
                 {{ nodeNetworkType?NetworkType[nodeNetworkType]:$t('Loading')}}
               </span>

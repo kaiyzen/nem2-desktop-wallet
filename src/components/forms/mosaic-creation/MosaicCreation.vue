@@ -1,7 +1,7 @@
 <template>
   <div class="mosaic_transaction_container radius secondary_page_animate">
+    <DisabledForms/>
     <div class="right_panel">
-      <DisabledForms/>
       <div class="left-root-namespace-form">
         <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="submit">
           <div class="form_item">

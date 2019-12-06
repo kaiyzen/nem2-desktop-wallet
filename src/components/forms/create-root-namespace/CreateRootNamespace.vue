@@ -1,7 +1,7 @@
 <template>
   <div class="namespace_transaction_container secondary_page_animate">
+    <DisabledForms></DisabledForms>
     <div class="right_panel">
-      <DisabledForms></DisabledForms>
       <div class="left-root-namespace-form">
         <form onsubmit="event.preventDefault()" @keyup.enter="submit">
           <div class="namespace_transaction">

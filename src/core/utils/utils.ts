@@ -72,6 +72,7 @@ export function getDefaultAccountNetworkType(): NetworkType {
     const accountMap = localRead('accountMap')
     if (accountMap === '') return defaultNetworkConfig.DEFAULT_NETWORK_TYPE
     // use the last created account network type
-    const accounts:any[] = Object.values(JSON.parse(accountMap)).reverse()
+    const accounts: any[] = Object.values(JSON.parse(accountMap)).reverse()
+    if (accounts[0]) return defaultNetworkConfig.DEFAULT_NETWORK_TYPE
     return accounts[0].networkType
 }
