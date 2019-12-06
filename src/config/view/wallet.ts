@@ -1,4 +1,3 @@
-import {NetworkType} from "nem2-sdk"
 import mosaic1Icon from "@/common/img/service/mosaic1.png"
 import mosaic2Icon from "@/common/img/service/mosaic2.png"
 import multisign1Icon from "@/common/img/service/multisign1.png"
