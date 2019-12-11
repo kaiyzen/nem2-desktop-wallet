@@ -4,7 +4,7 @@ import {
     NamespaceRegistrationTransaction, UInt64, Deadline,
 } from "nem2-sdk"
 import {Component, Vue, Watch, Provide} from 'vue-property-decorator'
-import {DEFAULT_FEES, FEE_GROUPS, formDataConfig} from "@/config"
+import {DEFAULT_FEES, FEE_GROUPS, formDataConfig, networkConfig} from "@/config"
 import {
     getAbsoluteMosaicAmount, formatSeconds, formatAddress, cloneData
 } from '@/core/utils'
@@ -207,7 +207,7 @@ export class CreateRootNamespaceTs extends Vue {
     get durationIntoDate() {
         const duration = Number(this.formItems.duration)
         if (!duration || isNaN(duration)) return 0
-        return formatSeconds(duration * 12)
+        return formatSeconds(duration * networkConfig.targetBlockTime)
     }
 
     async submit() {
