@@ -62,11 +62,11 @@
         </div>
 
         <span v-for="(value, key) in t" :key="key">
-          <span class="other-info" v-if="!unusedAttributesList.find(item => item === key) && value !== ''">
+          <span class="other-info" v-if="value && !unusedAttributesList.find(item => item === key) && value !== ''">
             <span>{{$t(key)}}:&nbsp;</span>
             <span>{{value}}</span>
           </span>
-          <span class="other-info" v-if="key === 'namespace'">
+          <span class="other-info" v-if="key === 'namespace' || key === 'root_namespace'">
             <span>{{$t(key)}}:&nbsp;</span>
             <span>{{getNamespaceNameFromNamespaceId(value, $store)}}</span>
           </span>

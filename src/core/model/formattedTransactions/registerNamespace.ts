@@ -1,6 +1,6 @@
 import {FormattedTransaction, AppState} from '@/core/model'
 import {getRelativeMosaicAmount} from '@/core/utils'
-import {NamespaceRegistrationTransaction, NamespaceRegistrationType, Transaction} from 'nem2-sdk'
+import {NamespaceRegistrationTransaction, NamespaceRegistrationType} from 'nem2-sdk'
 import {defaultNetworkConfig} from '@/config/index.ts'
 import {Store} from 'vuex'
 
@@ -17,10 +17,10 @@ export class FormattedRegisterNamespace extends FormattedTransaction {
             'transaction_type': this.txHeader.tag,
             'namespace_name': tx.namespaceName + ' (' + (tx.registrationType === NamespaceRegistrationType
                 .RootNamespace ? 'root' : 'sub') + ')',
-            'root_namespace': tx.parentId ? tx.parentId.id.toHex() : '-',
+            'root_namespace': tx.parentId ? tx.parentId.id.toHex() : null,
             'sender': wallet.publicKey,
-            'duration': tx.duration ? tx.duration.compact() : 0,
-            'rent': (tx.duration ? tx.duration.compact() : 0) / defaultNetworkConfig.gas2xemRate + ' ' + networkCurrency.ticker,
+            'duration': tx.duration ? `${tx.duration.compact().toLocaleString()} blocks`: null,
+            'rent': tx.duration ? tx.duration.compact() / defaultNetworkConfig.gas2xemRate + ' ' + networkCurrency.ticker : null,
             'fee': getRelativeMosaicAmount(tx.maxFee.compact(), networkCurrency.divisibility) + ' ' + networkCurrency.ticker,
         }
     }
