@@ -25,7 +25,7 @@
                         v-validate="validation.namespaceName"
                         :data-vv-as="$t('root_namespace')"
                         type="text"
-                        :placeholder="$t('New_root_space')"
+                        :placeholder="$t('Input_namespace_name')"
                 />
               </span>
             </ErrorTooltip>
