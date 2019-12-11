@@ -1,6 +1,6 @@
 <template>
   <div class="login-account-wrapper">
-    <form @keyup.enter="submit">
+    <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="submit">
       <div class="switch-language-container">
         <Select v-model="language" :placeholder="$t('switch_language')">
           <Option v-for="item in languageList" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -35,7 +35,7 @@
                     :class="[accountList.length == 0?'un_click':'']"
                     :disabled="accountList.length == 0"
                     v-focus
-                    v-model="formItems.password"
+                    v-model.lazy="formItems.password"
                     type="password"
                     v-validate="validation.accountPassword"
                     data-vv-name="password"

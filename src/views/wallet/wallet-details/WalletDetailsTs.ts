@@ -5,7 +5,6 @@ import {Component, Vue, Watch} from 'vue-property-decorator'
 import AddressBook from '@/views/wallet/wallet-details/wallet-function/address-book/AddressBook.vue'
 import KeystoreDialog from '@/views/wallet/wallet-details/keystore-dialog/KeystoreDialog.vue'
 import PrivatekeyDialog from '@/views/wallet/wallet-details/privatekey-dialog/PrivatekeyDialog.vue'
-import WalletUpdatePassword from './wallet-function/wallet-update-password/WalletUpdatePassword.vue'
 import WalletHarvesting from '@/views/wallet/wallet-details/wallet-function/wallet-harvesting/WalletHarvesting.vue'
 import {mapState} from "vuex"
 import {AppWallet, AppInfo, StoreAccount, AppNamespace} from "@/core/model"
@@ -22,7 +21,6 @@ import TheWalletDelete from '@/views/wallet/wallet-switch/the-wallet-delete/TheW
         PrivatekeyDialog,
         KeystoreDialog,
         AddressBook,
-        WalletUpdatePassword,
         WalletHarvesting,
         TheWalletUpdate,
         TheWalletDelete

@@ -53,7 +53,7 @@
             <span class="amount value radius flex_center">
               <ErrorTooltip fieldName="currentAmount" placementOverride="top" class="amountTooltip">
                 <input
-                  v-model="currentAmount"
+                  v-model.lazy="currentAmount"
                   :placeholder="$t('please_enter_the_transfer_amount')"
                   v-validate="validation.amount"
                   :data-vv-as="$t('amount')"
@@ -67,21 +67,6 @@
       </div>
 
       <div class="mosaic_list_container radius">
-        <ErrorTooltip
-          fieldName="mosaicListLength"
-          placementOverride="top"
-          class="mosaic-list-tooltip"
-        >
-          <input
-            data-vv-name="mosaicListLength"
-            number
-            type="text"
-            v-validate="validation.mosaicListLength"
-            style="display: none"
-            v-model="formItems.mosaicTransferList.length"
-          />
-        </ErrorTooltip>
-
         <span class="mosaic_name overflow_ellipsis">{{$t('mosaic')}}</span>
         <span class="mosaic_amount overflow_ellipsis">{{$t('amount')}}</span>
         <div class="scroll">
