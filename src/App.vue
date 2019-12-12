@@ -199,7 +199,7 @@ export default class App extends Vue {
 
   initializeNotice() {
     this.$Notice.config({ duration: 4 });
-    const messageTranslator = message => `${this.$t(message)}`
+    const messageTranslator = message => `${this.$t(message)}`;
 
     this.$store.subscribe(async (mutation, state) => {
       if (mutation.type === "TRIGGER_NOTICE") {
@@ -273,6 +273,9 @@ export default class App extends Vue {
         if (newValue && oldValue !== newValue) {
           this.Network.switchNode(newValue);
           this.Listeners.switchEndpoint(newValue);
+          setTimeout(() => {
+            setWalletsBalances(this.$store);
+          }, 1000);
         }
       });
   }
