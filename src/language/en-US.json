@@ -887,5 +887,6 @@
   "Cosign_aggregate_transactions": "Cosign aggregate transactions",
   "Invalid_node": "Invalid node",
   "Restore_Mnemonic": "Restore Mnemonic",
-  "my_balance": "My balance"
+  "my_balance": "My balance",
+  "privateKey": "Private key"
 }
