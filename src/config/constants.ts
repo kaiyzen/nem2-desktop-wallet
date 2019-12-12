@@ -1,7 +1,7 @@
 import {TransactionType, NetworkType} from 'nem2-sdk'
 import {DefaultFee, NetworkCurrency} from '@/core/model'
 
-export const WALLET_VERSION = '0.8.7'
+export const WALLET_VERSION = '0.8.8-beta'
 
 export const isWindows = require('./packge.ts').isWin32
 
@@ -162,6 +162,7 @@ export const NETWORK_CONSTANTS = {
 export const APP_PARAMS = {
     MIN_PASSWORD_LENGTH: 8,
     MAX_PASSWORD_LENGTH: 64,
+    MAX_LISTENER_RECONNECT_TRIES: 20,
 }
 
 export const Message = {

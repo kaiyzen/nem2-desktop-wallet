@@ -98,7 +98,7 @@
       </div>
 
       <div class="remark flex_center">
-        <span class="title">{{$t('remarks')}}</span>
+        <span class="title">{{$t('message')}}</span>
         <span class="textarea_container flex_center value radius">
           <ErrorTooltip fieldName="message" placementOverride="top" class="full-width-tooltip">
             <textarea
