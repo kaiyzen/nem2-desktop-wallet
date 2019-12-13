@@ -480,7 +480,8 @@ export class AppWallet {
             signedLock: SignedTransaction,
         } {
         const account = this.getAccount(new Password(password))
-        const {networkCurrency, generationHash} = store.state.account
+        const {networkCurrency} = store.state.account
+        const {generationHash} = store.state.app.NetworkProperties
         const signedTransaction = account.sign(aggregateTransaction, generationHash)
 
         const hashLockTransaction = HashLockTransaction

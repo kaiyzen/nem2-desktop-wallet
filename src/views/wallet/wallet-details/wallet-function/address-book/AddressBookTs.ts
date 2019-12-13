@@ -40,7 +40,7 @@ export class AddressBookTs extends Vue {
     }
 
     get generationHash() {
-        return this.activeAccount.generationHash
+        return this.app.NetworkProperties.generationHash
     }
 
     get node() {
@@ -48,7 +48,7 @@ export class AddressBookTs extends Vue {
     }
 
     get currentHeight() {
-        return this.app.chainStatus.currentHeight
+        return this.app.NetworkProperties.height
     }
 
 

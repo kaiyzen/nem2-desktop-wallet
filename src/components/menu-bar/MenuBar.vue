@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div :class="[isWindows?'windows':'mac','wrap']">
     <div v-if="isNodeHealthy && nodeNetworkType && networkType">
       <Alert class="alert warning_alert"

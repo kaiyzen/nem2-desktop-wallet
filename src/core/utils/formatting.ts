@@ -1,5 +1,7 @@
-import {Address, Deadline} from 'nem2-sdk'
+import {Address} from 'nem2-sdk'
 import {explorerUrlHead} from "@/config"
+import {NetworkCurrency} from '../model'
+import {getRelativeMosaicAmount} from '../utils'
 
 export const formatNumber = (number: number): string => {
     if (number <= 1) return `${number}`
@@ -15,6 +17,15 @@ export const formatAddress = function (address: string): string {
     if (!address) return
     return Address.createFromRawAddress(address).pretty()
 }
+
 export const formatExplorerUrl = (transactionHash) => {
     return explorerUrlHead + transactionHash
+}
+
+export const absoluteAmountToRelativeAmountWithTicker = (
+    amount: number,
+    networkCurrency: NetworkCurrency,
+): string => {
+    const relativeAmount = getRelativeMosaicAmount(amount, networkCurrency.divisibility)
+    return `${formatNumber(relativeAmount)} ${networkCurrency.ticker}`
 }

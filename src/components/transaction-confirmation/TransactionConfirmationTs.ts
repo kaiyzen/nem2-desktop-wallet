@@ -137,7 +137,7 @@ export class TransactionConfirmationTs extends Vue {
          */
         const result: SignTransaction = {
             success: true,
-            signedTransaction: account.sign(transactionToSign, this.activeAccount.generationHash),
+            signedTransaction: account.sign(transactionToSign, this.app.NetworkProperties.generationHash),
             error: null,
         }
 

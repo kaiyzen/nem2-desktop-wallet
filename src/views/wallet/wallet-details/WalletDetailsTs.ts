@@ -72,14 +72,6 @@ export class WalletDetailsTs extends Vue {
         return this.activeAccount.wallet ? this.activeAccount.wallet.address : false
     }
 
-    get generationHash() {
-        return false
-    }
-
-    get currentHeight() {
-        return this.app.chainStatus.currentHeight
-    }
-
     get NamespaceList() {
         return this.activeAccount.namespaces
     }
@@ -106,7 +98,7 @@ export class WalletDetailsTs extends Vue {
                 this.wallet.name,
                 publicAccount,
                 this.wallet.networkType,
-                this.activeAccount.generationHash,
+                this.app.NetworkProperties.generationHash,
             )
         } catch (error) {
             return null

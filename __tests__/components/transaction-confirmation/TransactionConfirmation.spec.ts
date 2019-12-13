@@ -19,7 +19,7 @@ import {
     networkCurrency,
     // @ts-ignore
 } from "@@/mock/conf/conf.spec"
-import {LockParams, Notice, NoticeType, SignTransaction, AppWallet, ChainStatus} from '@/core/model'
+import {LockParams, Notice, NoticeType, SignTransaction, AppWallet, NetworkProperties} from '@/core/model'
 jest.mock('@/core/model/Notice')
 import Vue from 'vue'
 import {
@@ -324,7 +324,7 @@ describe('TransactionConfirmation when staged transaction is a cosignature', () 
                     state: Object.assign(accountState.state, {wallet}),
                 },
                 app: {
-                    state: {stagedTransaction, chainStatus: ChainStatus.getDefault()},
+                    state: {stagedTransaction},
                     mutations: appMutations.mutations,
                 }
             }

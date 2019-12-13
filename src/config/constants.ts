@@ -88,7 +88,8 @@ export const defaultNetworkConfig = {
     networkConfirmations: 10,
     defaultNetworkMosaic,
     DEFAULT_LOCK_AMOUNT: 10000000,
-    DEFAULT_NETWORK_TYPE: NetworkType.MIJIN_TEST
+    DEFAULT_NETWORK_TYPE: NetworkType.MIJIN_TEST,
+    dynamicDefaultFeeMultiplier: 1000,
 }
 
 export const networkConfig = {

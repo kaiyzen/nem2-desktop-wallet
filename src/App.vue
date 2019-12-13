@@ -9,38 +9,30 @@
 
 <script lang="ts">
 import "animate.css";
-import { AccountHttp, Address, QueryParams, Transaction } from "nem2-sdk";
+import { Address } from "nem2-sdk";
 import { mapState } from "vuex";
+import { Component, Vue } from "vue-property-decorator";
 import { asyncScheduler } from "rxjs";
 import { throttleTime } from "rxjs/operators";
 import { isWindows } from "@/config";
+import { checkInstall } from "@/core/utils";
 import {
-  checkInstall,
-  getObjectLength,
-  getTopValueInObject,
-  localRead
-} from "@/core/utils";
-import { Component, Vue } from "vue-property-decorator";
-import {
-  setMosaics,
   mosaicsAmountViewFromAddress,
   AppMosaics,
   setMarketOpeningPrice,
-  setTransactionList,
-  setNamespaces,
   getNamespacesFromAddress,
   setWalletsBalances,
-  getMultisigAccountMultisigAccountInfo
+  getMultisigAccountMultisigAccountInfo,
+  onWalletChange,
 } from "@/core/services";
 import {
   AppMosaic,
-  AppWallet,
   AppInfo,
   StoreAccount,
-  AppAccount,
   Notice,
-  Network,
-  Listeners
+  NetworkManager,
+  Listeners,
+  NetworkProperties
 } from "@/core/model";
 import DisabledUiOverlay from "@/components/disabled-ui-overlay/DisabledUiOverlay.vue";
 import TransactionConfirmation from "@/components/transaction-confirmation/TransactionConfirmation.vue";
@@ -61,7 +53,8 @@ export default class App extends Vue {
   activeAccount: StoreAccount;
   app: AppInfo;
   Listeners: Listeners;
-  Network: Network;
+  NetworkManager: NetworkManager;
+  onWalletChange = onWalletChange;
 
   get showLoadingOverlay() {
     return (this.app.loadingOverlay && this.app.loadingOverlay.show) || false;
@@ -82,54 +75,6 @@ export default class App extends Vue {
 
   get accountName(): string {
     return;
-  }
-
-  async onWalletChange(newWallet) {
-    try {
-      this.$store.commit("SET_TRANSACTIONS_LOADING", true);
-      this.$store.commit("SET_MOSAICS_LOADING", true);
-      this.$store.commit("SET_NAMESPACE_LOADING", true);
-      this.$store.commit("SET_MULTISIG_LOADING", true);
-      this.$store.commit("RESET_TRANSACTION_LIST");
-      this.$store.commit("RESET_MOSAICS");
-      this.$store.commit("RESET_NAMESPACES");
-
-      //@TODO: move from there
-      const mosaicListFromStorage = localRead(newWallet.address);
-      const appWallet = new AppWallet(newWallet);
-      const parsedMosaicListFromStorage =
-        mosaicListFromStorage === ""
-          ? false
-          : JSON.parse(mosaicListFromStorage);
-
-      if (mosaicListFromStorage) {
-        await this.$store.commit("SET_MOSAICS", parsedMosaicListFromStorage);
-      }
-
-      appWallet.setAccountInfo(this.$store);
-      await setMosaics(appWallet, this.$store);
-      await setNamespaces(newWallet.address, this.$store);
-
-      /* Delay network calls to avoid ban */
-      setTimeout(() => {
-        try {
-          setTransactionList(newWallet.address, this.$store);
-          appWallet.setMultisigStatus(this.node, this.$store);
-        } catch (error) {
-          console.error("App -> onWalletChange -> setTimeout -> error", error);
-        }
-      }, 1000);
-
-      this.Listeners.switchAddress(
-        Address.createFromRawAddress(newWallet.address)
-      );
-    } catch (error) {
-      console.error("App -> onWalletChange -> error", error);
-      this.$store.commit("SET_TRANSACTIONS_LOADING", false);
-      this.$store.commit("SET_MOSAICS_LOADING", false);
-      this.$store.commit("SET_NAMESPACE_LOADING", false);
-      this.$store.commit("SET_MULTISIG_LOADING", false);
-    }
   }
 
   //@TODO: move out from App.vue
@@ -179,15 +124,12 @@ export default class App extends Vue {
   }
 
   created() {
-    this.initializeNotice();
     this.initializeNetwork();
-
-    if (isWindows) {
-      checkInstall();
-    }
+    if (isWindows) checkInstall()
   }
 
   async mounted() {
+    this.initializeNotice();
     this.$store.commit("SET_TRANSACTIONS_LOADING", true);
     this.$store.commit("SET_MOSAICS_LOADING", true);
     this.$store.commit("SET_NAMESPACE_LOADING", true);
@@ -211,8 +153,10 @@ export default class App extends Vue {
   }
 
   initializeNetwork() {
-    this.Network = Network.create(this.$store);
-    this.Listeners = Listeners.create(this.$store);
+    const networkProperties = NetworkProperties.create(this.$store)
+    this.$store.commit('INITIALIZE_NETWORK_PROPERTIES', networkProperties)
+    this.Listeners = Listeners.create(this.$store, networkProperties);
+    this.NetworkManager = NetworkManager.create(this.$store, networkProperties, this.Listeners);
   }
 
   initializeEventsHandlers() {
@@ -227,7 +171,7 @@ export default class App extends Vue {
         if (!newValue) return;
 
         if ((!oldValue && newValue) || (oldValue && newValue !== oldValue)) {
-          this.onWalletChange(this.wallet);
+          this.onWalletChange(this.$store, this.Listeners, this.wallet);
         }
       });
 
@@ -271,7 +215,7 @@ export default class App extends Vue {
       )
       .subscribe(({ newValue, oldValue }) => {
         if (newValue && oldValue !== newValue) {
-          this.Network.switchNode(newValue);
+          this.NetworkManager.switchEndpoint(newValue);
           this.Listeners.switchEndpoint(newValue);
           setTimeout(() => {
             setWalletsBalances(this.$store);

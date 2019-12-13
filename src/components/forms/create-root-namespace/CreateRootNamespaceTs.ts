@@ -90,7 +90,7 @@ export class CreateRootNamespaceTs extends Vue {
     }
 
     get generationHash(): string {
-        return this.activeAccount.generationHash
+        return this.app.NetworkProperties.generationHash
     }
 
     get node(): string {

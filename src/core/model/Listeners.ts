@@ -1,23 +1,27 @@
-import {Address, Listener, BlockInfo, Transaction, TransactionStatusError, add} from "nem2-sdk"
+import {Address, Listener, BlockInfo, Transaction, TransactionStatusError} from "nem2-sdk"
 import {Store} from 'vuex'
 import {filter} from 'rxjs/operators'
 import {formatAndSave} from '@/core/services/transactions'
-import {ChainStatus, TRANSACTIONS_CATEGORIES, AppState, Notice, NoticeType} from '@/core/model'
+import {NetworkProperties, TRANSACTIONS_CATEGORIES, AppState, Notice, NoticeType} from '@/core/model'
 import {Message, APP_PARAMS} from '@/config'
 import {httpToWs} from '@/core/utils'
 
 const {MAX_LISTENER_RECONNECT_TRIES} = APP_PARAMS
 
 export class Listeners {
+    private httpEndpoint: string
     private wsEndpoint: string
     private restartTimes: number = 0
     private listener: Listener
     private address: Address
 
-    private constructor(private store: Store<AppState>) {}
+    private constructor(
+        private store: Store<AppState>,
+        private NetworkProperties: NetworkProperties,
+    ) {}
 
-    public static create(store: Store<AppState>) {
-        return new Listeners(store)
+    public static create(store: Store<AppState>, NetworkProperties: NetworkProperties) {
+        return new Listeners(store, NetworkProperties)
     }
 
     public switchAddress(address: Address) {
@@ -30,6 +34,7 @@ export class Listeners {
 
     public switchEndpoint(httpEndpoint: string) {
         this.restartTimes = 0
+        this.httpEndpoint = httpEndpoint
         this.wsEndpoint = httpToWs(httpEndpoint)
         if (!this.address) return
         this.stop()
@@ -57,7 +62,7 @@ export class Listeners {
             .open()
             .then(() => {
                 this.listener.newBlock().subscribe((block: BlockInfo) => {
-                    store.commit('SET_CHAIN_STATUS', new ChainStatus(block))
+                    this.NetworkProperties.setLastBlock(block, this.httpEndpoint)
                 })
 
                 this.listener.status(address).subscribe((error: TransactionStatusError) => {

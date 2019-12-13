@@ -1,32 +1,36 @@
 import {
    ChainHttp, BlockHttp, QueryParams, TransactionType, NamespaceService, NamespaceHttp,
-   MosaicAliasTransaction, MosaicDefinitionTransaction, Namespace, NetworkType, NodeHttp, BlockInfo,
+   MosaicAliasTransaction, MosaicDefinitionTransaction, Namespace, NodeHttp, BlockInfo,
 } from 'nem2-sdk'
 import {Store} from 'vuex'
-import {AppState, Notice, AppMosaic, ChainStatus} from '.'
+import {AppState, Notice, AppMosaic, NetworkProperties} from '.'
 import {NoticeType} from './Notice'
 import {Message} from "@/config"
+import {onWalletChange} from '../services'
+import {Listeners} from './Listeners'
 
-export class Network {
+export class NetworkManager {
    blockHttp: BlockHttp
    namespaceHttp: NamespaceHttp
    namespaceService: NamespaceService
    chainHttp: ChainHttp
    nodeHttp: NodeHttp
+   private endpoint: string = null
+   private generationHash: string = null
 
    private constructor(
-      private endpoint: string,
-      private generationHash: string,
       private store: Store<AppState>,
+      private NetworkProperties: NetworkProperties,
+      private Listeners: Listeners,
    ) {}
 
-   public static create(store: Store<AppState>) {
-      return new Network(null, null, store)
+   public static create(store: Store<AppState>, NetworkProperties: NetworkProperties, Listeners: Listeners) {
+      return new NetworkManager(store, NetworkProperties, Listeners)
    }
 
-   public async switchNode(endpoint: string): Promise<void> {
+   public async switchEndpoint(endpoint: string): Promise<void> {
       try {
-         this.store.dispatch('SET_NODE_LOADING', {endpoint, nodeLoading: true})
+         this.NetworkProperties.setLoadingTrue(endpoint)
          const initialGenerationHash = `${this.generationHash}`
          this.endpoint = endpoint
          this.blockHttp = new BlockHttp(endpoint)
@@ -35,47 +39,35 @@ export class Network {
          this.chainHttp = new ChainHttp(endpoint)
          this.nodeHttp = new NodeHttp(endpoint)
 
-         this.setGenerationHashAndNodeHealth()
+         this.setNodeInfoAndHealth()
+         await this.setLatestBlocks()
+         Notice.trigger(Message.NODE_CONNECTION_SUCCEEDED, NoticeType.success, this.store)
 
-         await Promise.all([
-            this.setChainHeight(),
-            this.setNodeNetworkType(),
-         ])
-
-         this.declareConnectionSuccessful(endpoint)
-
+         console.log("TCL: NetworkManager -> initialGenerationHash !== this.generationHash", initialGenerationHash !== this.generationHash, initialGenerationHash, this.generationHash)
          if (initialGenerationHash !== this.generationHash) await this.switchGenerationHash()
       } catch (error) {
-         console.error("Network -> error", error)
+         console.error("NetworkManager -> error", error)
       }
    }
 
    private reset(endpoint: string) {
-      console.log("TCL: Network -> reset -> endpoint !== this.endpoint", endpoint, this.endpoint)
       if (endpoint !== this.endpoint) return
-      
       Notice.trigger(Message.NODE_CONNECTION_ERROR, NoticeType.error, this.store)
-      this.store.dispatch('SET_IS_NODE_HEALTHY', {endpoint, isNodeHealthy: false})
-      this.store.dispatch('SET_GENERATION_HASH', {endpoint, generationHash: 'error'})
-      this.store.dispatch('SET_NODE_NETWORK_TYPE', {endpoint, nodeNetworkType: null})
-      this.store.dispatch('SET_CHAIN_STATUS', {endpoint, chainStatus: ChainStatus.getDefault()})
-      this.store.dispatch('SET_NODE_LOADING', {endpoint, nodeLoading: false})
+      this.NetworkProperties.reset(endpoint)
       this.generationHash = null
       this.endpoint = null
    }
 
-   private setGenerationHashAndNodeHealth(): void {
-      const {store, endpoint} = this
-      const currentEndpoint = `${endpoint}`
+   private setNodeInfoAndHealth(): void {
+      const currentEndpoint = `${this.endpoint}`
       const that = this
 
       this.blockHttp
          .getBlockByHeight('1')
          .subscribe(
             (block: BlockInfo) => {
-               const {generationHash} = block
-               this.generationHash = generationHash
-               store.dispatch('SET_GENERATION_HASH', {endpoint, generationHash})
+               that.generationHash = block.generationHash
+               that.NetworkProperties.setValuesFromFirstBlock(block, currentEndpoint)
             },
             (error: Error) => {
                that.reset(currentEndpoint)
@@ -83,34 +75,17 @@ export class Network {
             })
    }
 
-   private async setChainHeight() {
+   private async setLatestBlocks() {
       const currentEndpoint = `${this.endpoint}`
       const heightUint = await this.chainHttp.getBlockchainHeight().toPromise()
       const height = heightUint.compact()
-      const blockInfo = await this.blockHttp.getBlockByHeight(`${height}`).toPromise()
-      this.store.dispatch('SET_CHAIN_STATUS', {endpoint: currentEndpoint, chainStatus: new ChainStatus(blockInfo)})
-   }
-
-   private async setNodeNetworkType(): Promise<void> {
-      // @TODO: When SDK BlockHttp network type issue is fixed
-      // Can skip this network call by setting the networkType from the first block's data instead
-      // https://github.com/nemtech/nem2-sdk-typescript-javascript/issues/367
-      const {store} = this
-      const currentEndpoint = `${this.endpoint}`
-      const nodeInfo = await this.nodeHttp.getNodeInfo().toPromise()
-      const {networkIdentifier} = nodeInfo
-      store.dispatch('SET_NODE_NETWORK_TYPE', {endpoint: currentEndpoint, nodeNetworkType: networkIdentifier})
-   }
-
-   private declareConnectionSuccessful(endpoint) {
-      const {store} = this
-      Notice.trigger(Message.NODE_CONNECTION_SUCCEEDED, NoticeType.success, store)
-      store.dispatch('SET_IS_NODE_HEALTHY', {endpoint, isNodeHealthy: true})
-      store.dispatch('SET_NODE_LOADING', {endpoint, nodeLoading: false})
+      const blocksInfo = await this.blockHttp.getBlocksByHeightWithLimit(`${height}`).toPromise()
+      this.NetworkProperties.setValuesFromLatestBlocks(blocksInfo, currentEndpoint)
    }
 
    private async switchGenerationHash(): Promise<void> {
       await this.setNetworkMosaics()
+      await onWalletChange(this.store, this.Listeners)
    }
 
    private async setNetworkMosaics(): Promise<void> {
