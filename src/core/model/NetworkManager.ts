@@ -6,7 +6,7 @@ import {Store} from 'vuex'
 import {AppState, Notice, AppMosaic, NetworkProperties} from '.'
 import {NoticeType} from './Notice'
 import {Message} from "@/config"
-import {onWalletChange} from '../services'
+import {onWalletChange, setWalletsBalances} from '../services'
 import {Listeners} from './Listeners'
 
 export class NetworkManager {
@@ -43,7 +43,6 @@ export class NetworkManager {
          await this.setLatestBlocks()
          Notice.trigger(Message.NODE_CONNECTION_SUCCEEDED, NoticeType.success, this.store)
 
-         console.log("TCL: NetworkManager -> initialGenerationHash !== this.generationHash", initialGenerationHash !== this.generationHash, initialGenerationHash, this.generationHash)
          if (initialGenerationHash !== this.generationHash) await this.switchGenerationHash()
       } catch (error) {
          console.error("NetworkManager -> error", error)
@@ -86,6 +85,7 @@ export class NetworkManager {
    private async switchGenerationHash(): Promise<void> {
       await this.setNetworkMosaics()
       await onWalletChange(this.store, this.Listeners)
+      await setWalletsBalances(this.store);
    }
 
    private async setNetworkMosaics(): Promise<void> {

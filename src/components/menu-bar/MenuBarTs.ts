@@ -171,7 +171,6 @@ export class MenuBarTs extends Vue {
     initNodeList() {
         const nodeListData = localRead('nodeList')
         this.nodeList = nodeListData ? JSON.parse(nodeListData) : nodeListConfig
-        this.$store.commit('SET_NODE', this.nodeList.find(item => item.isSelected).value)
     }
 
     created() {

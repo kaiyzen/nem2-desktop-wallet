@@ -21,9 +21,8 @@ import {
   AppMosaics,
   setMarketOpeningPrice,
   getNamespacesFromAddress,
-  setWalletsBalances,
   getMultisigAccountMultisigAccountInfo,
-  onWalletChange,
+  onWalletChange
 } from "@/core/services";
 import {
   AppMosaic,
@@ -125,7 +124,7 @@ export default class App extends Vue {
 
   created() {
     this.initializeNetwork();
-    if (isWindows) checkInstall()
+    if (isWindows) checkInstall();
   }
 
   async mounted() {
@@ -153,10 +152,14 @@ export default class App extends Vue {
   }
 
   initializeNetwork() {
-    const networkProperties = NetworkProperties.create(this.$store)
-    this.$store.commit('INITIALIZE_NETWORK_PROPERTIES', networkProperties)
+    const networkProperties = NetworkProperties.create(this.$store);
+    this.$store.commit("INITIALIZE_NETWORK_PROPERTIES", networkProperties);
     this.Listeners = Listeners.create(this.$store, networkProperties);
-    this.NetworkManager = NetworkManager.create(this.$store, networkProperties, this.Listeners);
+    this.NetworkManager = NetworkManager.create(
+      this.$store,
+      networkProperties,
+      this.Listeners
+    );
   }
 
   initializeEventsHandlers() {
@@ -194,19 +197,6 @@ export default class App extends Vue {
       });
 
     /**
-     * ON ACCOUNT CHANGE
-     */
-    this.$watchAsObservable("accountName", { immediate: true })
-      .pipe(
-        throttleTime(6000, asyncScheduler, { leading: true, trailing: true })
-      )
-      .subscribe(({ newValue, oldValue }) => {
-        if (!newValue) return;
-        // @TODO: setWalletsBalance name is not appropriate
-        if (oldValue !== newValue) setWalletsBalances(this.$store);
-      });
-
-    /**
      * ON ENDPOINT CHANGE
      */
     this.$watchAsObservable("node", { immediate: true })
@@ -217,9 +207,6 @@ export default class App extends Vue {
         if (newValue && oldValue !== newValue) {
           this.NetworkManager.switchEndpoint(newValue);
           this.Listeners.switchEndpoint(newValue);
-          setTimeout(() => {
-            setWalletsBalances(this.$store);
-          }, 1000);
         }
       });
   }
