@@ -25,9 +25,9 @@ export class CheckPasswordDialogTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get accountPassword() {
@@ -36,11 +36,11 @@ export class CheckPasswordDialogTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              const response = valid && this.returnPassword ? this.password : valid
-              this.$emit('passwordValidated', response)
-              this.show = false
-            })
+      .validate()
+      .then(valid => {
+        const response = valid && this.returnPassword ? this.password : valid
+        this.$emit('passwordValidated', response)
+        this.show = false
+      })
   }
 }

@@ -1,13 +1,13 @@
 import {Message} from '@/config/index.ts'
 import {QRCodeGenerator, TransactionQR} from 'nem2-qr-library'
 import {copyTxt} from '@/core/utils'
-import {Component, Vue, Provide, Watch} from 'vue-property-decorator'
+import {Component, Vue, Provide} from 'vue-property-decorator'
 import CollectionRecord from '@/components/collection-record/CollectionRecord.vue'
 import {mapState} from 'vuex'
 import {MosaicId, TransferTransaction, Deadline, Address, Mosaic, UInt64, PlainMessage, NamespaceId} from 'nem2-sdk'
 import {TransferType} from '@/core/model/TransferType'
 import {monitorReceiptTransferTypeConfig} from '@/config/view/monitor'
-import {AppInfo, MosaicNamespaceStatusType, StoreAccount} from '@/core/model'
+import {AppInfo, MosaicNamespaceStatusType, StoreAccount, MosaicInList} from '@/core/model'
 import failureIcon from '@/common/img/monitor/failure.png'
 import {pluck, concatMap} from 'rxjs/operators'
 import {of} from 'rxjs'
@@ -24,12 +24,12 @@ import ErrorTooltip from '@/components/other/forms/errorTooltip/ErrorTooltip.vue
   },
   subscriptions() {
     const qrCode$ = this
-            .$watchAsObservable('qrCodeArgs', {immediate: true})
-            .pipe(pluck('newValue'),
-                concatMap(args => {
-                  if (args instanceof TransactionQR) return args.toBase64()
-                  return of(failureIcon)
-                }))
+      .$watchAsObservable('qrCodeArgs', {immediate: true})
+      .pipe(pluck('newValue'),
+        concatMap(args => {
+          if (args instanceof TransactionQR) return args.toBase64()
+          return of(failureIcon)
+        }))
     return {qrCode$}
   },
 })
@@ -41,7 +41,7 @@ export class MonitorInvoiceTs extends Vue {
   validation = validation
   TransferType = TransferType
   transferTypeList = monitorReceiptTransferTypeConfig
-  selectedMosaicHex: string = ''
+  selectedMosaicHex = ''
   formItems = {
     mosaicAmount: 0,
     message: '',
@@ -53,27 +53,25 @@ export class MonitorInvoiceTs extends Vue {
     return this.activeAccount.networkCurrency
   }
 
-  get activeMosaic(): {
-    name: string,
-    hex: string,
-    id: MosaicId | NamespaceId,
-  } {
+  get activeMosaic(): MosaicInList {
     const {selectedMosaicHex} = this
 
-    if (!selectedMosaicHex) { return {
-      name: null, hex: selectedMosaicHex, id: null,
+    if (!selectedMosaicHex) {
+      return {
+        name: null, hex: selectedMosaicHex, id: null,
+      }
     }
-    }
-
+    
+    
     try {
       const selectedFromList = Object.values(this.mosaics)
-                // tslint:disable-next-line:no-shadowed-variable
-                .find(({name, hex}) => name === selectedMosaicHex || hex === selectedMosaicHex)
+      // tslint:disable-next-line:no-shadowed-variable
+        .find(({name, hex}) => name === selectedMosaicHex || hex === selectedMosaicHex)
 
       if (selectedFromList !== undefined) {
-                // tslint:disable-next-line:no-shadowed-variable
+        // tslint:disable-next-line:no-shadowed-variable
         const {name, hex} = selectedFromList
-                // tslint:disable-next-line:no-shadowed-variable
+        // tslint:disable-next-line:no-shadowed-variable
         const id = name ? new NamespaceId(name) : new MosaicId(hex)
         return {name, hex, id}
       }
@@ -81,7 +79,7 @@ export class MonitorInvoiceTs extends Vue {
       const name = null
       const hex = selectedMosaicHex
       const id = validateMosaicId(hex).valid
-                ? new MosaicId(hex) : new NamespaceId(hex.toLowerCase())
+        ? new MosaicId(hex) : new NamespaceId(hex.toLowerCase())
 
       return {name, hex, id}
     } catch (error) {
@@ -93,10 +91,10 @@ export class MonitorInvoiceTs extends Vue {
   }
 
   get transferTransaction(): TransferTransaction {
-    if (this.$validator.errors.any()) {
+    if (this.$validator.errors.any()) {         
       return null
     }
-
+    
     try {
       const {activeMosaic} = this
       const {networkType, address} = this.wallet
@@ -106,12 +104,12 @@ export class MonitorInvoiceTs extends Vue {
       const {mosaicAmount, message} = this.formItems
 
       return TransferTransaction.create(
-                Deadline.create(),
-                walletAddress,
-                [new Mosaic(activeMosaic.id, UInt64.fromUint(mosaicAmount))],
-                PlainMessage.create(message),
-                networkType,
-            )
+        Deadline.create(),
+        walletAddress,
+        [new Mosaic(activeMosaic.id, UInt64.fromUint(mosaicAmount))],
+        PlainMessage.create(message),
+        networkType,
+      )
     } catch (error) {
       console.error('MonitorInvoiceTs -> error', error)
       return null
@@ -122,7 +120,7 @@ export class MonitorInvoiceTs extends Vue {
     const {transferTransaction} = this
     if (!transferTransaction || !(transferTransaction instanceof TransferTransaction)) return null
     try {
-            // @ts-ignore
+      // @ts-ignore
       return QRCodeGenerator.createTransactionRequest(transferTransaction)
     } catch (e) {
       return null
@@ -142,9 +140,9 @@ export class MonitorInvoiceTs extends Vue {
   }
 
   get mosaicList() {
-        // @TODO: should be an AppMosaic method
-        // @TODO: would be better to return a loading indicator
-        // instead of an empty array ([] = "no matching data" in the select dropdown)
+    // @TODO: should be an AppMosaic method
+    // @TODO: would be better to return a loading indicator
+    // instead of an empty array ([] = "no matching data" in the select dropdown)
     const {mosaics} = this
     const {currentHeight} = this.app.chainStatus
     if (this.app.mosaicsLoading || !mosaics) return []
@@ -152,11 +150,11 @@ export class MonitorInvoiceTs extends Vue {
     const mosaicList: any = Object.values(mosaics)
 
     return [...mosaicList]
-            .filter(({expirationHeight}) => {
-              return expirationHeight === MosaicNamespaceStatusType.FOREVER
+      .filter(({expirationHeight}) => {
+        return expirationHeight === MosaicNamespaceStatusType.FOREVER
                     || currentHeight < expirationHeight
-            })
-            .map(({hex, name}) => ({value: name || hex}))
+      })
+      .map(({hex, name}) => ({value: name || hex}))
   }
 
   filterMethod() {
@@ -182,13 +180,12 @@ export class MonitorInvoiceTs extends Vue {
   }
 
   copyAddress() {
-    const that = this
     copyTxt(this.accountAddress).then(() => {
-      that.$Notice.success(
+      this.$Notice.success(
         {
           title: `${this.$t(Message.COPY_SUCCESS)}`,
         },
-            )
+      )
     })
   }
 

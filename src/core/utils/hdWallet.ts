@@ -1,6 +1,5 @@
 import {ExtendedKey, MnemonicPassPhrase, Wallet, Network} from 'nem2-hd-wallets'
 import {NetworkType, Account, Address} from 'nem2-sdk'
-import {sequenceEqual} from 'rxjs/operators'
 
 export const getNetworkFromNetworkType = (networkType: NetworkType): Network => {
   if (networkType === NetworkType.MIJIN_TEST) return Network.CATAPULT
@@ -16,23 +15,23 @@ export const createMnemonic = () => {
 }
 
 export const getPath = (int: number): string => {
-  if (int === null || int === undefined) {
-    throw new Error('invalid argument provided to getPath')
-  }
+  if (int === null || int === undefined) 
+  {throw new Error('invalid argument provided to getPath')}
+  
   return `m/44'/43'/${int}'/0'/0'`
 }
 
 export const getAccountFromPathNumber = (
-    mnemonic: string,
-    pathNumber: number,
-    networkType: NetworkType,
+  mnemonic: string,
+  pathNumber: number,
+  networkType: NetworkType,
 ): Account => {
   const path = getPath(pathNumber)
   const PassPhrase = new MnemonicPassPhrase(mnemonic)
   const network = getNetworkFromNetworkType(networkType)
   const bip32Node = ExtendedKey.createFromSeed(PassPhrase.toEntropy(), network)
   const wallet = new Wallet(bip32Node.derivePath(path))
-    // @ts-ignore
+  // @ts-ignore
   return wallet.getAccount(networkType)
 }
 
@@ -47,7 +46,7 @@ export const randomizeMnemonicWordArray = (array: string[]): string[] => {
 }
 
 export const getTenAddressesFromMnemonic = (
-    mnemonic: string,
-    networkType: NetworkType,
+  mnemonic: string,
+  networkType: NetworkType,
 ): Address[] => [...Array(10)]
-    .map((_, index) =>  getAccountFromPathNumber(mnemonic, index, networkType).address)
+  .map((_, index) => getAccountFromPathNumber(mnemonic, index, networkType).address)

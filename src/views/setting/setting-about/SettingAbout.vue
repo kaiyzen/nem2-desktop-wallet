@@ -15,11 +15,11 @@
 import {Component, Vue} from 'vue-property-decorator'
 import {WALLET_VERSION} from '@/config'
     
-    @Component({
-      data() {
-        return {WALLET_VERSION}
-      }
-    })
+@Component({
+  data() {
+    return {WALLET_VERSION}
+  },
+})
 export default class SettingAbout extends Vue {}
 </script>
 <style scoped lang="less">

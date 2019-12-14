@@ -35,7 +35,7 @@ export class TheWalletUpdateTs extends Vue {
   }
 
   @Watch('showUpdateDialog')
-    onShowCheckPWDialogChange() {
+  onShowCheckPWDialogChange() {
     this.wallet.name = ''
     this.show = this.showUpdateDialog
   }

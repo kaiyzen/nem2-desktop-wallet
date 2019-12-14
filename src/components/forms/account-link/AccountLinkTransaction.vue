@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { AccountLinkTransactionTs } from "./AccountLinkTransactionTs"
+import { AccountLinkTransactionTs } from './AccountLinkTransactionTs'
 export default class AccountLinkTransaction extends AccountLinkTransactionTs {}
 </script>
 <style lang="less">

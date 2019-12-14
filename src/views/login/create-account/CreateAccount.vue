@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-import CreateAccountTs from "./CreateAccountTs"
-import "./CreateAccount.less"
+import CreateAccountTs from './CreateAccountTs'
+import './CreateAccount.less'
 
 export default class CreatAccount extends CreateAccountTs {
 }

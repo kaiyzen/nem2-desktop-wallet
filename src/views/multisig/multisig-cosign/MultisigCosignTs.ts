@@ -33,22 +33,22 @@ export class MultisigCosignTs extends Vue {
     const multisigAccounts = multisigAccountInfo[address].multisigAccounts
     if (!multisigAccounts.length) return []
     return multisigAccounts
-            .map(({publicKey}) => Address.createFromPublicKey(publicKey, networkType).pretty())
+      .map(({publicKey}) => Address.createFromPublicKey(publicKey, networkType).pretty())
   }
 
   get targetAddress(): Address {
     return this.currentAddress === ''
-            ? Address.createFromRawAddress(this.wallet.address)
-            : Address.createFromRawAddress(this.currentAddress)
+      ? Address.createFromRawAddress(this.wallet.address)
+      : Address.createFromRawAddress(this.currentAddress)
   }
 
   async submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.getTransactionsToCosign()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.getTransactionsToCosign()
+      })
   }
 
   getTransactionsToCosign() {
@@ -62,7 +62,7 @@ export class MultisigCosignTs extends Vue {
   }
 
   @Watch('address', {immediate: false})
-    onGetWalletChange(newAddress: string, oldAddress: string) {
+  onGetWalletChange(newAddress: string, oldAddress: string) {
     if (newAddress && newAddress !== oldAddress) {
       this.$store.commit('RESET_TRANSACTIONS_TO_COSIGN')
       fetchSelfAndChildrenPartialTransactions(this.wallet.publicAccount, this.$store)

@@ -1,27 +1,27 @@
 import {Transaction, TransactionType} from 'nem2-sdk'
 import {
-    FormattedTransfer,
-    FormattedRegisterNamespace,
-    FormattedAddressAlias,
-    FormattedMosaicAlias,
-    FormattedMosaicDefinition,
-    FormattedMosaicSupplyChange,
-    FormattedModifyMultisigAccount,
-    FormattedAggregateComplete,
-    FormattedAggregateBonded,
-    FormattedLock,
-    FormattedSecretLock,
-    FormattedSecretProof,
-    FormattedAccountRestrictionAddress,
-    FormattedAccountRestrictionMosaic,
-    FormattedAccountRestrictionOperation,
-    FormattedLinkAccount,
-    FormattedMosaicAddressRestriction,
-    FormattedMosaicGlobalRestriction,
-    FormattedAccountMetadataTransaction,
-    FormattedMosaicMetadataTransaction,
-    FormattedNamespaceMetadataTransaction,
-    AppState,
+  FormattedTransfer,
+  FormattedRegisterNamespace,
+  FormattedAddressAlias,
+  FormattedMosaicAlias,
+  FormattedMosaicDefinition,
+  FormattedMosaicSupplyChange,
+  FormattedModifyMultisigAccount,
+  FormattedAggregateComplete,
+  FormattedAggregateBonded,
+  FormattedLock,
+  FormattedSecretLock,
+  FormattedSecretProof,
+  FormattedAccountRestrictionAddress,
+  FormattedAccountRestrictionMosaic,
+  FormattedAccountRestrictionOperation,
+  FormattedLinkAccount,
+  FormattedMosaicAddressRestriction,
+  FormattedMosaicGlobalRestriction,
+  FormattedAccountMetadataTransaction,
+  FormattedMosaicMetadataTransaction,
+  FormattedNamespaceMetadataTransaction,
+  AppState,
 } from '@/core/model'
 import { Store } from 'vuex'
 
@@ -50,7 +50,7 @@ const transactionFactory = () => ({
     [TransactionType.NAMESPACE_METADATA_TRANSACTION] : FormattedNamespaceMetadataTransaction,
   },
 
-  get(  transaction: Transaction,
+  get( transaction: Transaction,
     store: Store<AppState>) {
     const {type} = transaction
     const formatter = this.router[type]
@@ -60,10 +60,10 @@ const transactionFactory = () => ({
 })
 
 export const transactionFormatter = ( transactionList: Transaction[],
-                                      store: Store<AppState>) => {
+  store: Store<AppState>) => {
 
-    // @TODO: merge with formatting.ts
+  // @TODO: merge with formatting.ts
   const enrichedTransactions = transactionList
   return enrichedTransactions
-        .map(transaction => transactionFactory().get(transaction, store))
+    .map(transaction => transactionFactory().get(transaction, store))
 }

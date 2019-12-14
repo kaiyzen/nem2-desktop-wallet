@@ -3,9 +3,9 @@ import Vue from 'vue'
 import {MutationTree} from 'vuex'
 import {defaultNetworkConfig} from '@/config/index'
 import {
-    AddressAndTransaction, AddressAndNamespaces, AddressAndMosaics,
-    AddressAndMultisigInfo, StoreAccount, AppMosaic, NetworkCurrency,
-    AppWallet, AppNamespace, FormattedTransaction, CurrentAccount,
+  AddressAndTransaction, AddressAndNamespaces, AddressAndMosaics,
+  AddressAndMultisigInfo, StoreAccount, AppMosaic, NetworkCurrency,
+  AppWallet, AppNamespace, FormattedTransaction, CurrentAccount,
 } from '@/core/model'
 import {nodeListConfig} from '@/config/view/node'
 
@@ -39,8 +39,8 @@ const updateMosaics = (state: StoreAccount, mosaics: AppMosaic[]) => {
 }
 
 const popTransactionToCosignByHash = (
-    oldTransactions: FormattedTransaction[],
-    hash: string,
+  oldTransactions: FormattedTransaction[],
+  hash: string,
 ): FormattedTransaction[] => {
   const transactionIndex = oldTransactions.findIndex(({rawTx}) => rawTx.transactionInfo.hash === hash)
   oldTransactions.splice(transactionIndex, 1)
@@ -64,18 +64,19 @@ const mutations: MutationTree<StoreAccount> = {
   },
   SET_NETWORK_MOSAICS(state: StoreAccount, mosaics: AppMosaic[]): void {
     state.networkMosaics = {}
+    // eslint-disable-next-line no-return-assign
     mosaics.forEach(mosaic => state.networkMosaics[mosaic.hex] = mosaic)
   },
   UPDATE_MOSAICS(state: StoreAccount, mosaics: AppMosaic[]): void {
     updateMosaics(state, mosaics)
   },
-    /**
+  /**
      * This mutation's purpose is to not be watched by the appMosaics plugin
      */
   UPDATE_MOSAICS_INFO(state: StoreAccount, mosaics: AppMosaic[]): void {
     updateMosaics(state, mosaics)
   },
-    /**
+  /**
      * This mutation's purpose is to not be watched by the appMosaics plugin
      */
   UPDATE_MOSAICS_NAMESPACES(state: StoreAccount, mosaics: AppMosaic[]): void {
@@ -100,7 +101,7 @@ const mutations: MutationTree<StoreAccount> = {
     })
 
     const namespacesNotUpdated = namespacesToUpdate
-            .filter(({hex}) => namespaces.find(ns => ns.hex === hex) === undefined)
+      .filter(({hex}) => namespaces.find(ns => ns.hex === hex) === undefined)
 
     state.namespaces = [...namespacesNotUpdated, ...updatedNamespaces]
   },
@@ -135,7 +136,7 @@ const mutations: MutationTree<StoreAccount> = {
     const newTx = txList[0]
     const newStateTransactions = [...state.transactionList]
     const txIndex = newStateTransactions
-            .findIndex(({txHeader}) => newTx.txHeader.hash === txHeader.hash)
+      .findIndex(({txHeader}) => newTx.txHeader.hash === txHeader.hash)
 
     if (txIndex > -1) newStateTransactions.splice(txIndex, 1)
     newStateTransactions.unshift(newTx)
@@ -192,7 +193,7 @@ const mutations: MutationTree<StoreAccount> = {
     const oldTransactions = [...state.transactionsToCosign]
 
     const index = oldTransactions
-            .findIndex(({rawTx}) => rawTx.transactionInfo.hash === transaction.rawTx.transactionInfo.hash)
+      .findIndex(({rawTx}) => rawTx.transactionInfo.hash === transaction.rawTx.transactionInfo.hash)
 
     if (index > -1) return
     state.transactionsToCosign = [transaction, ...oldTransactions]

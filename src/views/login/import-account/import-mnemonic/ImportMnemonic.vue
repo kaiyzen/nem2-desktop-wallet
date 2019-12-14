@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ImportMnemonicTs from "./ImportMnemonicTs"
+import ImportMnemonicTs from './ImportMnemonicTs'
 export default class ImportAccount2 extends ImportMnemonicTs {}
 </script>
 

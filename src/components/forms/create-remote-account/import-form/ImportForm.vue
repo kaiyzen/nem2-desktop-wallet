@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { ImportFormTs } from "./ImportFormTs"
+import { ImportFormTs } from './ImportFormTs'
 export default class ImportForm extends ImportFormTs {}
 </script>
 <style lang="less">

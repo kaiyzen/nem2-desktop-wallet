@@ -25,11 +25,11 @@ export class SettingPasswordTs extends Vue {
   validation = validation
   errors: any
   cypher: string
-  submitDisabled: boolean = false
+  submitDisabled = false
   formItems = cloneData(formItems)
 
   @Watch('errors')
-    onErrorsChanged() {
+  onErrorsChanged() {
     this.submitDisabled = this.errors.items.length > 0
   }
 
@@ -52,15 +52,15 @@ export class SettingPasswordTs extends Vue {
     const {previousPassword, newPassword} = this.formItems
     const {accountName, mnemonic} = this
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.AppAccounts().saveNewPassword(previousPassword, newPassword, mnemonic, accountName, this.$store)
-              this.resetFields()
-              this.$Notice.success({
-                title: `${this.$t(Message.SUCCESS)}`,
-              })
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.AppAccounts().saveNewPassword(previousPassword, newPassword, mnemonic, accountName, this.$store)
+        this.resetFields()
+        this.$Notice.success({
+          title: `${this.$t(Message.SUCCESS)}`,
+        })
+      })
   }
 
   mounted() {

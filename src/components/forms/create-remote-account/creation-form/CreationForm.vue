@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { CreationFormTs } from "./CreationFormTs"
+import { CreationFormTs } from './CreationFormTs'
 export default class CreationForm extends CreationFormTs {}
 </script>
 <style lang="less">

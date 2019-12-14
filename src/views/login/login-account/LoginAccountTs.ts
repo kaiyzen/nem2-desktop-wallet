@@ -18,8 +18,8 @@ export default class LoginAccountTs extends Vue {
   @Provide() validator: any = this.$validator
   languageList = languageConfig
   validation = validation
-  cipher: string = ''
-  cipherHint: string = ''
+  cipher = ''
+  cipherHint = ''
   errors: any
   isShowHint = false
   hintText = ''
@@ -77,7 +77,7 @@ export default class LoginAccountTs extends Vue {
   jumpToDashBoard() {
     const {accountMap, accountPassword} = this
     const {currentAccountName, password} = this.formItems
-        // no seed
+    // no seed
     if (getObjectLength(currentAccountName) === 0 || !accountMap[currentAccountName].seed) {
       this.$store.commit('SET_TEMPORARY_PASSWORD', password)
       this.$router.push('generateMnemonic')
@@ -89,7 +89,7 @@ export default class LoginAccountTs extends Vue {
       password: accountPassword,
       networkType: accountMap[currentAccountName].networkType,
     })
-        // have wallet and seed ,init wallet
+    // have wallet and seed ,init wallet
     this.$store.commit('SET_WALLET_LIST', accountMap[currentAccountName].wallets)
     this.$store.commit('SET_WALLET', accountMap[currentAccountName].wallets[0])
     this.$router.push('monitorPanel')
@@ -101,9 +101,7 @@ export default class LoginAccountTs extends Vue {
   }
 
   submit() {
-    const {accountMap} = this
     const {currentAccountName} = this.formItems
-    const that = this
     if (this.errors.items.length > 0) {
       this.showErrorNotice(this.errors.items[0].msg)
       return
@@ -114,17 +112,17 @@ export default class LoginAccountTs extends Vue {
     }
 
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              that.jumpToDashBoard()
-              localSave('activeAccountName', currentAccountName)
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.jumpToDashBoard()
+        localSave('activeAccountName', currentAccountName)
+      })
   }
 
 
   @Watch('formItems.currentAccountName')
-    onAccountNameChange(newVal, oldVal) {
+  onAccountNameChange(newVal, oldVal) {
     if (newVal === oldVal) return
     const {currentAccountName} = this.formItems
     const {accountMap} = this

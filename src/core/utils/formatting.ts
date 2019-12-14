@@ -1,4 +1,4 @@
-import {Address, Deadline} from 'nem2-sdk'
+import {Address} from 'nem2-sdk'
 import {explorerUrlHead} from '@/config'
 import {NetworkCurrency} from '../model'
 import {getRelativeMosaicAmount} from '../utils'
@@ -21,8 +21,8 @@ export const formatExplorerUrl = transactionHash => {
 }
 
 export const absoluteAmountToRelativeAmountWithTicker = (
-    amount: number,
-    networkCurrency: NetworkCurrency,
+  amount: number,
+  networkCurrency: NetworkCurrency,
 ): string => {
   const relativeAmount = getRelativeMosaicAmount(amount, networkCurrency.divisibility)
   return `${formatNumber(relativeAmount)} ${networkCurrency.ticker}`

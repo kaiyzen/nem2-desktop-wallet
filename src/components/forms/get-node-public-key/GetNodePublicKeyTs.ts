@@ -14,15 +14,15 @@ import ErrorTooltip from '@/components/other/forms/errorTooltip/ErrorTooltip.vue
 })
 export class GetNodePublicKeyTs extends Vue {
   @Provide() validator: any = this.$validator
-  nodeUrl: string = ''
-  nodePublicKey: string = 'N/A'
+  nodeUrl = ''
+  nodePublicKey = 'N/A'
 
   async getNodePublicKey() {
     try {
       const nodeUrl = this.nodeUrl.trim()
       const urlWithoutTrailingSlash = nodeUrl[nodeUrl.length - 1] === '/'
-                ? nodeUrl.substring(0, nodeUrl.length - 1)
-                : nodeUrl
+        ? nodeUrl.substring(0, nodeUrl.length - 1)
+        : nodeUrl
       const nodeInfo = await new NodeHttp(urlWithoutTrailingSlash).getNodeInfo().toPromise()
       this.nodePublicKey = nodeInfo.publicKey
     } catch (error) {
@@ -33,10 +33,10 @@ export class GetNodePublicKeyTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.getNodePublicKey()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.getNodePublicKey()
+      })
   }
 }

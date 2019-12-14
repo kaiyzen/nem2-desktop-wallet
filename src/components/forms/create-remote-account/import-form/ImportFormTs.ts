@@ -12,9 +12,9 @@ import {validation} from '@/core/validation'
 export class ImportFormTs extends Vue {
   @Provide() validator: any = this.$validator
   activeAccount: StoreAccount
-  importAccount: boolean = false
-  password: string = ''
-  privateKey: string = ''
+  importAccount = false
+  password = ''
+  privateKey = ''
   validation = validation
 
   get wallet(): AppWallet {

@@ -20,8 +20,8 @@
 </template>
 
 <script lang="ts">
-import ImportAccountTs from "./ImportAccountTs"
-import "./ImportAccount.less"
+import ImportAccountTs from './ImportAccountTs'
+import './ImportAccount.less'
 
 export default class CreatAccount extends ImportAccountTs {
 }

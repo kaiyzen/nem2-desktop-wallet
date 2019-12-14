@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { TransactionDetailsTs } from '@/components/transaction-details/TransactionDetailsTs.ts'
-import "./TransactionDetails.less"
+import './TransactionDetails.less'
 
 export default class TransactionDetails extends TransactionDetailsTs {}
 </script>

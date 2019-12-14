@@ -18,7 +18,7 @@ import MosaicSupplyChange from '@/components/forms/mosaic-supply-change/MosaicSu
 export class MosaicListTs extends Vue {
   activeAccount: StoreAccount
   app: AppInfo
-  currentPage: number = 1
+  currentPage = 1
   pageSize: number = networkConfig.namespaceListSize
   showCheckPWDialog = false
   showMosaicEditDialog = false
@@ -29,8 +29,8 @@ export class MosaicListTs extends Vue {
   isShowExpiredMosaic = false
   sortDirection = true
   mosaicRefreshTimestamp = new Date().valueOf()
-  showAliasDialog: boolean = false
-  bind: boolean = false
+  showAliasDialog = false
+  bind = false
   namespace: AppNamespace = null
   mosaic: string = null
   address: string = null
@@ -113,7 +113,7 @@ export class MosaicListTs extends Vue {
   toggleIsShowExpiredMosaic() {
     const {isShowExpiredMosaic, currentHeight} = this
     const list = Object.values(this.mosaics)
-    this.currentMosaicList = list.filter((item: any) =>  {
+    this.currentMosaicList = list.filter((item: any) => {
       return isShowExpiredMosaic
                 || item.expirationHeight === MosaicNamespaceStatusType.FOREVER
                 || item.expirationHeight > currentHeight
@@ -144,9 +144,9 @@ export class MosaicListTs extends Vue {
     }
   }
 
-    // @TODO: Watch and mounted should not be necessary
+  // @TODO: Watch and mounted should not be necessary
   @Watch('mosaics', {deep: true})
-    onMosaicChange() {
+  onMosaicChange() {
     this.intiMosaics()
   }
 

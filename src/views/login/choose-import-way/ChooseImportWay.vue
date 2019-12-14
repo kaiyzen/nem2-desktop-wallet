@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import WelcomeTs from "./ChooseImportWayTs"
+import WelcomeTs from './ChooseImportWayTs'
 
 export default class Welcome extends WelcomeTs {
 

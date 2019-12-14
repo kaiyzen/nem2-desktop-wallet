@@ -86,9 +86,9 @@
 </template>
 
 <script lang="ts">
-import "./WalletHarvesting.less"
+import './WalletHarvesting.less'
 // @ts-ignore
-import { WalletHarvestingTs } from "@/views/wallet/wallet-details/wallet-function/wallet-harvesting/WalletHarvestingTs.ts"
+import { WalletHarvestingTs } from '@/views/wallet/wallet-details/wallet-function/wallet-harvesting/WalletHarvestingTs.ts'
 
 export default class WalletHarvesting extends WalletHarvestingTs {}
 </script>

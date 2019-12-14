@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import ShowMnemonicTs from "./ShowMnemonicTs"
+import ShowMnemonicTs from './ShowMnemonicTs'
 
 export default class ShowMnemonic extends ShowMnemonicTs {
 }

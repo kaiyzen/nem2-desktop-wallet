@@ -1,7 +1,7 @@
 import {mapState} from 'vuex'
 import {
-    Address, PublicAccount, MultisigAccountInfo, NetworkType,
-    NamespaceRegistrationTransaction, Deadline, UInt64,
+  Address, PublicAccount, MultisigAccountInfo, NetworkType,
+  NamespaceRegistrationTransaction, Deadline, UInt64,
 } from 'nem2-sdk'
 import {Component, Vue, Provide} from 'vue-property-decorator'
 import {networkConfig, formDataConfig, DEFAULT_FEES, FEE_GROUPS} from '@/config'
@@ -47,8 +47,8 @@ export class CreateSubNamespaceTs extends Vue {
   get activeMultisigAddress(): string {
     const {activeMultisigAccount} = this.activeAccount
     return activeMultisigAccount
-            ? Address.createFromPublicKey(activeMultisigAccount, this.wallet.networkType).plain()
-            : null
+      ? Address.createFromPublicKey(activeMultisigAccount, this.wallet.networkType).plain()
+      : null
   }
 
   get announceInLock(): boolean {
@@ -98,12 +98,12 @@ export class CreateSubNamespaceTs extends Vue {
     const {namespaces} = this.activeAccount
     if (!namespaces) return []
 
-        // @TODO: refactor and make it an AppNamespace method
+    // @TODO: refactor and make it an AppNamespace method
     return namespaces
-            .filter(namespace => namespace.alias)
-            .filter(({endHeight, levels}) => (levels < networkConfig.maxNamespaceDepth
+      .filter(namespace => namespace.alias)
+      .filter(({endHeight, levels}) => (levels < networkConfig.maxNamespaceDepth
                 && endHeight - currentHeight + namespaceGracePeriodDuration > 0))
-            .map(alias => ({label: alias.name, value: alias.name}))
+      .map(alias => ({label: alias.name, value: alias.name}))
   }
 
   get multisigNamespaceList(): Array<{ label: string, value: string }> {
@@ -112,17 +112,17 @@ export class CreateSubNamespaceTs extends Vue {
     const namespaces: AppNamespace[] = this.activeAccount.multisigAccountsNamespaces[activeMultisigAddress]
     if (!namespaces) return []
 
-        // @TODO: refactor and make it an AppNamespace method
+    // @TODO: refactor and make it an AppNamespace method
     return namespaces
-            .filter(namespace => namespace.alias)
-            .filter(({endHeight, levels}) => (levels < networkConfig.maxNamespaceDepth
+      .filter(namespace => namespace.alias)
+      .filter(({endHeight, levels}) => (levels < networkConfig.maxNamespaceDepth
                 && endHeight - currentHeight + namespaceGracePeriodDuration > 0))
-            .map(alias => ({label: alias.name, value: alias.name}))
+      .map(alias => ({label: alias.name, value: alias.name}))
   }
 
   get activeNamespaceList(): Array<{ label: string, value: string }> {
     const {activeMultisigAddress} = this
-        // @TODO handle namespace list loading state
+    // @TODO handle namespace list loading state
     return activeMultisigAddress ? this.multisigNamespaceList : this.namespaceList
   }
 
@@ -152,20 +152,20 @@ export class CreateSubNamespaceTs extends Vue {
 
     if (this.announceInLock) {
       this.transactionList = [createBondedMultisigTransaction(
-                [rootNamespaceTransaction],
-                multisigPublicKey,
-                networkType,
-                feeAmount / feeDivider,
-            )]
+        [rootNamespaceTransaction],
+        multisigPublicKey,
+        networkType,
+        feeAmount / feeDivider,
+      )]
       return
     }
 
     this.transactionList = [createCompleteMultisigTransaction(
-            [rootNamespaceTransaction],
-            multisigPublicKey,
-            networkType,
-            feeAmount / feeDivider,
-        )]
+      [rootNamespaceTransaction],
+      multisigPublicKey,
+      networkType,
+      feeAmount / feeDivider,
+    )]
   }
 
   createSubNamespace() {
@@ -174,12 +174,12 @@ export class CreateSubNamespaceTs extends Vue {
     const {networkType} = this.wallet
 
     return NamespaceRegistrationTransaction.createSubNamespace(
-            Deadline.create(),
-            subNamespaceName,
-            rootNamespaceName,
-            networkType,
-            UInt64.fromUint(feeAmount / feeDivider),
-        )
+      Deadline.create(),
+      subNamespaceName,
+      rootNamespaceName,
+      networkType,
+      UInt64.fromUint(feeAmount / feeDivider),
+    )
   }
 
   createBySelf() {
@@ -188,11 +188,11 @@ export class CreateSubNamespaceTs extends Vue {
   }
 
   confirmViaTransactionConfirmation() {
-    if (this.activeMultisigAccount) {
-      this.createByMultisig()
-    } else {
-      this.createBySelf()
-    }
+    if (this.activeMultisigAccount) 
+    {this.createByMultisig()}
+    else 
+    {this.createBySelf()}
+    
 
     try {
       signAndAnnounce({
@@ -206,11 +206,11 @@ export class CreateSubNamespaceTs extends Vue {
 
   async submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.confirmViaTransactionConfirmation()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.confirmViaTransactionConfirmation()
+      })
   }
 
   resetFields() {

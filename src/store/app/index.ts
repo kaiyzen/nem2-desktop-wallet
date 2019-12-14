@@ -1,17 +1,17 @@
 // tslint:disable:no-shadowed-variable
 import {
-    AppInfo,
-    ChainStatus,
-    LockParams,
-    StagedTransaction,
-    Log,
-    LoadingOverlayObject,
+  AppInfo,
+  ChainStatus,
+  LockParams,
+  StagedTransaction,
+  Log,
+  LoadingOverlayObject,
 } from '@/core/model'
 import {localRead} from '@/core/utils'
 import {MutationTree} from 'vuex'
 
 const state: AppInfo = {
-  timeZone: new Date().getTimezoneOffset() / 60,   // current time zone
+  timeZone: new Date().getTimezoneOffset() / 60, // current time zone
   locale: 'en-US',
   walletList: [],
   isNodeHealthy: true,
@@ -72,7 +72,7 @@ const mutations: MutationTree<AppInfo> = {
     state.chainStatus = chainStatus
   },
   SET_CHAIN_HEIGHT(state: AppInfo, chainHeight: number) {
-        // @TODO: deprecate in favour of SET_CHAIN_STATUS
+    // @TODO: deprecate in favour of SET_CHAIN_STATUS
     state.chainStatus.currentHeight = chainHeight || 0
   },
   SET_NAMESPACE_LOADING(state: AppInfo, namespaceLoading: boolean) {
@@ -104,7 +104,7 @@ const mutations: MutationTree<AppInfo> = {
   REMOVE_TEMPORARY_INFO(state: AppInfo) {
     delete state.loadingOverlay.temporaryInfo
   },
-  TRIGGER_NOTICE(state: AppInfo, message: string) {/* Subscribed in App.vue */},
+  TRIGGER_NOTICE() {/* Subscribed in App.vue */},
   SET_NODE_LOADING(state: AppInfo, nodeLoading: boolean) {
     state.nodeLoading = nodeLoading
   },

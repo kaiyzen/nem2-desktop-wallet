@@ -55,23 +55,23 @@ export class WalletCreatedTs extends Vue {
     const wordSpan = document.createElement('span')
     wordSpan.innerText = word
     wordSpan.onclick = () => {
-            // @ts-ignore
+      // @ts-ignore
       this.$refs.mnemonicWordDiv.removeChild(wordSpan)
     }
     const inputArray = this
-            // @ts-ignore
-            .$refs.mnemonicWordDiv.innerText
-            .replace(' ', '')
-            .split('\n')
+    // @ts-ignore
+      .$refs.mnemonicWordDiv.innerText
+      .replace(' ', '')
+      .split('\n')
 
     const wordInInputArray = inputArray.find(x => x === word)
-        // @ts-ignore
+    // @ts-ignore
     if (wordInInputArray === undefined) this.$refs.mnemonicWordDiv.append(wordSpan)
   }
 
   checkMnemonic() {
     const mnemonicDiv = this.$refs.mnemonicWordDiv
-        // @ts-ignore
+    // @ts-ignore
     const mnemonicDivChild = mnemonicDiv.getElementsByTagName('span')
     const childWord = []
     for (const i in mnemonicDivChild) {
@@ -79,11 +79,11 @@ export class WalletCreatedTs extends Vue {
       childWord.push(mnemonicDivChild[i].innerText)
     }
     if (JSON.stringify(childWord) !== JSON.stringify(this.mnemonic)) {
-      if (childWord.length < 1) {
-        this.$Notice.warning({title: `${this.$t(Message.PLEASE_ENTER_MNEMONIC_INFO)}`})
-      } else {
-        this.$Notice.warning({title: `${this.$t(Message.MNEMONIC_INCONSISTENCY_ERROR)}`})
-      }
+      if (childWord.length < 1) 
+      {this.$Notice.warning({title: `${this.$t(Message.PLEASE_ENTER_MNEMONIC_INFO)}`})}
+      else 
+      {this.$Notice.warning({title: `${this.$t(Message.MNEMONIC_INCONSISTENCY_ERROR)}`})}
+      
       return false
     }
     return true
@@ -99,9 +99,9 @@ export class WalletCreatedTs extends Vue {
       this.tags = index
       break
     case 2:
-      if (!this.checkMnemonic()) {
-        return
-      }
+      if (!this.checkMnemonic()) 
+      {return}
+      
       this.createFromMnemonic()
       this.tags = index
       break
@@ -116,12 +116,12 @@ export class WalletCreatedTs extends Vue {
   createFromMnemonic() {
     try {
       new AppWallet().createFromMnemonic(
-              this.formInfo.walletName,
-              new Password(this.formInfo.password),
-              this.mnemonic.join(' '),
-              this.formInfo.networkType,
-              this.$store,
-          )
+        this.formInfo.walletName,
+        new Password(this.formInfo.password),
+        this.mnemonic.join(' '),
+        this.formInfo.networkType,
+        this.$store,
+      )
     } catch (error) {
       throw new Error(error)
     }

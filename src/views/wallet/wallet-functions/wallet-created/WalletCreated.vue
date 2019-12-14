@@ -117,7 +117,7 @@
 
 <script lang="ts">
 import '@/views/wallet/wallet-functions/wallet-created/WalletCreated.less'
-//@ts-ignore
+// @ts-ignore
 import {WalletCreatedTs} from '@/views/wallet/wallet-functions/wallet-created/WalletCreatedTs.ts'
 
 export default class WalletCreated extends WalletCreatedTs {

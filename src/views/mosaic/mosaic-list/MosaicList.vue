@@ -222,7 +222,7 @@
 
 <script lang="ts">
 import {MosaicListTs} from '@/views/mosaic/mosaic-list/MosaicListTs.ts'
-import "./MosaicList.less"
+import './MosaicList.less'
 
 export default class MosaicList extends MosaicListTs {
 

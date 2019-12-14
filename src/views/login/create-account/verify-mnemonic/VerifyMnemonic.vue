@@ -27,8 +27,8 @@
 </template>
 
 <script lang="ts">
-import VerifyMnemonicTs from "./VerifyMnemonicTs"
-import "./VerifyMnemonic.less"
+import VerifyMnemonicTs from './VerifyMnemonicTs'
+import './VerifyMnemonic.less'
 
 export default class VerifyMnemonic extends VerifyMnemonicTs {
 }

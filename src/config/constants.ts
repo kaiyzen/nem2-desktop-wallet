@@ -1,9 +1,8 @@
 import {TransactionType, NetworkType} from 'nem2-sdk'
 import {DefaultFee, NetworkCurrency} from '@/core/model'
-import {isWin32} from './packge'
 
 export const WALLET_VERSION = '0.8.8-beta'
-export const isWindows = isWin32
+export const isWindows = false
 export const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 export const apiServerConfig = {
@@ -60,19 +59,19 @@ export const MULTISIG_INFO: Record<string, string> = {
 }
 export const DEFAULT_FEES: Record<string, DefaultFee[]> = {
   [FEE_GROUPS.SINGLE]: [
-        {speed: FEE_SPEEDS.SLOW, value: 0.05},
-        {speed: FEE_SPEEDS.NORMAL, value: 0.1},
-        {speed: FEE_SPEEDS.FAST, value: 1},
+    {speed: FEE_SPEEDS.SLOW, value: 0.05},
+    {speed: FEE_SPEEDS.NORMAL, value: 0.1},
+    {speed: FEE_SPEEDS.FAST, value: 1},
   ],
   [FEE_GROUPS.DOUBLE]: [
-        {speed: FEE_SPEEDS.SLOW, value: 0.1},
-        {speed: FEE_SPEEDS.NORMAL, value: 0.2},
-        {speed: FEE_SPEEDS.FAST, value: 2},
+    {speed: FEE_SPEEDS.SLOW, value: 0.1},
+    {speed: FEE_SPEEDS.NORMAL, value: 0.2},
+    {speed: FEE_SPEEDS.FAST, value: 2},
   ],
   [FEE_GROUPS.TRIPLE]: [
-        {speed: FEE_SPEEDS.SLOW, value: 0.3},
-        {speed: FEE_SPEEDS.NORMAL, value: 0.9},
-        {speed: FEE_SPEEDS.FAST, value: 3},
+    {speed: FEE_SPEEDS.SLOW, value: 0.3},
+    {speed: FEE_SPEEDS.NORMAL, value: 0.9},
+    {speed: FEE_SPEEDS.FAST, value: 3},
   ],
 }
 
@@ -84,7 +83,7 @@ const defaultNetworkMosaic: NetworkCurrency = {
 }
 
 export const defaultNetworkConfig = {
-  gas2xemRate: 20000,   //  1xem=20000gas
+  gas2xemRate: 20000, //  1xem=20000gas
   networkConfirmations: 10,
   defaultNetworkMosaic,
   DEFAULT_LOCK_AMOUNT: 10000000,
@@ -139,7 +138,7 @@ export const networkConfig = {
   maxAccountRestrictionValues: 512,
   maxMosaicRestrictionValues: 20,
   maxMessageSize: 1024,
-    // @TODO: separate network config from app configs
+  // @TODO: separate network config from app configs
   namespaceListSize: 9,
   seedWalletMaxAmount: 10,
   testMnemonicString: 'this is a test string his is a test string this is',
@@ -153,7 +152,7 @@ export const NETWORK_CONSTANTS = {
   MAX_MESSAGE_LENGTH: networkConfig.maxMessageSize - 1,
   MAX_MOSAIC_DURATION: networkConfig.maxMosaicDuration * 24 * 60 * 60 / networkConfig.targetBlockTime,
   MAX_NAMESPACE_DURATION: networkConfig.maxNamespaceDuration * 24 * 60 * 60 / networkConfig.targetBlockTime,
-    // todo not sure about max value = 2101400 in validator
+  // todo not sure about max value = 2101400 in validator
   MIN_NAMESPACE_DURATION: 30 * 24 * 60 * 60 / networkConfig.targetBlockTime,
   PRIVATE_KEY_LENGTH: 64,
   NEMESIS_BLOCK_TIMESTAMP: 1459468800,

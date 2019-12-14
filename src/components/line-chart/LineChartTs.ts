@@ -38,12 +38,12 @@ export class LineChartTs extends Vue {
         let currentXemParam: any = {}
         let currentBtcParam: any = {}
         params.forEach((item: any) => {
-          if (item.seriesName === 'xem') {
-            currentXemParam = item
-          }
-          if (item.seriesName === 'btc') {
-            currentBtcParam = item
-          }
+          if (item.seriesName === 'xem') 
+          {currentXemParam = item}
+          
+          if (item.seriesName === 'btc') 
+          {currentBtcParam = item}
+          
         })
 
         const xemDataIndex = currentXemParam.dataIndex
@@ -107,8 +107,8 @@ export class LineChartTs extends Vue {
           interval: 6,
           formatter(timestamp) {
             let date: any = new Date(Number(timestamp))
-                        // tslint:disable-next-line:prefer-template
-            date = (date.getMonth() + 1) + '-' + (date.getDate())
+            // tslint:disable-next-line:prefer-template
+            date = `${date.getMonth() + 1 }-${ date.getDate()}`
             return date
           },
         },
@@ -127,8 +127,8 @@ export class LineChartTs extends Vue {
           interval: 6,
           formatter(timestamp) {
             let date: any = new Date(Number(timestamp))
-                        // tslint:disable-next-line:prefer-template
-            date = (date.getMonth() + 1) + '-' + (date.getDate())
+            // tslint:disable-next-line:prefer-template
+            date = `${date.getMonth() + 1 }-${ date.getDate()}`
             return date
           },
         },
@@ -184,7 +184,7 @@ export class LineChartTs extends Vue {
     },
 
     series: [
-            // xem
+      // xem
       {
         xAxisIndex: 0,
         yAxisIndex: 0,
@@ -193,7 +193,7 @@ export class LineChartTs extends Vue {
         type: 'line',
         symbol: 'circle',
         smooth: true,
-        symbolSize(parmas) {
+        symbolSize() {
           return 7
         },
         showSymbol: false,
@@ -213,7 +213,7 @@ export class LineChartTs extends Vue {
           data: [],
         },
       },
-            // btc
+      // btc
       {
         animation: true,
         animationEasing: 'linear',
@@ -224,14 +224,14 @@ export class LineChartTs extends Vue {
         data: [],
         type: 'line',
         symbol: 'circle',
-                // smooth: true,
-        symbolSize(parmas) {
+        // smooth: true,
+        symbolSize() {
           return 7
         },
         showSymbol: false,
         itemStyle: {
           normal: {
-                        // color: 'transparent',
+            // color: 'transparent',
             color: '#f7a800',
             lineStyle: {
               color: '#f7a800',
@@ -272,9 +272,9 @@ export class LineChartTs extends Vue {
     const {xemDataList} = this
     const xAxisData = []
 
-    if (xemDataList.length === 0) {
-      return
-    }
+    if (xemDataList.length === 0) 
+    {return}
+    
     this.spinShow = false
     xemDataList.sort((a, b) => {
       return a.open > b.open ? 1 : -1
@@ -289,7 +289,6 @@ export class LineChartTs extends Vue {
 
     const amountList = []
     const xemData = xemDataList.map(item => {
-      const i: any = {}
       xAxisData.push(item.id * 1000)
       amountList.push(item.amount)
       return item.open
@@ -314,15 +313,14 @@ export class LineChartTs extends Vue {
     const {btcDataList, xemMin} = this
     const xAxisData = []
 
-    if (btcDataList.length === 0) {
-      return
-    }
+    if (btcDataList.length === 0) 
+    {return}
+    
     this.spinShow = false
     btcDataList.sort((a, b) => {
       return a.open > b.open ? 1 : -1
     })
     const low = btcDataList[0].open
-    const open = btcDataList[btcDataList.length - 1].open
 
     btcDataList.sort((a, b) => {
       return a.id > b.id ? 1 : -1
@@ -331,7 +329,6 @@ export class LineChartTs extends Vue {
     const rate: any = low / xemMin
     this.option.rate = rate
     const btcData = btcDataList.map(item => {
-      const i: any = {}
       xAxisData.push(item.id * 1000)
       item.open = item.open / rate.toFixed(0)
       return item.open
@@ -343,24 +340,23 @@ export class LineChartTs extends Vue {
   }
 
   async setCharData(coin: string, period: string, size: string) {
-    const that = this
     const rstStr = await market.kline({period, symbol: `${coin}usdt`, size})
     const rstQuery: KlineQuery = JSON.parse(rstStr.rst)
     const dataList = []
     rstQuery.data.forEach((item, index) => {
-            // tslint:disable-next-line:no-unused-expression
+      // tslint:disable-next-line:no-unused-expression
       index % 4 === 0 ? dataList.push(item) : dataList
     })
     const marketPriceDataObject = localRead('marketPriceDataObject') !== '' ? JSON.parse(localRead('marketPriceDataObject')) : {}
     marketPriceDataObject.timestamp = new Date().getTime()
     if (coin === 'xem') {
-      that.xemDataList = dataList
+      this.xemDataList = dataList
       marketPriceDataObject.xem = {
         dataList,
       }
     }
     if (coin === 'btc') {
-      that.btcDataList = dataList
+      this.btcDataList = dataList
       marketPriceDataObject.btc = {
         dataList,
       }
@@ -385,10 +381,6 @@ export class LineChartTs extends Vue {
         this.xemDataList = []
         return
       }
-
-      const parsed = JSON.parse(fromStorage)
-      const btcDataList = parsed.btc && parsed.btc.dataList ? parsed.btc.dataList : []
-      const xemDataList = parsed.xem && parsed.xem.dataList ? parsed.xem.dataList : []
     } catch (error) {
       this.btcDataList = []
       this.xemDataList = []
@@ -396,20 +388,20 @@ export class LineChartTs extends Vue {
   }
 
   async refreshData() {
-    if (isRefreshData('marketPriceDataObject', 1000 * 60 * 60, new Date().getMinutes())) {
-      try {
-        await this.getChartData()
-        this.setData()
-      } catch (error) {
-        this.baseTimeout = this.baseTimeout * 2
+    if (isRefreshData('marketPriceDataObject', 1000 * 60 * 60, new Date().getMinutes())) 
+    {try {
+      await this.getChartData()
+      this.setData()
+    } catch (error) {
+      this.baseTimeout = this.baseTimeout * 2
 
-        setTimeout(() => {
-          this.refreshData()
-        }, this.timeoutFactor * this.baseTimeout)
+      setTimeout(() => {
+        this.refreshData()
+      }, this.timeoutFactor * this.baseTimeout)
 
-        console.error('refreshData -> error', error)
-      }
-    }
+      console.error('refreshData -> error', error)
+    }}
+    
   }
 
   mouseoutLine() {
@@ -422,7 +414,6 @@ export class LineChartTs extends Vue {
       })
     } catch (e) {
       return
-
     }
   }
 

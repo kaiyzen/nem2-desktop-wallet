@@ -50,9 +50,7 @@ export class InformationTs extends Vue {
   }
 
   passwordValidated(flag) {
-    if (flag) {
-      this.sendComment()
-    }
+    if (flag) this.sendComment()
     this.close()
   }
 
@@ -98,7 +96,6 @@ export class InformationTs extends Vue {
     }
     this.showCheckPWDialog = true
     const comment = this.commentContent
-    const cid = this.currentArticle.cid
     const {address, nickName} = this
     this.transactionDetail = {
       comment,
@@ -108,7 +105,6 @@ export class InformationTs extends Vue {
   }
 
   async sendComment() {
-    const that = this
     const comment = this.commentContent
     const cid = this.currentArticle.cid
     const {address, nickName} = this
@@ -122,7 +118,7 @@ export class InformationTs extends Vue {
         gtmCreate: gtmCreate.toDateString(),
       })
     } catch (e) {
-      that.$Notice.error({title: `${that.$t(Message.OPERATION_FAILED_ERROR)}`})
+      this.$Notice.error({title: `${this.$t(Message.OPERATION_FAILED_ERROR)}`})
     }
     this.onCurrentArticleChange()
   }
@@ -142,32 +138,30 @@ export class InformationTs extends Vue {
   }
 
   automaticLoadingArticle() {
-        // @ts-ignore
+    // @ts-ignore
     const allHeight = this.$refs.listContainer.scrollHeight
-        // @ts-ignore
+    // @ts-ignore
     const scrollHeight = this.$refs.listContainer.offsetHeight + this.$refs.listContainer.scrollTop
-    if (allHeight <= scrollHeight) {
-      this.getArticleByPage()
-    }
+    if (allHeight <= scrollHeight) 
+    {this.getArticleByPage()}
+    
   }
 
   automaticLoadingComment() {
-        // @ts-ignore
+    // @ts-ignore
     const allHeight = this.$refs.articleContainer.scrollHeight
-        // @ts-ignore
+    // @ts-ignore
     const scrollHeight = this.$refs.articleContainer.offsetHeight + this.$refs.articleContainer.scrollTop
-    if (allHeight <= scrollHeight) {
-      this.getCommentByPage()
-    }
+    if (allHeight <= scrollHeight) 
+    {this.getCommentByPage()}
+    
   }
 
 
   async getArticleByPage() {
-    if (this.loadAllData) {
-      return
-    }
+    if (this.loadAllData) return
+    
     const languageNumber = this.switchLanguage()
-    const that = this
     const {startPage} = this
     const rstStr = await blog.list({
       offset: startPage.toString(),
@@ -176,34 +170,32 @@ export class InformationTs extends Vue {
     })
     const rstQuery = JSON.parse(rstStr.rst)
 
-    const articleList = that.articleList.concat(rstQuery.rows)
+    const articleList = this.articleList.concat(rstQuery.rows)
     articleList.map(item => {
       item.summary = item.title
       return item
     })
-    that.articleList = articleList
-    if (rstQuery.total <= that.articleList.length) {
-      that.loadAllData = true
-    }
+    this.articleList = articleList
+    if (rstQuery.total <= this.articleList.length) 
+    {this.loadAllData = true}
+    
     this.isLoadingConfirmedTx = false
     this.addArticleStartIndex()
     this.articleList[0].isSelect = true
   }
 
   async getCommentByPage() {
-    if (this.loadAllCommentData) {
-      return
-    }
-    const that = this
+    if (this.loadAllCommentData) return
+    
     const cid = this.currentArticle.cid
     const offset = this.commentStartPage
     const rstStr = await blog.commentList({cid, limit: '10', offset: offset.toString()})
     const rstQuery = JSON.parse(rstStr.rst)
-    that.commentList.push(...rstQuery.rows)
-    that.totalComment = rstQuery.total
-    if (rstQuery.total <= that.commentList.length) {
-      that.loadAllCommentData = true
-    }
+    this.commentList.push(...rstQuery.rows)
+    this.totalComment = rstQuery.total
+    if (rstQuery.total <= this.commentList.length) 
+    {this.loadAllCommentData = true}
+    
     this.addCommentStartIndex()
   }
 
@@ -215,17 +207,17 @@ export class InformationTs extends Vue {
   }
 
   @Watch('currentArticle')
-    onCurrentArticleChange() {
+  onCurrentArticleChange() {
     this.resetComment()
     this.getCommentByPage()
   }
 
   @Watch('commentContent')
-    onCommentContent(after, before) {
+  onCommentContent(after, before) {
     this.remainingWords = 300 - this.commentContent.length
-    if (this.commentContent.length > 300) {
-      this.commentContent = before
-    }
+    if (this.commentContent.length > 300) 
+    {this.commentContent = before}
+    
   }
 
   async mounted() {

@@ -47,11 +47,11 @@ export class WalletImportKeystoreTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.showCheckPWDialog = true
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.showCheckPWDialog = true
+      })
   }
 
   importWallet(password) {
@@ -59,13 +59,13 @@ export class WalletImportKeystoreTs extends Vue {
     const {keystorePassword, keystoreStr} = this.formItem
     try {
       new AppWallet().createFromKeystore(
-                this.formItem.walletName,
-                new Password(password),
-                new Password(keystorePassword),
-                keystoreStr,
-                accountNetworkType,
-                this.$store,
-            )
+        this.formItem.walletName,
+        new Password(password),
+        new Password(keystorePassword),
+        keystoreStr,
+        accountNetworkType,
+        this.$store,
+      )
       this.toWalletDetails()
     } catch (error) {
       console.error(error)

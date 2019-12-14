@@ -6,11 +6,10 @@ import {Store} from 'vuex'
 
 export class FormattedMosaicMetadataTransaction extends FormattedTransaction {
 
-  constructor(    tx: Transaction,
+  constructor( tx: Transaction,
     store: Store<AppState>) {
     super(tx, store)
     const {networkCurrency} = store.state.account
-    const {divisibility, ticker} = networkCurrency
 
     this.dialogDetailMap = {
       self: tx.signer ? tx.signer.address.pretty() : store.state.account.wallet.address,

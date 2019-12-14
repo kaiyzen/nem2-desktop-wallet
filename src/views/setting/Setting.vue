@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-//@ts-ignore
+// @ts-ignore
 import {SettingTs} from '@/views/setting/SettingTs.ts'
 
 export default class Setting extends SettingTs {

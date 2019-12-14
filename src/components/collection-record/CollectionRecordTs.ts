@@ -2,8 +2,8 @@ import {TransactionType} from 'nem2-sdk'
 import {mapState} from 'vuex'
 import {Component, Prop, Vue, Watch} from 'vue-property-decorator'
 import {
-    getCurrentMonthFirst, getCurrentMonthLast, formatNumber,
-    renderMosaicNames, renderMosaicAmount,
+  getCurrentMonthFirst, getCurrentMonthLast, formatNumber,
+  renderMosaicNames, renderMosaicAmount,
 } from '@/core/utils'
 import TransactionModal from '@/components/transaction-modal/TransactionModal.vue'
 import {TransferType} from '@/core/model/TransferType'
@@ -23,8 +23,8 @@ export class CollectionRecordTs extends Vue {
   transferType = TransferType
   renderMosaicNames = renderMosaicNames
   renderMosaicAmount = renderMosaicAmount
-  formatNumber = formatNumber  // @TODO: move to formatTransactions
-  showDialog: boolean = false
+  formatNumber = formatNumber // @TODO: move to formatTransactions
+  showDialog = false
   activeTransaction: FormattedTransaction = null
 
   @Prop({
@@ -55,15 +55,15 @@ export class CollectionRecordTs extends Vue {
     const {currentMonthFirst, currentMonthLast, transferTransactionList} = this
 
     const filteredByDate = [...transferTransactionList]
-            .filter(item => (item.isTxConfirmed
+      .filter(item => (item.isTxConfirmed
                 && item.txHeader.date.getTime() <= currentMonthLast.getTime()
                 && item.txHeader.date.getTime() >= currentMonthFirst.getTime()))
 
     if (!filteredByDate.length) return []
 
     return this.transactionType === TransferType.SENT
-            ? filteredByDate.filter(({txHeader}) => txHeader.tag === 'payment')
-            : filteredByDate.filter(({txHeader}) => txHeader.tag !== 'payment')
+      ? filteredByDate.filter(({txHeader}) => txHeader.tag === 'payment')
+      : filteredByDate.filter(({txHeader}) => txHeader.tag !== 'payment')
   }
 
   get mosaicList() {
@@ -91,7 +91,7 @@ export class CollectionRecordTs extends Vue {
   }
 
   @Watch('wallet.address')
-    onGetWalletChange() {
+  onGetWalletChange() {
     this.chosenDate = new Date()
   }
 }

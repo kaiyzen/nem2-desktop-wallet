@@ -13,9 +13,9 @@ export class DisabledUiOverlayTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get message() {

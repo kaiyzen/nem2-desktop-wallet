@@ -62,8 +62,8 @@
 </template>
 
 <script lang="ts">
-import {CreateAccountInfoTs} from "./CreateAccountInfoTs"
-import "./CreateAccountInfo.less"
+import {CreateAccountInfoTs} from './CreateAccountInfoTs'
+import './CreateAccountInfo.less'
 
 export default class CreateAccount extends CreateAccountInfoTs {
 }

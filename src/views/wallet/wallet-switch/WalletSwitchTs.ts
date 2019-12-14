@@ -92,12 +92,12 @@ export class WalletSwitchTs extends Vue {
     if (!numberOfSeedPath) return 0
 
     const jumpedPath = seedPathList
-            .map(a => Number(a))
-            .sort()
-            .map((element, index) => {
-                if (element !== index) return index
-            })
-            .filter(x => x !== undefined)
+      .map(a => Number(a))
+      .sort()
+      .map((element, index) => {
+        if (element !== index) return index
+      })
+      .filter(x => x !== undefined)
 
     return jumpedPath.length ? jumpedPath[0] : numberOfSeedPath
   }
@@ -105,9 +105,9 @@ export class WalletSwitchTs extends Vue {
   toCreate() {
     const {currentAccount} = this
     const walletList = JSON.parse(localRead('accountMap'))[currentAccount.name].wallets
-        // get sorted path list
+    // get sorted path list
     const seedPathList = walletList.filter(item => item.path).map(item => item.path[item.path.length - 8]).sort()
-        // check if seed wallets >= 10
+    // check if seed wallets >= 10
     if (seedPathList.length >= networkConfig.seedWalletMaxAmount) {
       this.showErrorDialog(Message.SEED_WALLET_OVERFLOW_ERROR)
       return
@@ -123,22 +123,22 @@ export class WalletSwitchTs extends Vue {
     const networkType = currentAccount.networkType
     try {
       new AppWallet().createFromPath(
-                seedWalletTitle + pathToCreate,
-                new Password(password),
-                pathToCreate,
-                networkType,
-                this.$store,
-            )
+        seedWalletTitle + pathToCreate,
+        new Password(password),
+        pathToCreate,
+        networkType,
+        this.$store,
+      )
     } catch (error) {
       throw new Error(error)
     }
   }
 
   scrollToActiveWallet() {
-        // scroll to current wallet
+    // scroll to current wallet
     const currentWalletIndex = this.walletList
-            .findIndex(({address}) => address === this.activeAddress)
-        // @ts-ignore
+      .findIndex(({address}) => address === this.activeAddress)
+    // @ts-ignore
     this.$refs.walletScroll.scrollTop = this.$refs.walletsDiv[currentWalletIndex].offsetTop - 180
   }
 
@@ -147,7 +147,7 @@ export class WalletSwitchTs extends Vue {
   }
 
   @Watch('activeAddress')
-    onWalletChange() {
+  onWalletChange() {
     this.scrollToActiveWallet()
   }
 }

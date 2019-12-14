@@ -1,4 +1,4 @@
-import {Transaction, TransferTransaction, Address, TransactionType, InnerTransaction} from 'nem2-sdk'
+import {Transaction, TransferTransaction, Address, TransactionType} from 'nem2-sdk'
 import {transactionTag} from '@/config'
 import {getRelativeMosaicAmount} from '@/core/utils'
 import {transferIcons, transactionTypeToIcon} from '@/common/img/monitor/icons'
@@ -71,9 +71,9 @@ export class TransactionHeader {
   }
 
   getIcon(tx: Transaction) {
-    if (tx.type === TransactionType.TRANSFER) {
-      return this.isReceipt ? transferIcons.transferReceived : transferIcons.transferSent
-    }
+    if (tx.type === TransactionType.TRANSFER) 
+    {return this.isReceipt ? transferIcons.transferReceived : transferIcons.transferSent}
+    
 
     return transactionTypeToIcon[tx.type]
   }

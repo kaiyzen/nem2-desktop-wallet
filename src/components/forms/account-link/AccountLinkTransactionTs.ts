@@ -30,9 +30,9 @@ export class AccountLinkTransactionTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get wallet() {
@@ -74,12 +74,12 @@ export class AccountLinkTransactionTs extends Vue {
     const {feeAmount, remotePublicKey, wallet} = this
 
     return AccountLinkTransaction.create(
-            Deadline.create(),
-            remotePublicKey,
-            wallet.isLinked() ? LinkAction.Unlink : LinkAction.Link,
-            this.wallet.networkType,
-            UInt64.fromUint(feeAmount),
-        )
+      Deadline.create(),
+      remotePublicKey,
+      wallet.isLinked() ? LinkAction.Unlink : LinkAction.Link,
+      this.wallet.networkType,
+      UInt64.fromUint(feeAmount),
+    )
   }
 
   signTransaction() {
@@ -96,10 +96,10 @@ export class AccountLinkTransactionTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.signTransaction()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.signTransaction()
+      })
   }
 }

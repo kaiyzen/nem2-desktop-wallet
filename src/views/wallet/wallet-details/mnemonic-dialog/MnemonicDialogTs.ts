@@ -24,12 +24,12 @@ import ErrorTooltip from '@/components/other/forms/errorTooltip/ErrorTooltip.vue
   },
   subscriptions() {
     const qrCode$ = this
-            .$watchAsObservable('qrCodeArgs', {immediate: true})
-            .pipe(pluck('newValue'),
-                concatMap(args => {
-                  if (args instanceof MnemonicQR) return args.toBase64()
-                  return of(failureIcon)
-                }))
+      .$watchAsObservable('qrCodeArgs', {immediate: true})
+      .pipe(pluck('newValue'),
+        concatMap(args => {
+          if (args instanceof MnemonicQR) return args.toBase64()
+          return of(failureIcon)
+        }))
     return {qrCode$}
   },
 })
@@ -41,8 +41,8 @@ export class MnemonicDialogTs extends Vue {
   copyTxt = copyTxt
   stepIndex = 0
   mnemonic = ''
-  password: string = ''
-  QRCode: string = ''
+  password = ''
+  QRCode = ''
   fourStepsPictureList = fourStepsPictureList
   stringOfSteps = ['input_password', 'backup_prompt', 'backup_mnemonic', 'confirm_backup']
   @Prop()
@@ -53,9 +53,9 @@ export class MnemonicDialogTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('closeMnemonicDialog')
-    }
+    if (!val) 
+    {this.$emit('closeMnemonicDialog')}
+    
   }
 
   get cipher() {
@@ -69,11 +69,11 @@ export class MnemonicDialogTs extends Vue {
     if (password.length < 8) return null
     try {
       return new this.MnemonicQR(
-                new MnemonicPassPhrase(mnemonic),
-                password,
-                networkType,
-                generationHash,
-            )
+        new MnemonicPassPhrase(mnemonic),
+        password,
+        networkType,
+        generationHash,
+      )
     } catch (error) {
       console.error('MnemonicDialogTs -> qrCodeArgs -> error', error)
       return null
@@ -82,15 +82,15 @@ export class MnemonicDialogTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.mnemonic = AppAccounts().decryptString(
-                    this.activeAccount.wallet.encryptedMnemonic,
-                    this.password,
-                )
-              this.stepIndex = 1
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.mnemonic = AppAccounts().decryptString(
+          this.activeAccount.wallet.encryptedMnemonic,
+          this.password,
+        )
+        this.stepIndex = 1
+      })
   }
 
   async copyMnemonic() {

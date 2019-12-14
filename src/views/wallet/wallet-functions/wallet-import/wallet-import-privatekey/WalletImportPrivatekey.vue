@@ -70,8 +70,8 @@
 </template>
 
 <script lang="ts">
-//@ts-ignore
-import { WalletImportPrivatekeyTs } from "@/views/wallet/wallet-functions/wallet-import/wallet-import-privatekey/WalletImportPrivatekeyTs.ts"
+// @ts-ignore
+import { WalletImportPrivatekeyTs } from '@/views/wallet/wallet-functions/wallet-import/wallet-import-privatekey/WalletImportPrivatekeyTs.ts'
 
 export default class WalletImportPrivatekey extends WalletImportPrivatekeyTs {}
 </script>

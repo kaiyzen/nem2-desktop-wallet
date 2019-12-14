@@ -170,7 +170,7 @@
 
 <script lang="ts">
 import '@/views/wallet/wallet-details/mnemonic-dialog/MnemonicDialog.less'
-import {MnemonicDialogTs} from "@/views/wallet/wallet-details/mnemonic-dialog/MnemonicDialogTs.ts"
+import {MnemonicDialogTs} from '@/views/wallet/wallet-details/mnemonic-dialog/MnemonicDialogTs.ts'
 
 export default class MnemonicDialog extends MnemonicDialogTs {
 

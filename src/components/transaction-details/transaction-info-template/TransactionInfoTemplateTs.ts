@@ -28,7 +28,7 @@ export class TransactionInfoTemplateTs extends Vue {
     const {activeMultisigAccount, wallet} = this.activeAccount
 
     return this.activeAccount.activeMultisigAccount
-            ? Address.createFromPublicKey(activeMultisigAccount, wallet.networkType).pretty()
-            : Address.createFromRawAddress(wallet.address).pretty()
+      ? Address.createFromPublicKey(activeMultisigAccount, wallet.networkType).pretty()
+      : Address.createFromRawAddress(wallet.address).pretty()
   }
 }

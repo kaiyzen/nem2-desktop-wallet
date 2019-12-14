@@ -9,7 +9,7 @@ export class ErrorTooltipTs extends Vue {
   @Inject('$validator') $validator!: any
   @Inject() validator!: any
 
-  displayedError: string = ''
+  displayedError = ''
 
   get errors() {
     return this.$validator.errors
@@ -38,8 +38,8 @@ export class ErrorTooltipTs extends Vue {
   }
 
   @Watch('fieldError')
-    onFieldErrorChanged(newValue: string) {
-        // Avoid flashing when the error Tooltip gets cleared
+  onFieldErrorChanged(newValue: string) {
+    // Avoid flashing when the error Tooltip gets cleared
     if (newValue !== '') this.displayedError = newValue
   }
 }

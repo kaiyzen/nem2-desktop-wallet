@@ -34,9 +34,9 @@ export class MosaicSupplyChangeTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get supply(): number {
@@ -51,7 +51,7 @@ export class MosaicSupplyChangeTs extends Vue {
     if (isNaN(parsedDelta)) return supply
 
     const newSupply = this.formItems.supplyType === MosaicSupplyChangeAction.Increase
-            ? supply + parsedDelta : supply - parsedDelta
+      ? supply + parsedDelta : supply - parsedDelta
 
     return isNaN(newSupply) ? supply : newSupply
   }
@@ -80,11 +80,11 @@ export class MosaicSupplyChangeTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.confirmViaTransactionConfirmation()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.confirmViaTransactionConfirmation()
+      })
   }
 
   get transaction() {
@@ -92,13 +92,13 @@ export class MosaicSupplyChangeTs extends Vue {
     const {delta, supplyType} = this.formItems
 
     return MosaicSupplyChangeTransaction.create(
-            Deadline.create(),
-            new MosaicId(mosaicId),
-            supplyType,
-            UInt64.fromUint(delta),
-            wallet.networkType,
-            UInt64.fromUint(feeAmount),
-        )
+      Deadline.create(),
+      new MosaicId(mosaicId),
+      supplyType,
+      UInt64.fromUint(delta),
+      wallet.networkType,
+      UInt64.fromUint(feeAmount),
+    )
   }
 
   async confirmViaTransactionConfirmation() {
@@ -115,8 +115,8 @@ export class MosaicSupplyChangeTs extends Vue {
   }
 
   @Watch('newSupply', {immediate: true})
-    onSelectedMosaicHexChange() {
-        /** Makes newSupply validation reactive */
+  onSelectedMosaicHexChange() {
+    /** Makes newSupply validation reactive */
     this.$validator.validate('newSupply', this.newSupply).catch(e => e)
   }
 }

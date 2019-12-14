@@ -16,25 +16,25 @@ export const fetchPartialTransactions = async (address: Address, store: Store<Ap
 }
 
 export const fetchSelfAndChildrenPartialTransactions = (
-    publicAccount: PublicAccount,
-    store: Store<AppState>,
+  publicAccount: PublicAccount,
+  store: Store<AppState>,
 ): void => {
   const {address} = publicAccount
   const multisigInfo = store.state.account.multisigAccountInfo[address.plain()]
   const publicAccountsToFetch = multisigInfo ? [publicAccount, ...multisigInfo.multisigAccounts] : [publicAccount]
 
   zip(
-        interval(500).pipe(take(publicAccountsToFetch.length)),
-        from(publicAccountsToFetch.map(x => x.publicKey)),
+    interval(500).pipe(take(publicAccountsToFetch.length)),
+    from(publicAccountsToFetch.map(x => x.publicKey)),
+  )
+    .pipe(map(([, x]) => x))
+    .subscribe(
+      async publicKey => {
+        try {
+          fetchPartialTransactions(Address.createFromPublicKey(publicKey, address.networkType), store)
+        } catch (error) {
+          console.error('getChildrenPartialTransactions: error', error)
+        }
+      },
     )
-        .pipe(map(([, x]) => x))
-        .subscribe(
-            async publicKey => {
-              try {
-                fetchPartialTransactions(Address.createFromPublicKey(publicKey, address.networkType), store)
-              } catch (error) {
-                console.error('getChildrenPartialTransactions: error', error)
-              }
-            },
-        )
 }

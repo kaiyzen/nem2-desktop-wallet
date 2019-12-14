@@ -71,8 +71,8 @@
 </template>
 
 <script>
-import WalletChooseTs from "./WalletChooseTs"
-import "./WalletChoose.less"
+import WalletChooseTs from './WalletChooseTs'
+import './WalletChoose.less'
 
 export default class WalletChoose extends WalletChooseTs {
 }

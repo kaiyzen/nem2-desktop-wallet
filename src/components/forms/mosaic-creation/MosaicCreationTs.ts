@@ -1,21 +1,21 @@
 import {mapState} from 'vuex'
-import {Component, Vue, Watch, Provide} from 'vue-property-decorator'
+import {Component, Vue, Provide} from 'vue-property-decorator'
 import {
-    MosaicId,
-    MosaicNonce,
-    PublicAccount,
-    MosaicDefinitionTransaction,
-    MosaicFlags,
-    Deadline,
-    UInt64,
-    MosaicSupplyChangeTransaction,
-    MosaicSupplyChangeAction,
-    MultisigAccountInfo,
-    Address,
-    NetworkType, AggregateTransaction,
+  MosaicId,
+  MosaicNonce,
+  PublicAccount,
+  MosaicDefinitionTransaction,
+  MosaicFlags,
+  Deadline,
+  UInt64,
+  MosaicSupplyChangeTransaction,
+  MosaicSupplyChangeAction,
+  MultisigAccountInfo,
+  Address,
+  NetworkType, AggregateTransaction,
 } from 'nem2-sdk'
 import {
-    formatSeconds, formatAddress, getAbsoluteMosaicAmount, cloneData,
+  formatSeconds, formatAddress, getAbsoluteMosaicAmount, cloneData,
 } from '@/core/utils'
 import {formDataConfig, Message, DEFAULT_FEES, FEE_GROUPS, networkConfig} from '@/config'
 import {StoreAccount, AppWallet, DefaultFee, LockParams} from '@/core/model'
@@ -123,30 +123,30 @@ export class MosaicCreationTs extends Vue {
 
   addDivisibilityAmount() {
     this.formItems.divisibility = this.formItems.divisibility >= networkConfig.maxMosaicDivisibility
-            ? Number(this.formItems.divisibility) : Number(this.formItems.divisibility) + 1
+      ? Number(this.formItems.divisibility) : Number(this.formItems.divisibility) + 1
   }
 
   cutDivisibilityAmount() {
     this.formItems.divisibility = this.formItems.divisibility >= 1
-            ? Number(this.formItems.divisibility - 1) : Number(this.formItems.divisibility)
+      ? Number(this.formItems.divisibility - 1) : Number(this.formItems.divisibility)
   }
 
   addSupplyAmount() {
     this.formItems.supply = this.formItems.supply >= networkConfig.maxMosaicAtomicUnits
-            ? Number(this.formItems.supply) : Number(this.formItems.supply) + 1
+      ? Number(this.formItems.supply) : Number(this.formItems.supply) + 1
   }
 
   cutSupplyAmount() {
     this.formItems.supply = this.formItems.supply >= 2
-            ? Number(this.formItems.supply - 1) : Number(this.formItems.supply)
+      ? Number(this.formItems.supply - 1) : Number(this.formItems.supply)
   }
 
   confirmViaTransactionConfirmation() {
-    if (this.activeMultisigAccount) {
-      this.createByMultisig()
-    } else {
-      this.createBySelf()
-    }
+    if (this.activeMultisigAccount) 
+    {this.createByMultisig()}
+    else 
+    {this.createBySelf()}
+    
 
     try {
       this.signAndAnnounce({
@@ -178,23 +178,23 @@ export class MosaicCreationTs extends Vue {
     const mosaicId = MosaicId.createFromNonce(nonce, publicAccount)
 
     const mosaicDefinitionTx = MosaicDefinitionTransaction.create(
-            Deadline.create(),
-            nonce,
-            mosaicId,
-            MosaicFlags.create(supplyMutable, transferable, restrictable),
-            divisibility,
-            permanent ? undefined : UInt64.fromUint(duration),
-            networkType,
-            UInt64.fromUint(fee),
-        )
+      Deadline.create(),
+      nonce,
+      mosaicId,
+      MosaicFlags.create(supplyMutable, transferable, restrictable),
+      divisibility,
+      permanent ? undefined : UInt64.fromUint(duration),
+      networkType,
+      UInt64.fromUint(fee),
+    )
 
     const mosaicSupplyChangeTx = MosaicSupplyChangeTransaction.create(
-            Deadline.create(),
-            mosaicId,
-            MosaicSupplyChangeAction.Increase,
-            UInt64.fromUint(supply),
-            networkType,
-        )
+      Deadline.create(),
+      mosaicId,
+      MosaicSupplyChangeAction.Increase,
+      UInt64.fromUint(supply),
+      networkType,
+    )
 
     return [mosaicDefinitionTx, mosaicSupplyChangeTx]
   }
@@ -210,15 +210,15 @@ export class MosaicCreationTs extends Vue {
 
     this.transactionList = [
       AggregateTransaction.createComplete(
-                Deadline.create(),
+        Deadline.create(),
         [
           mosaicDefinitionTx.toAggregate(publicAccount),
           mosaicSupplyChangeTx.toAggregate(publicAccount),
         ],
-                networkType,
-                [],
-                UInt64.fromUint(fee),
-            ),
+        networkType,
+        [],
+        UInt64.fromUint(fee),
+      ),
     ]
   }
 
@@ -229,31 +229,31 @@ export class MosaicCreationTs extends Vue {
     if (this.announceInLock) {
       this.transactionList = [
         createBondedMultisigTransaction(
-                    mosaicDefinitionAndSupplyChange(),
-                    publicKey,
-                    networkType,
-                    aggregateFee,
-                ),
+          mosaicDefinitionAndSupplyChange(),
+          publicKey,
+          networkType,
+          aggregateFee,
+        ),
       ]
       return
     }
 
     this.transactionList = [
       createCompleteMultisigTransaction(
-                mosaicDefinitionAndSupplyChange(),
-                publicKey,
-                networkType,
-                aggregateFee,
-            ),
+        mosaicDefinitionAndSupplyChange(),
+        publicKey,
+        networkType,
+        aggregateFee,
+      ),
     ]
   }
 
   submit() {
     this.$validator
-        .validate()
-        .then(valid => {
-          if (!valid) return
-          this.confirmViaTransactionConfirmation()
-        })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.confirmViaTransactionConfirmation()
+      })
   }
 }

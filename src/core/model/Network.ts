@@ -1,6 +1,6 @@
 import {
-   ChainHttp, BlockHttp, QueryParams, TransactionType, NamespaceService, NamespaceHttp,
-   MosaicAliasTransaction, MosaicDefinitionTransaction, Namespace, NetworkType, NodeHttp, BlockInfo,
+  ChainHttp, BlockHttp, QueryParams, TransactionType, NamespaceService, NamespaceHttp,
+  MosaicAliasTransaction, MosaicDefinitionTransaction, Namespace, NodeHttp, BlockInfo,
 } from 'nem2-sdk'
 import {Store} from 'vuex'
 import {AppState, Notice, AppMosaic, ChainStatus} from '.'
@@ -66,20 +66,19 @@ export class Network {
   private setGenerationHashAndNodeHealth(): void {
     const {store, endpoint} = this
     const currentEndpoint = `${endpoint}`
-    const that = this
 
     this.blockHttp
-         .getBlockByHeight('1')
-         .subscribe(
-            (block: BlockInfo) => {
-              const {generationHash} = block
-              this.generationHash = generationHash
-              store.dispatch('SET_GENERATION_HASH', {endpoint, generationHash})
-            },
-            (error: Error) => {
-              that.reset(currentEndpoint)
-              return error
-            })
+      .getBlockByHeight('1')
+      .subscribe(
+        (block: BlockInfo) => {
+          const {generationHash} = block
+          this.generationHash = generationHash
+          store.dispatch('SET_GENERATION_HASH', {endpoint, generationHash})
+        },
+        (error: Error) => {
+          this.reset(currentEndpoint)
+          return error
+        })
   }
 
   private async setChainHeight() {
@@ -91,9 +90,9 @@ export class Network {
   }
 
   private async setNodeNetworkType(): Promise<void> {
-      // @TODO: When SDK BlockHttp network type issue is fixed
-      // Can skip this network call by setting the networkType from the first block's data instead
-      // https://github.com/nemtech/nem2-sdk-typescript-javascript/issues/367
+    // @TODO: When SDK BlockHttp network type issue is fixed
+    // Can skip this network call by setting the networkType from the first block's data instead
+    // https://github.com/nemtech/nem2-sdk-typescript-javascript/issues/367
     const {store} = this
     const currentEndpoint = `${this.endpoint}`
     const nodeInfo = await this.nodeHttp.getNodeInfo().toPromise()
@@ -134,21 +133,21 @@ export class Network {
 
     const secondAliasTx: MosaicAliasTransaction = mosaicAliasTx.length > 1 ? mosaicAliasTx[1] : null
     const secondDefinitionTx: MosaicDefinitionTransaction = mosaicAliasTx.length > 1
-         ? mosaicDefinitionTx[1] : null
+      ? mosaicDefinitionTx[1] : null
 
     const harvestMosaicNamespace: Namespace = mosaicAliasTx.length > 1
-         ? await this.namespaceService.namespace(secondAliasTx.namespaceId).toPromise()
-         : null
+      ? await this.namespaceService.namespace(secondAliasTx.namespaceId).toPromise()
+      : null
 
     const appMosaics = [
       AppMosaic.fromGetCurrentNetworkMosaic(firstMosaicDefinitionTx, networkCurrencyNamespace),
     ]
 
-    if (secondAliasTx && harvestMosaicNamespace) {
-      appMosaics.push(
-            AppMosaic.fromGetCurrentNetworkMosaic(secondDefinitionTx, harvestMosaicNamespace),
-         )
-    }
+    if (secondAliasTx && harvestMosaicNamespace) 
+    {appMosaics.push(
+      AppMosaic.fromGetCurrentNetworkMosaic(secondDefinitionTx, harvestMosaicNamespace),
+    )}
+    
 
     store.dispatch('UPDATE_MOSAICS', {appMosaics, currentEndpoint})
     store.dispatch('SET_NETWORK_MOSAICS', {appMosaics, currentEndpoint})

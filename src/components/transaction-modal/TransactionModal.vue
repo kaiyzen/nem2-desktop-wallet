@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import {TransactionModalTs} from '@/components/transaction-modal/TransactionModalTs.ts'
-import "./TransactionModal.less"
+import './TransactionModal.less'
 
 export default class TransactionModal extends TransactionModalTs {
 

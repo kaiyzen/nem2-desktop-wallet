@@ -96,8 +96,8 @@
 </template>
 
 <script lang="ts">
-//@ts-ignore
-import { WalletImportKeystoreTs } from "@/views/wallet/wallet-functions/wallet-import/wallet-import-keystore/WalletImportKeystoreTs.ts"
+// @ts-ignore
+import { WalletImportKeystoreTs } from '@/views/wallet/wallet-functions/wallet-import/wallet-import-keystore/WalletImportKeystoreTs.ts'
 
 export default class WalletImportKeystore extends WalletImportKeystoreTs {}
 </script>

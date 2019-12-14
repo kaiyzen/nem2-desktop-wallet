@@ -22,8 +22,8 @@ export class MonitorMarketTs extends Vue {
   recentTransactionList = []
   isShowSearchDetail = false
   noTransactionRecord = false
-    // tslint:disable-next-line:prefer-template
-  currentMonth = (new Date()).getFullYear() + '-' + ((new Date()).getMonth() + 1)
+  // tslint:disable-next-line:prefer-template
+  currentMonth = `${(new Date()).getFullYear() }-${ (new Date()).getMonth() + 1}`
 
   showSearchDetail() {
     this.isShowSearchDetail = true
@@ -39,7 +39,7 @@ export class MonitorMarketTs extends Vue {
   }
 
   async searchByAsset() {
-        // TODO
+    // TODO
   }
 
   formatDate(timestamp) {
@@ -73,7 +73,7 @@ export class MonitorMarketTs extends Vue {
 
   async getMarketPrice() {
     if (!isRefreshData('oneDayPrice', 1000 * 60 * 60 * 24, new Date().getHours())) {
-            // tslint:disable-next-line:no-shadowed-variable
+      // tslint:disable-next-line:no-shadowed-variable
       const oneWeekPrice = JSON.parse(localRead('oneDayPrice'))
       this.highestPrice = oneWeekPrice.highestPrice
       this.lowestPrice = oneWeekPrice.lowestPrice
@@ -81,7 +81,7 @@ export class MonitorMarketTs extends Vue {
       this.riseRange = oneWeekPrice.riseRange
       return
     }
-    const that = this
+
     const rstStr = await market.kline({period: '60min', symbol: 'xemusdt', size: '48'})
 
     if (!rstStr.rst) return
@@ -93,30 +93,30 @@ export class MonitorMarketTs extends Vue {
     currentWeek.sort((a, b) => {
       return a.high < b.high ? 1 : -1
     })
-    that.highestPrice = currentWeek[0].high
+    this.highestPrice = currentWeek[0].high
 
     currentWeek.sort((a, b) => {
       return a.low < b.low ? -1 : 1
     })
-    that.lowestPrice = currentWeek[0].low
+    this.lowestPrice = currentWeek[0].low
 
     let average = 0
     currentWeek.forEach(item => {
       average += item.high + item.low
     })
-    that.averagePrice = (average / 24).toFixed(4)
+    this.averagePrice = (average / 24).toFixed(4)
 
     let preAverage: any = 0
     preWeek.forEach(item => {
       preAverage += item.high + item.low
     })
     preAverage = (preAverage / 24).toFixed(4)
-    that.riseRange = (((that.averagePrice - preAverage) / preAverage) * 100).toFixed(2)
+    this.riseRange = (((this.averagePrice - preAverage) / preAverage) * 100).toFixed(2)
     const oneWeekPrice = {
-      averagePrice: that.averagePrice,
-      lowestPrice: that.lowestPrice,
-      highestPrice: that.highestPrice,
-      riseRange: that.riseRange,
+      averagePrice: this.averagePrice,
+      lowestPrice: this.lowestPrice,
+      highestPrice: this.highestPrice,
+      riseRange: this.riseRange,
       timestamp: new Date().getTime(),
     }
     localSave('oneDayPrice', JSON.stringify(oneWeekPrice))
@@ -126,18 +126,17 @@ export class MonitorMarketTs extends Vue {
   async setMarketOpeningPrice() {
     try {
       if (!isRefreshData('openPriceOneMinute', 1000 * 60, new Date().getSeconds())) {
-                // tslint:disable-next-line:no-shadowed-variable
+        // tslint:disable-next-line:no-shadowed-variable
         const openPriceOneMinute = JSON.parse(localRead('openPriceOneMinute'))
         this.currentPrice = openPriceOneMinute.openPrice
         return
       }
-      const that = this
+
       const rstStr = await market.kline({period: '1min', symbol: 'xemusdt', size: '1'})
       if (!rstStr.rst) return
-      let rstQuery: KlineQuery
-      rstQuery = JSON.parse(rstStr.rst)
+      const rstQuery: KlineQuery = JSON.parse(rstStr.rst)
       const result = rstQuery.data[0].close
-      that.currentPrice = result
+      this.currentPrice = result
       const openPriceOneMinute = {timestamp: new Date().getTime(), openPrice: result}
       localSave('openPriceOneMinute', JSON.stringify(openPriceOneMinute))
     } catch (e) {
@@ -152,7 +151,6 @@ export class MonitorMarketTs extends Vue {
       this.recentTransactionList = transactionsOverNetwork.recentTransactionList
       return
     }
-    const that = this
     const rstStr = await market.trade({symbol: 'xemusdt', size: '50'})
     const rstQuery = JSON.parse(rstStr.rst)
     const recentTransactionList = []
@@ -160,7 +158,7 @@ export class MonitorMarketTs extends Vue {
     result.map(item => {
       item.data.map(i => {
         i.type = 'XEM'
-        i.time = that.formatDate(i.ts)
+        i.time = this.formatDate(i.ts)
         i.result = (i.amount * i.price).toFixed(2)
         recentTransactionList.push(i)
       })
@@ -169,21 +167,22 @@ export class MonitorMarketTs extends Vue {
     recentTransactionList.sort((a, b) => {
       return a.ts > b.ts ? -1 : 1
     })
-    if (recentTransactionList.length === 0) {
+    if (recentTransactionList.length === 0) {      
       this.noTransactionRecord = true
-    } else {
-      this.noTransactionRecord = false
-      that.recentTransactionList = recentTransactionList
-      const transactionsOverNetwork = {
-        timestamp: new Date().getTime(),
-        recentTransactionList,
-      }
-      localSave('openPriceOneDay', JSON.stringify(transactionsOverNetwork))
+      return
     }
+    
+    this.noTransactionRecord = false
+    this.recentTransactionList = recentTransactionList
+    const transactionsOverNetwork = {
+      timestamp: new Date().getTime(),
+      recentTransactionList,
+    }
+    localSave('openPriceOneDay', JSON.stringify(transactionsOverNetwork))
   }
 
   async mounted() {
-        // @TODO: this is impacting the performance
+    // @TODO: this is impacting the performance
     this.getMarketPrice()
     this.setMarketOpeningPrice()
     this.getRecentTransactionList()

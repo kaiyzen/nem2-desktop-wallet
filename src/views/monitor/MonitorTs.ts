@@ -1,5 +1,5 @@
 import {Message} from '@/config/index.ts'
-import {Component, Vue, Watch} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 import monitorSelected from '@/common/img/monitor/monitorSelected.png'
 import monitorUnselected from '@/common/img/monitor/monitorUnselected.png'
 import {copyTxt, formatNumber, localRead, localSave} from '@/core/utils'
@@ -88,8 +88,8 @@ export class MonitorTs extends Vue {
 
   get routes() {
     const routesMeta: any[] = routes[0].children
-            .find(({name}) => name === 'monitorPanel')
-            .children
+      .find(({name}) => name === 'monitorPanel')
+      .children
 
     return routesMeta.map(({path, name}) => ({
       path,
@@ -107,19 +107,19 @@ export class MonitorTs extends Vue {
   }
 
   copyAddress() {
-    const that = this
     copyTxt(this.address).then(() => {
-      that.$Notice.success(
+      this.$Notice.success(
         {
           title: `${this.$t(Message.COPY_SUCCESS)}`,
         },
-            )
+      )
     })
   }
 
   toggleAllChecked() {
     this.isChecked = !this.isChecked
     const updatedList: any = {...this.mosaicMap}
+    // eslint-disable-next-line no-return-assign
     Object.keys(updatedList).forEach(key => updatedList[key].hide = !this.isChecked)
     this.$store.commit('SET_MOSAICS', updatedList)
     localSave(this.address, JSON.stringify(updatedList))
@@ -130,12 +130,12 @@ export class MonitorTs extends Vue {
     const updatedList: any = {...this.mosaicMap}
     const {currentHeight} = this
     Object.keys(updatedList)
-            .forEach(key => {
-              const {expirationHeight} = updatedList[key]
-              updatedList[key].hide = this.showExpiredMosaics
-                    ? false
-                    : expirationHeight !== MosaicNamespaceStatusType.FOREVER || currentHeight > expirationHeight
-            })
+      .forEach(key => {
+        const {expirationHeight} = updatedList[key]
+        updatedList[key].hide = this.showExpiredMosaics
+          ? false
+          : expirationHeight !== MosaicNamespaceStatusType.FOREVER || currentHeight > expirationHeight
+      })
     this.$store.commit('SET_MOSAICS', updatedList)
     localSave(this.address, JSON.stringify(updatedList))
   }
@@ -157,14 +157,14 @@ export class MonitorTs extends Vue {
       localSave('accountMap', JSON.stringify(accountMap))
       return
     }
-        // delete from hideMosaicList
+    // delete from hideMosaicList
     delete wallets[0].hideMosaicMap[mosaic.hex]
     accountMap.wallets = wallets
     localSave('accountMap', JSON.stringify(accountMap))
   }
 
   searchMosaic() {
-        // @TODO: Query the network for mosaics that are not in the mosaic list
+    // @TODO: Query the network for mosaics that are not in the mosaic list
     if (this.mosaicName === '') {
       this.showErrorMessage(Message.MOSAIC_NAME_NULL_ERROR)
       return

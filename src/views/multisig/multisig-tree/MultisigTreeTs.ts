@@ -50,15 +50,15 @@ export class MultisigTreeTs extends Vue {
         return {
           title: item.address.pretty(),
           children: [
-                        {title: MULTISIG_INFO.PUBLIC_KEY + item.publicKey},
+            {title: MULTISIG_INFO.PUBLIC_KEY + item.publicKey},
             {
               title: MULTISIG_INFO.MIN_APPROVAL + (multisigInfo[item.address.plain()]
-                                ? multisigInfo[item.address.plain()].minApproval : this.$t(Message.CLICK_TO_LOAD)),
+                ? multisigInfo[item.address.plain()].minApproval : this.$t(Message.CLICK_TO_LOAD)),
               publicKey: item.publicKey,
             },
             {
               title: MULTISIG_INFO.MIN_REMOVAL + (multisigInfo[item.address.plain()]
-                                ? multisigInfo[item.address.plain()].minRemoval : this.$t(Message.CLICK_TO_LOAD)),
+                ? multisigInfo[item.address.plain()].minRemoval : this.$t(Message.CLICK_TO_LOAD)),
               publicKey: item.publicKey,
             },
           ],
@@ -82,15 +82,15 @@ export class MultisigTreeTs extends Vue {
           title: item.address.pretty(),
           publicKey: item.publicKey,
           children: [
-                        {title: MULTISIG_INFO.PUBLIC_KEY + item.publicKey},
+            {title: MULTISIG_INFO.PUBLIC_KEY + item.publicKey},
             {
               title: MULTISIG_INFO.MIN_APPROVAL + (multisigInfo[item.address.plain()]
-                                ? multisigInfo[item.address.plain()].minApproval : this.$t(Message.CLICK_TO_LOAD)),
+                ? multisigInfo[item.address.plain()].minApproval : this.$t(Message.CLICK_TO_LOAD)),
               publicKey: item.publicKey,
             },
             {
               title: MULTISIG_INFO.MIN_REMOVAL + (multisigInfo[item.address.plain()]
-                                ? multisigInfo[item.address.plain()].minRemoval : this.$t(Message.CLICK_TO_LOAD)),
+                ? multisigInfo[item.address.plain()].minRemoval : this.$t(Message.CLICK_TO_LOAD)),
               publicKey: item.publicKey,
             },
           ],

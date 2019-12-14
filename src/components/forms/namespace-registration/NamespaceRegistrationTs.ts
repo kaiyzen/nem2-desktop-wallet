@@ -42,9 +42,9 @@ export class NamespaceRegistrationTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get wallet(): AppWallet {
@@ -70,13 +70,13 @@ export class NamespaceRegistrationTs extends Vue {
     const {feeAmount} = this
 
     return NamespaceRegistrationTransaction
-            .createRootNamespace(
-                Deadline.create(),
-                this.currentNamespace.name,
-                UInt64.fromUint(duration),
-                this.wallet.networkType,
-                UInt64.fromUint(feeAmount),
-            )
+      .createRootNamespace(
+        Deadline.create(),
+        this.currentNamespace.name,
+        UInt64.fromUint(duration),
+        this.wallet.networkType,
+        UInt64.fromUint(feeAmount),
+      )
   }
 
   get currentHeight(): number {
@@ -117,16 +117,16 @@ export class NamespaceRegistrationTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.confirmViaTransactionConfirmation()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.confirmViaTransactionConfirmation()
+      })
   }
 
   @Watch('newExpirationBlock', {immediate: true})
-    onSelectedMosaicHexChange() {
-        /** Makes newSupply validation reactive */
+  onSelectedMosaicHexChange() {
+    /** Makes newSupply validation reactive */
     this.$validator.validate('newDuration', this.newExpirationBlock).catch(e => e)
   }
 }

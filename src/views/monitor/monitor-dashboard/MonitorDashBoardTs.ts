@@ -1,5 +1,5 @@
 import {mapState} from 'vuex'
-import {Component, Vue, Watch} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 import {formatNumber} from '@/core/utils'
 import LineChart from '@/components/line-chart/LineChart.vue'
 import TransactionList from '@/components/transaction-list/TransactionList.vue'
@@ -18,7 +18,7 @@ export class MonitorDashBoardTs extends Vue {
   activeAccount: StoreAccount
   updateAnimation = ''
   networkStatusList = networkStatusConfig
-  page: number = 1
+  page = 1
   formatNumber = formatNumber
 
   get wallet() {

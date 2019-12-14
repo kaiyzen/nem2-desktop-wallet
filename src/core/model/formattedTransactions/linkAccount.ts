@@ -5,7 +5,7 @@ import {Store} from 'vuex'
 
 export class FormattedLinkAccount extends FormattedTransaction {
 
-  constructor(  tx: AccountLinkTransaction,
+  constructor( tx: AccountLinkTransaction,
     store: Store<AppState>) {
     super(tx, store)
     const {networkCurrency} = store.state.account

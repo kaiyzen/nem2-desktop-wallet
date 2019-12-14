@@ -84,7 +84,7 @@ export class AppNamespace {
   static extractFullNamespace(
     namespace: NamespaceInfo,
     namespaceNames: NamespaceName[],
-    ): string {
+  ): string {
     return namespace.levels.map(level => {
       const namespaceName = namespaceNames.find(name => name.namespaceId.equals(level))
       if (namespaceName === undefined) throw new Error('Not found')

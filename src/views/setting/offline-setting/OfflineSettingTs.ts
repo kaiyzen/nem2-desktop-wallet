@@ -31,11 +31,11 @@ export default class extends Vue {
   }
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.setOfflineInfo()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.setOfflineInfo()
+      })
   }
 
   setOfflineInfo() {

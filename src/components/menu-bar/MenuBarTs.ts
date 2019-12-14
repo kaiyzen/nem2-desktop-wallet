@@ -23,7 +23,7 @@ export class MenuBarTs extends Vue {
   app: AppInfo
   nodeList: Endpoint[] = [] // @TODO: review node list
   activeAccount: StoreAccount
-  showNodeList: boolean = false
+  showNodeList = false
   isWindows = isWindows
   inputNodeValue = ''
   isNowWindowMax = false
@@ -35,8 +35,8 @@ export class MenuBarTs extends Vue {
 
   get routes() {
     return routes[0].children
-            .filter(({meta}) => meta.clickable)
-            .map(({path, meta}) => ({path, meta}))
+      .filter(({meta}) => meta.clickable)
+      .map(({path, meta}) => ({path, meta}))
   }
 
   get isNodeHealthy() {
@@ -129,6 +129,7 @@ export class MenuBarTs extends Vue {
 
   async selectEndpoint(index) {
     if (this.node === this.nodeList[index].value) return
+    // eslint-disable-next-line no-return-assign
     this.nodeList.forEach(item => item.isSelected = false)
     this.nodeList[index].isSelected = true
     this.$store.commit('SET_NODE', this.nodeList[index].value)
@@ -150,7 +151,7 @@ export class MenuBarTs extends Vue {
     return true
   }
 
-    // @VEEVALIDATE
+  // @VEEVALIDATE
   changeEndpointByInput() {
     const {nodeList, inputNodeValue} = this
     if (!this.checkNodeInput()) return

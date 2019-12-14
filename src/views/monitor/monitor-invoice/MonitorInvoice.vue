@@ -100,9 +100,9 @@
 </template>
 
 <script lang="ts">
-import "./MonitorInvoice.less"
+import './MonitorInvoice.less'
 
-import {MonitorInvoiceTs} from "@/views/monitor/monitor-invoice/MonitorInvoiceTs.ts"
+import {MonitorInvoiceTs} from '@/views/monitor/monitor-invoice/MonitorInvoiceTs.ts'
 
 export default class MonitorInvoice extends MonitorInvoiceTs {
 }

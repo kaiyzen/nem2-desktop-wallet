@@ -219,7 +219,7 @@
 
 <script lang="ts">
 // @ts-ignore
-import "./NamespaceList.less"
+import './NamespaceList.less'
 import {NamespaceListTs} from '@/views/namespace/namespace-function/namespace-list/NamespaceListTs.ts'
 
 export default class NamespaceList extends NamespaceListTs {

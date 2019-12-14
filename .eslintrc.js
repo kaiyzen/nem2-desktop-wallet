@@ -16,10 +16,28 @@ module.exports = {
   rules: {
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/member-delimiter-style": [
+      2,
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ]  ,
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/semi": [2, "never"],
     "ban-ts-ignore": "off",
-    "curly": ["error", "multi"],
-    "indent": ["error", 2],
+    "comma-dangle": ["error", "always-multiline"],
+    "curly": ["error", "multi-line"],
+    "eol-last": ["error", "always"],
+    "indent": "off",
     "import/prefer-default-export": "off",
     "interface-name": 0,
     "linebreak-style": 0,
@@ -30,11 +48,21 @@ module.exports = {
       ignoreStrings: true,
       ignoreTemplateLiterals: true,
     }],
+    "no-console": ["error", { allow: ["info", "error"] }],
+    "no-ex-assign": "error",
+    "no-loop-func": "error",
+    "no-multi-spaces": "error",
     "no-multiple-empty-lines": 2,
-    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-return-assign": "error",
+    "no-return-await": "error",
+    "no-script-url": "error",
+    "no-self-compare": "error",
+    "no-var": "error",
     "object-literal-sort-keys": 0,
+    "prefer-const": "error",
     "prefer-template": 2,
-    "semi": [2, "never"],
+    "quotes": ["error", "single"],
+    "spaced-comment": ["error", "always", { "markers": ["/"] }],
     "vue/max-attributes-per-line": ["error", {
       "singleline": 3,
       "multiline": {
@@ -45,5 +73,6 @@ module.exports = {
     "vue/no-parsing-error": ["error", {
       "invalid-first-character-of-tag-name": false
     }],
+
   }
 };

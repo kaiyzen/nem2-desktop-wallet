@@ -156,7 +156,7 @@
 </template>
 
 <script lang="ts">
-import { TransferTs } from "@/components/forms/transfer/TransferTs.ts"
+import { TransferTs } from '@/components/forms/transfer/TransferTs.ts'
 
 export default class Transfer extends TransferTs {}
 </script>

@@ -35,8 +35,8 @@ const {EMPTY_LINKED_ACCOUNT_KEY} = networkConfig
 
 export class AppWallet {
   constructor(wallet?: {
-    name?: string;
-    simpleWallet?: SimpleWallet;
+    name?: string
+    simpleWallet?: SimpleWallet
   }) {
     Object.assign(this, wallet)
   }
@@ -243,7 +243,7 @@ export class AppWallet {
     const localData = accountMap[accountName].wallets
     accountMap[accountName].activeWalletAddress = newActiveWalletAddress
     const flagWallet = localData.find(item => newActiveWalletAddress === item.address)
-    if (flagWallet) {  // if wallet existed ,switch to this wallet
+    if (flagWallet) { // if wallet existed ,switch to this wallet
       store.commit('SET_WALLET', flagWallet)
       localSave('accountMap', JSON.stringify(accountMap))
       return
@@ -269,9 +269,8 @@ export class AppWallet {
     accountMap[accountName].wallets = list
     localSave('accountMap', JSON.stringify(accountMap))
 
-    if (list.length < 1) {    
-      store.commit('SET_WALLET', {})
-    }
+    if (list.length < 1)     
+    {store.commit('SET_WALLET', {})}
     
     
     if (store.state.account.wallet.address === this.address) {
@@ -338,9 +337,8 @@ export class AppWallet {
 
     const {publicKey} = account
     const privateKeyFromAccount = account.privateKey
-    if (this.linkedAccountKey && this.linkedAccountKey !== publicKey) {    
-      throw new Error('The public key is not matching the current linked account key')
-    }
+    if (this.linkedAccountKey && this.linkedAccountKey !== publicKey)     
+    {throw new Error('The public key is not matching the current linked account key')}
     
     
     this.remoteAccount = {
@@ -419,7 +417,7 @@ export class AppWallet {
     const {node} = store.state.account
     Log.create('announceCosignature', signedTransaction, store)
 
-    new TransactionHttp(node).announceAggregateBondedCosignature(signedTransaction).subscribe(_ => {
+    new TransactionHttp(node).announceAggregateBondedCosignature(signedTransaction).subscribe(() => {
       store.commit('POP_TRANSACTION_TO_COSIGN_BY_HASH', signedTransaction.parentHash)
       Notice.trigger(Message.SUCCESS, NoticeType.success, store)
     },
@@ -432,7 +430,7 @@ export class AppWallet {
     Log.create('announceNormal', signedTransaction, store)
 
     new TransactionHttp(node).announce(signedTransaction).subscribe(
-      _ => Notice.trigger(Message.SUCCESS, NoticeType.success, store),
+      () => Notice.trigger(Message.SUCCESS, NoticeType.success, store),
       error => Log.create('announceNormal -> error', error, store),
     )
   }
@@ -450,8 +448,8 @@ export class AppWallet {
     listener.open().then(() => new Promise((resolve, reject) => {
       transactionHttp
         .announce(signedLock)
-        .subscribe(_ =>  Notice.trigger(Message.SUCCESS, NoticeType.success, store),
-          error =>  reject(error),
+        .subscribe(() => Notice.trigger(Message.SUCCESS, NoticeType.success, store),
+          error => reject(error),
         )
 
       listener
@@ -459,10 +457,10 @@ export class AppWallet {
         .pipe(
           filter(transaction => transaction.transactionInfo !== undefined
                         && transaction.transactionInfo.hash === signedLock.hash),
-          mergeMap(_ => transactionHttp.announceAggregateBonded(signedTransaction)),
+          mergeMap(() => transactionHttp.announceAggregateBonded(signedTransaction)),
         )
         .subscribe(
-          _ => Notice.trigger(Message.SUCCESS, NoticeType.success, store),
+          () => Notice.trigger(Message.SUCCESS, NoticeType.success, store),
           error => reject(error),
         )
     })).catch(error => {
@@ -475,8 +473,8 @@ export class AppWallet {
     fee: number,
     password: string,
     store: Store<AppState>): {
-      signedTransaction: SignedTransaction;
-      signedLock: SignedTransaction;
+      signedTransaction: SignedTransaction
+      signedLock: SignedTransaction
     } {
     const account = this.getAccount(new Password(password))
     const {networkCurrency, generationHash} = store.state.account

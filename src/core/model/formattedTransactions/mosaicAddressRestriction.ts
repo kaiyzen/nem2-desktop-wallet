@@ -10,7 +10,6 @@ export class FormattedMosaicAddressRestriction extends FormattedTransaction {
     store: Store<AppState>) {
     super(tx, store)
     const {networkCurrency} = store.state.account
-    const {divisibility, ticker} = networkCurrency
 
     this.dialogDetailMap = {
       self: tx.signer ? tx.signer.address.pretty() : store.state.account.wallet.address,
@@ -18,7 +17,7 @@ export class FormattedMosaicAddressRestriction extends FormattedTransaction {
       fee: absoluteAmountToRelativeAmountWithTicker(tx.maxFee.compact(), networkCurrency),
       block: this.txHeader.block,
       hash: this.txHeader.hash,
-            // @MODAL
+      // @MODAL
     }
   }
   dialogDetailMap: any

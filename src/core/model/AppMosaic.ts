@@ -1,9 +1,9 @@
 import {
- UInt64,
- MosaicAmountView,
- MosaicDefinitionTransaction,
- MosaicInfo,
- Namespace,
+  UInt64,
+  MosaicAmountView,
+  MosaicDefinitionTransaction,
+  MosaicInfo,
+  Namespace,
 } from 'nem2-sdk'
 import {MosaicProperties, AppNamespace, MosaicNamespaceStatusType} from '@/core/model'
 import {getRelativeMosaicAmount} from '@/core/utils'
@@ -18,12 +18,12 @@ export class AppMosaic {
     return new AppMosaic({
       hex: mosaicId.toHex(),
       properties: new MosaicProperties(
-            mosaicDefinitionTransaction.flags.supplyMutable,
-            mosaicDefinitionTransaction.flags.transferable,
-            mosaicDefinitionTransaction.divisibility,
-            mosaicDefinitionTransaction.duration.compact(),
-            mosaicDefinitionTransaction.flags.restrictable,
-         ),
+        mosaicDefinitionTransaction.flags.supplyMutable,
+        mosaicDefinitionTransaction.flags.transferable,
+        mosaicDefinitionTransaction.divisibility,
+        mosaicDefinitionTransaction.duration.compact(),
+        mosaicDefinitionTransaction.flags.restrictable,
+      ),
       name: namespace.name,
       namespaceHex: namespace.id.toHex(),
     })
@@ -35,9 +35,9 @@ export class AppMosaic {
       ...mosaic,
       hex: mosaicHex,
       balance: getRelativeMosaicAmount(
-             mosaic.amount.compact(),
-             mosaic.mosaicInfo.divisibility,
-         ),
+        mosaic.amount.compact(),
+        mosaic.mosaicInfo.divisibility,
+      ),
     })
   }
 
@@ -52,30 +52,30 @@ export class AppMosaic {
   }
 
   constructor(appMosaic?: {
-    hex: string,
+    hex: string
     expirationHeight?: number | MosaicNamespaceStatusType.FOREVER
-    balance?: number,
-    name?: string,
-    amount?: any,
-    mosaicInfo?: MosaicInfo,
-    properties?: MosaicProperties,
-    hide?: boolean,
-    namespaceHex?: string,
+    balance?: number
+    name?: string
+    amount?: any
+    mosaicInfo?: MosaicInfo
+    properties?: MosaicProperties
+    hide?: boolean
+    namespaceHex?: string
   }) {
     Object.assign(this, appMosaic)
     delete this.amount
     if (this.mosaicInfo) {
       const duration = this.mosaicInfo.duration.compact()
       this.expirationHeight = duration === 0
-                ? MosaicNamespaceStatusType.FOREVER : this.mosaicInfo.height.compact() + duration
+        ? MosaicNamespaceStatusType.FOREVER : this.mosaicInfo.height.compact() + duration
       this.expirationHeight = appMosaic.expirationHeight ? appMosaic.expirationHeight : this.expirationHeight
       this.properties = new MosaicProperties(
-                this.mosaicInfo.isSupplyMutable(),
-                this.mosaicInfo.isTransferable(),
-                this.mosaicInfo.divisibility,
-                this.mosaicInfo.duration.compact(),
-                this.mosaicInfo.isRestrictable(),
-            )
+        this.mosaicInfo.isSupplyMutable(),
+        this.mosaicInfo.isTransferable(),
+        this.mosaicInfo.divisibility,
+        this.mosaicInfo.duration.compact(),
+        this.mosaicInfo.isRestrictable(),
+      )
     }
   }
   hex: string

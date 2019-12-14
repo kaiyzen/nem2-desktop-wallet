@@ -35,242 +35,233 @@ export const CUSTOM_VALIDATORS_NAMES = {
 
 const aliasValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.alias, alias => new Promise(resolve => {
-          resolve(validateAlias(alias))
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.alias, alias => new Promise(resolve => {
+      resolve(validateAlias(alias))
+    }),
+  )
 }
 
 const publicKeyValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.publicKey, publicKey => new Promise(resolve => {
-          resolve(validatePublicKey(publicKey))
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.publicKey, publicKey => new Promise(resolve => {
+      resolve(validatePublicKey(publicKey))
+    }),
+  )
 }
 
 const confirmLockValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.confirmLock,
-        (password, [otherField]) => new Promise(resolve => {
-          const passwordCipher = getOtherFieldValue(otherField, context)
-          if (AppAccounts().decryptString(passwordCipher, password) !== password) resolve({valid: false})
-          resolve({valid: true})
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.confirmLock,
+    (password, [otherField]) => new Promise(resolve => {
+      const passwordCipher = getOtherFieldValue(otherField, context)
+      if (AppAccounts().decryptString(passwordCipher, password) !== password) resolve({valid: false})
+      resolve({valid: true})
+    }),
+    {hasTarget: true},
+  )
 }
 
 const remoteAccountPrivateKeyValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.remoteAccountPrivateKey,
-        (privateKey, [otherField]) => new Promise(resolve => {
-          const wallet: AppWallet = getOtherFieldValue(otherField, context)
-          if (!(wallet instanceof AppWallet)) resolve({valid: false})
+    CUSTOM_VALIDATORS_NAMES.remoteAccountPrivateKey,
+    (privateKey, [otherField]) => new Promise(resolve => {
+      const wallet: AppWallet = getOtherFieldValue(otherField, context)
+      if (!(wallet instanceof AppWallet)) resolve({valid: false})
 
-          try {
-            const account = Account.createFromPrivateKey(privateKey, wallet.networkType)
-            if (wallet.linkedAccountKey && wallet.linkedAccountKey !== account.publicKey) {
-              resolve({valid: false})
-            }
-            resolve({valid: true})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-        {hasTarget: true},
-    )
+      try {
+        const account = Account.createFromPrivateKey(privateKey, wallet.networkType)
+        if (wallet.linkedAccountKey && wallet.linkedAccountKey !== account.publicKey) resolve({valid: false})
+        resolve({valid: true})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+    {hasTarget: true},
+  )
 }
 
 const confirmPasswordValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.confirmPassword,
-        (password, [otherField]) => new Promise(resolve => {
-          const otherValue = getOtherFieldValue(otherField, context)
-          if (otherValue !== password) resolve({valid: false})
-          resolve({valid: password})
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.confirmPassword,
+    (password, [otherField]) => new Promise(resolve => {
+      const otherValue = getOtherFieldValue(otherField, context)
+      if (otherValue !== password) resolve({valid: false})
+      resolve({valid: password})
+    }),
+    {hasTarget: true},
+  )
 }
 
 const confirmWalletPasswordValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.confirmWalletPassword,
-        (password, [otherField]) => new Promise(resolve => {
-          const wallet = getOtherFieldValue(otherField, context)
-          if (!(wallet instanceof AppWallet)) resolve({valid: false})
-          resolve({valid: wallet.checkPassword(password)})
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.confirmWalletPassword,
+    (password, [otherField]) => new Promise(resolve => {
+      const wallet = getOtherFieldValue(otherField, context)
+      if (!(wallet instanceof AppWallet)) resolve({valid: false})
+      resolve({valid: wallet.checkPassword(password)})
+    }),
+    {hasTarget: true},
+  )
 }
 
 const mosaicIdValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.mosaicId, mosaicId => new Promise(resolve => {
-          try {
-                // tslint:disable-next-line:no-unused-expression
-            new MosaicId(mosaicId)
-            resolve({valid: mosaicId})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.mosaicId, mosaicId => new Promise(resolve => {
+      try {
+        // tslint:disable-next-line:no-unused-expression
+        new MosaicId(mosaicId)
+        resolve({valid: mosaicId})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+  )
 }
 
 const namespaceOrMosaicIdValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.namespaceOrMosaicId, namespaceOrMosaicId => new Promise(resolve => {
-          const isValidNamespace = validateMosaicId(namespaceOrMosaicId)
-          const isValidMosaicId = validateNamespace(namespaceOrMosaicId)
-
-          if (isValidNamespace.valid || isValidMosaicId.valid) {
-            resolve({valid: namespaceOrMosaicId})
-          } else {
-            resolve({valid: false})
-          }
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.namespaceOrMosaicId, namespaceOrMosaicId => new Promise(resolve => {
+      const isValidNamespace = validateMosaicId(namespaceOrMosaicId)
+      const isValidMosaicId = validateNamespace(namespaceOrMosaicId)
+      if (isValidNamespace.valid || isValidMosaicId.valid) resolve({valid: namespaceOrMosaicId})
+      resolve({valid: false})
+    }),
+  )
 }
 
 const addressOrAliasValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.addressOrAlias, addressOrAlias => new Promise(async resolve => {
-          const isValidAddress = validateAddress(addressOrAlias)
-          const isValidAlias = validateAlias(addressOrAlias)
-
-          if (isValidAddress.valid || isValidAlias.valid) {
-            resolve({valid: addressOrAlias})
-          } else {
-            resolve({valid: false})
-          }
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.addressOrAlias, async addressOrAlias => {
+      const isValidAddress = validateAddress(addressOrAlias)
+      const isValidAlias = validateAlias(addressOrAlias)
+      if (isValidAddress.valid || isValidAlias.valid) return{valid: addressOrAlias}
+      else return {valid: false}
+    },
+  )
 }
 
 const addressValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.address, address => new Promise(async resolve => {
-          resolve(validateAddress(address))
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.address, address => new Promise(resolve => {
+      resolve(validateAddress(address))
+    }),
+  )
 }
 
 const addressNetworkTypeValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.addressNetworkType,
-        (address, [otherField]) => new Promise(resolve => {
-          const currentAccount: CurrentAccount = getOtherFieldValue(otherField, context)
-          try {
-            const addressObject = Address.createFromRawAddress(address)
-            if (addressObject.networkType === currentAccount.networkType) resolve({valid: address})
-            resolve({valid: false})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.addressNetworkType,
+    (address, [otherField]) => new Promise(resolve => {
+      const currentAccount: CurrentAccount = getOtherFieldValue(otherField, context)
+      try {
+        const addressObject = Address.createFromRawAddress(address)
+        if (addressObject.networkType === currentAccount.networkType) resolve({valid: address})
+        resolve({valid: false})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+    {hasTarget: true},
+  )
 }
 
 const addressOrAliasNetworkTypeValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.addressOrAliasNetworkType,
-        (addressOrAlias, [otherField]) => new Promise(resolve => {
-          const currentAccount: CurrentAccount = getOtherFieldValue(otherField, context)
-          try {
-            if (!validateAddress(addressOrAlias).valid) resolve({valid: addressOrAlias})
-            const addressObject = Address.createFromRawAddress(addressOrAlias)
-            if (addressObject.networkType === currentAccount.networkType) resolve({valid: addressOrAlias})
-            resolve({valid: false})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.addressOrAliasNetworkType,
+    (addressOrAlias, [otherField]) => new Promise(resolve => {
+      const currentAccount: CurrentAccount = getOtherFieldValue(otherField, context)
+      try {
+        if (!validateAddress(addressOrAlias).valid) resolve({valid: addressOrAlias})
+        const addressObject = Address.createFromRawAddress(addressOrAlias)
+        if (addressObject.networkType === currentAccount.networkType) resolve({valid: addressOrAlias})
+        resolve({valid: false})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+    {hasTarget: true},
+  )
 }
 
 const privateKeyValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.privateKey, privateKey => new Promise(async resolve => {
-          try {
-                /** NetworkType does not matter here  */
-            Account.createFromPrivateKey(privateKey, NetworkType.MAIN_NET)
-            resolve({valid: true})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.privateKey, privateKey => new Promise(resolve => {
+      try {
+        /** NetworkType does not matter here  */
+        Account.createFromPrivateKey(privateKey, NetworkType.MAIN_NET)
+        resolve({valid: true})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+  )
 }
 
 /** Verified if the value of a cross-validation field is set */
 const otherFieldValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.otherField,
-        (field, [otherField]) => new Promise(resolve => {
-          try {
-            const otherValue = getOtherFieldValue(otherField, context)
-            if (!otherValue) resolve({valid: false})
-            resolve({valid: true})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.otherField,
+    (field, [otherField]) => new Promise(resolve => {
+      try {
+        const otherValue = getOtherFieldValue(otherField, context)
+        if (!otherValue) resolve({valid: false})
+        resolve({valid: true})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+    {hasTarget: true},
+  )
 }
 
 const amountDecimalsValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.amountDecimals,
-        (amount, [otherField]) => new Promise(resolve => {
-          try {
-            const amountAsString = `${amount}`
-            const decimalPart: string = amountAsString.split('.')[1]
-            if (!decimalPart) return resolve({valid: true})
-            const numberOfDecimals = decimalPart.length
-            const appMosaic: AppMosaic = getOtherFieldValue(otherField, context)
-            if (numberOfDecimals > appMosaic.properties.divisibility) resolve({valid: false})
-            resolve({valid: true})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.amountDecimals,
+    (amount, [otherField]) => new Promise(resolve => {
+      try {
+        const amountAsString = `${amount}`
+        const decimalPart: string = amountAsString.split('.')[1]
+        if (!decimalPart) return resolve({valid: true})
+        const numberOfDecimals = decimalPart.length
+        const appMosaic: AppMosaic = getOtherFieldValue(otherField, context)
+        if (numberOfDecimals > appMosaic.properties.divisibility) resolve({valid: false})
+        resolve({valid: true})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+    {hasTarget: true},
+  )
 }
 
 const mosaicAmountValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.mosaicMaxAmount,
-        (amount, [otherField]) => new Promise(resolve => {
-          try {
-            const appMosaic: AppMosaic = getOtherFieldValue(otherField, context)
-            const absoluteAmount = getAbsoluteMosaicAmount(amount, appMosaic.properties.divisibility)
-            if (isNaN(absoluteAmount)) resolve({valid: false})
-            if (absoluteAmount > maxMosaicAtomicUnits) resolve({valid: false})
-            resolve({valid: true})
-          } catch (error) {
-            resolve({valid: false})
-          }
-        }),
-        {hasTarget: true},
-    )
+    CUSTOM_VALIDATORS_NAMES.mosaicMaxAmount,
+    (amount, [otherField]) => new Promise(resolve => {
+      try {
+        const appMosaic: AppMosaic = getOtherFieldValue(otherField, context)
+        const absoluteAmount = getAbsoluteMosaicAmount(amount, appMosaic.properties.divisibility)
+        if (isNaN(absoluteAmount)) resolve({valid: false})
+        if (absoluteAmount > maxMosaicAtomicUnits) resolve({valid: false})
+        resolve({valid: true})
+      } catch (error) {
+        resolve({valid: false})
+      }
+    }),
+    {hasTarget: true},
+  )
 }
 
 const addressOrPublicKeyValidator = (context): Promise<ValidationObject> => {
   return context.Validator.extend(
-        CUSTOM_VALIDATORS_NAMES.addressOrPublicKey, addressOrPublicKey => new Promise(async resolve => {
-          if (addressOrPublicKey.length === PUBLIC_KEY_LENGTH) {
-            resolve(validatePublicKey(addressOrPublicKey))
-          }
-          resolve(validateAddress(addressOrPublicKey))
-        }),
-    )
+    CUSTOM_VALIDATORS_NAMES.addressOrPublicKey, addressOrPublicKey => new Promise(resolve => {
+      if (addressOrPublicKey.length === PUBLIC_KEY_LENGTH) {        
+        resolve(validatePublicKey(addressOrPublicKey))
+      }
+
+      resolve(validateAddress(addressOrPublicKey))
+    }),
+  )
 }
 
 const customValidatorFactory = {
@@ -303,5 +294,5 @@ const CustomValidator = (name, Validator) => ({
 
 export const registerCustomValidators = Validator => {
   Object.keys(CUSTOM_VALIDATORS_NAMES)
-        .forEach(name => CustomValidator(name, Validator).register())
+    .forEach(name => CustomValidator(name, Validator).register())
 }

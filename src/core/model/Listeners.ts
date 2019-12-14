@@ -1,4 +1,4 @@
-import {Address, Listener, BlockInfo, Transaction, TransactionStatusError, add} from 'nem2-sdk'
+import {Address, Listener, BlockInfo, Transaction, TransactionStatusError} from 'nem2-sdk'
 import {Store} from 'vuex'
 import {filter} from 'rxjs/operators'
 import {formatAndSave} from '@/core/services/transactions'
@@ -16,7 +16,7 @@ export class Listeners {
 
   private constructor(private store: Store<AppState>) {}
   private wsEndpoint: string
-  private restartTimes: number = 0
+  private restartTimes = 0
   private listener: Listener
   private address: Address
 
@@ -54,54 +54,54 @@ export class Listeners {
     console.info(`starting chain listener for ${address.pretty()} on ${wsEndpoint}`)
 
     this.listener
-            .open()
-            .then(() => {
-              this.listener.newBlock().subscribe((block: BlockInfo) => {
-                store.commit('SET_CHAIN_STATUS', new ChainStatus(block))
-              })
+      .open()
+      .then(() => {
+        this.listener.newBlock().subscribe((block: BlockInfo) => {
+          store.commit('SET_CHAIN_STATUS', new ChainStatus(block))
+        })
 
-              this.listener.status(address).subscribe((error: TransactionStatusError) => {
-                Notice.trigger(error.status.split('_').join(' '), NoticeType.error, store)
-              })
+        this.listener.status(address).subscribe((error: TransactionStatusError) => {
+          Notice.trigger(error.status.split('_').join(' '), NoticeType.error, store)
+        })
 
-              this.listener.cosignatureAdded(address).subscribe(() => {
-                Notice.trigger(Message.NEW_COSIGNATURE, NoticeType.success, store)
-              })
+        this.listener.cosignatureAdded(address).subscribe(() => {
+          Notice.trigger(Message.NEW_COSIGNATURE, NoticeType.success, store)
+        })
 
-              this.listener.aggregateBondedAdded(address).subscribe(() => {
-                Notice.trigger(Message.NEW_AGGREGATE_BONDED, NoticeType.success, store)
-              })
+        this.listener.aggregateBondedAdded(address).subscribe(() => {
+          Notice.trigger(Message.NEW_AGGREGATE_BONDED, NoticeType.success, store)
+        })
 
-              this.listener.confirmed(address)
-                    .pipe(filter(transaction => transaction.transactionInfo !== undefined))
-                    .subscribe((transaction: Transaction) => {
-                      Notice.trigger('Transaction_Reception', NoticeType.success, store)
+        this.listener.confirmed(address)
+          .pipe(filter(transaction => transaction.transactionInfo !== undefined))
+          .subscribe((transaction: Transaction) => {
+            Notice.trigger('Transaction_Reception', NoticeType.success, store)
 
-                      formatAndSave(
-                            // @ts-ignore
-                            {...transaction, isTxConfirmed: true},
-                            this.store,
-                            true,
-                            TRANSACTIONS_CATEGORIES.NORMAL,
-                        )
-                    })
+            formatAndSave(
+              // @ts-ignore
+              {...transaction, isTxConfirmed: true},
+              this.store,
+              true,
+              TRANSACTIONS_CATEGORIES.NORMAL,
+            )
+          })
 
-              this.listener.unconfirmedAdded(this.address)
-                    .pipe(filter(transaction => transaction.transactionInfo !== undefined))
-                    .subscribe((transaction: Transaction) => {
-                      Notice.trigger('Transaction_sending', NoticeType.success, store)
+        this.listener.unconfirmedAdded(this.address)
+          .pipe(filter(transaction => transaction.transactionInfo !== undefined))
+          .subscribe((transaction: Transaction) => {
+            Notice.trigger('Transaction_sending', NoticeType.success, store)
 
-                      formatAndSave(
-                            // @ts-ignore
-                            {...transaction, isTxConfirmed: false},
-                            this.store,
-                            false,
-                            TRANSACTIONS_CATEGORIES.NORMAL,
-                        )
-                    })
-            }, err => {
-              this.retry()
-            })
+            formatAndSave(
+              // @ts-ignore
+              {...transaction, isTxConfirmed: false},
+              this.store,
+              false,
+              TRANSACTIONS_CATEGORIES.NORMAL,
+            )
+          })
+      }, () => {
+        this.retry()
+      })
   }
 
   private retry() {

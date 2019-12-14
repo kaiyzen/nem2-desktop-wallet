@@ -8,7 +8,7 @@ export default class ImportAccountTs extends Vue {
 
   get currentRouterIndex() {
     const {name} = this.$route
-        // @ts-ignore
+    // @ts-ignore
     return routes[0].children[7].children[3].children.findIndex(item => item.name === name) + 1
   }
 

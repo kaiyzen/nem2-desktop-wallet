@@ -16,20 +16,19 @@ export class NumberGrowTs extends Vue {
   formatNumber = formatNumber
 
   numberGrow(ele) {
-    const that = this
-    const step = (that.value * 10) / (that.time * 1000)
+    const step = (this.value * 10) / (this.time * 1000)
     let current = 0
     let start = 0
     let t = setInterval(() => {
       start += step
-      if (start > that.value) {
+      if (start > this.value) {
         clearInterval(t)
-        start = that.value
+        start = this.value
         t = null
       }
-      if (current === start) {
-        return
-      }
+      if (current === start) 
+      {return}
+      
       current = Number(Number(start).toFixed(0))
       ele.innerHTML = current.toString().replace(/(\d)(?=(?:\d{3}[+]?)+$)/g, '$1,')
     }, 10)
@@ -40,13 +39,13 @@ export class NumberGrowTs extends Vue {
       this.isAdd = false
       return
     }
-    if (this.isAdd) {
-      this.numberGrow(this.$refs.numberGrow)
-    }
+    if (this.isAdd) 
+    {this.numberGrow(this.$refs.numberGrow)}
+    
   }
 
   @Watch('value')
-    onValueChange() {
+  onValueChange() {
     this.numValue = this.value
     this.isAdd = false
   }

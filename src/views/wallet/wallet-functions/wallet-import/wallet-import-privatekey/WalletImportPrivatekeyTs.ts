@@ -40,11 +40,11 @@ export class WalletImportPrivatekeyTs extends Vue {
 
   submit() {
     this.$validator
-        .validate()
-        .then(valid => {
-          if (!valid) return
-          this.showCheckPWDialog = true
-        })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.showCheckPWDialog = true
+      })
   }
 
   passwordValidated(password) {
@@ -57,12 +57,12 @@ export class WalletImportPrivatekeyTs extends Vue {
     const {walletName, privateKey} = this.formItems
     try {
       new AppWallet().createFromPrivateKey(
-                walletName,
-                new Password(password),
-                privateKey,
-                accountNetworkType,
-                this.$store,
-            )
+        walletName,
+        new Password(password),
+        privateKey,
+        accountNetworkType,
+        this.$store,
+      )
       this.$Notice.success({
         title: `${this.$t('Import_private_key_operation')}`,
       })

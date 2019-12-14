@@ -31,8 +31,8 @@ export class FormattedTransfer extends FormattedTransaction {
 
   getRecipient(tx: TransferTransaction): string | NamespaceId {
     return tx.recipientAddress instanceof Address
-            ? tx.recipientAddress.pretty()
-            : tx.recipientAddress
+      ? tx.recipientAddress.pretty()
+      : tx.recipientAddress
   }
 }
 

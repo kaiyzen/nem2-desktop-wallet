@@ -4,8 +4,8 @@ import {Component, Vue} from 'vue-property-decorator'
 import {transactionFormatter, transactionConfirmationObservable} from '@/core/services'
 import {Message} from '@/config'
 import {
-    CreateWalletType, AppWallet, StagedTransaction, SignTransaction,
-    AppInfo, StoreAccount, Notice, NoticeType,
+  CreateWalletType, AppWallet, StagedTransaction, SignTransaction,
+  AppInfo, StoreAccount, Notice, NoticeType,
 } from '@/core/model'
 import trezor from '@/core/utils/trezor'
 import TransactionDetails from '@/components/transaction-details/TransactionDetails.vue'
@@ -62,7 +62,7 @@ export class TransactionConfirmationTs extends Vue {
     })
 
     if (transactionResult.success) {
-            // get signedTransaction via TrezorConnect.nemSignTransaction
+      // get signedTransaction via TrezorConnect.nemSignTransaction
       const result: SignTransaction = {
         success: true,
         signedTransaction: transactionResult.payload.signature,
@@ -92,18 +92,18 @@ export class TransactionConfirmationTs extends Vue {
     const account = wallet.getAccount(new Password(this.password))
     const {transactionToSign, lockParams} = this.stagedTransaction
 
-        /**
+    /**
          * AGGREGATE BONDED
          */
     if (transactionToSign instanceof AggregateTransaction && lockParams.announceInLock) {
       const {signedTransaction, signedLock} = wallet.getSignedLockAndAggregateTransaction(
-                transactionToSign,
-                lockParams.transactionFee,
-                this.password,
-                this.$store,
-            )
+        transactionToSign,
+        lockParams.transactionFee,
+        this.password,
+        this.$store,
+      )
 
-            // tslint:disable-next-line:no-shadowed-variable
+      // tslint:disable-next-line:no-shadowed-variable
       const result: SignTransaction = {
         success: true,
         signedTransaction,
@@ -116,13 +116,13 @@ export class TransactionConfirmationTs extends Vue {
     }
 
 
-        /**
+    /**
          * COSIGNATURE
          */
     if (transactionToSign instanceof AggregateTransaction && transactionToSign.signer) {
       const cosignatureTransaction = CosignatureTransaction.create(transactionToSign)
 
-            // tslint:disable-next-line:no-shadowed-variable
+      // tslint:disable-next-line:no-shadowed-variable
       const result: SignTransaction = {
         success: true,
         signedTransaction: account.signCosignatureTransaction(cosignatureTransaction),
@@ -134,7 +134,7 @@ export class TransactionConfirmationTs extends Vue {
     }
 
 
-        /**
+    /**
          * DEFAULT SIGNATURE
          */
     const result: SignTransaction = {

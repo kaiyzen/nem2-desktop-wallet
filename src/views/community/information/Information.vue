@@ -111,7 +111,7 @@
 </template>
 
 <script lang="ts">
-//@ts-ignore
+// @ts-ignore
 import {InformationTs} from '@/views/community/information/InformationTs.ts'
 
 export default class InputLock extends InformationTs {

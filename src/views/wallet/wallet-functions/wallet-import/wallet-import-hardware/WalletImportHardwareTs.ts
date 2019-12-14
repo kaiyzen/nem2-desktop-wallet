@@ -25,8 +25,8 @@ export class WalletImportHardwareTs extends Vue {
   trezorForm = formDataConfig.trezorImportForm
 
   created() {
-        // prefill the form fields based on number of existing trezor wallets
-        // use MIJIN_TEST by default
+    // prefill the form fields based on number of existing trezor wallets
+    // use MIJIN_TEST by default
     this.trezorForm = this.getDefaultFormValues(NetworkType.MIJIN_TEST)
   }
 
@@ -86,13 +86,13 @@ export class WalletImportHardwareTs extends Vue {
         const address = Address.createFromPublicKey(publicKey, networkType)
 
         new AppWallet().createFromTrezor(
-                    walletName,
-                    networkType,
-                    serializedPath,
-                    publicKey,
-                    address.plain(),
-                    this.$store,
-                )
+          walletName,
+          networkType,
+          serializedPath,
+          publicKey,
+          address.plain(),
+          this.$store,
+        )
       }
 
       this.$store.commit('SET_UI_DISABLED', {

@@ -1,6 +1,6 @@
 import {FormattedTransaction, AppState} from '@/core/model'
 import {absoluteAmountToRelativeAmountWithTicker} from '@/core/utils'
-import {MosaicAliasTransaction, AliasAction, Transaction} from 'nem2-sdk'
+import {MosaicAliasTransaction, AliasAction} from 'nem2-sdk'
 import {Store} from 'vuex'
 
 export class FormattedMosaicAlias extends FormattedTransaction {

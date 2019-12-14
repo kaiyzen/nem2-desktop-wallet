@@ -81,8 +81,8 @@
 </template>
 
 <script lang="ts">
-import LoginAccountTs from "./LoginAccountTs"
-import "./LoginAccount.less"
+import LoginAccountTs from './LoginAccountTs'
+import './LoginAccount.less'
 
 export default class LoginAccount extends LoginAccountTs {
 }

@@ -20,10 +20,10 @@ export class CommunityTs extends Vue {
   }
 
   goToPage(item) {
-    if (item.disabled) {
-      return
-    }
-        // tslint:disable-next-line:forin
+    if (item.disabled) 
+    {return}
+    
+    // tslint:disable-next-line:forin
     for (const i in this.navList) {
       if (this.navList[i].to === item.to) {
         this.navList[i].active = true

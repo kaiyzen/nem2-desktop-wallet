@@ -1,12 +1,12 @@
 import {mapState} from 'vuex'
 import {
-    PublicAccount, MultisigAccountInfo, NetworkType, Address,
-    NamespaceRegistrationTransaction, UInt64, Deadline,
+  PublicAccount, MultisigAccountInfo, NetworkType, Address,
+  NamespaceRegistrationTransaction, UInt64, Deadline,
 } from 'nem2-sdk'
 import {Component, Vue, Watch, Provide} from 'vue-property-decorator'
 import {DEFAULT_FEES, FEE_GROUPS, formDataConfig} from '@/config'
 import {
-    getAbsoluteMosaicAmount, formatSeconds, formatAddress, cloneData,
+  getAbsoluteMosaicAmount, formatSeconds, formatAddress, cloneData,
 } from '@/core/utils'
 import {StoreAccount, AppInfo, DefaultFee, AppWallet, LockParams} from '@/core/model'
 import {createBondedMultisigTransaction, createCompleteMultisigTransaction, signAndAnnounce} from '@/core/services'
@@ -70,10 +70,10 @@ export class CreateRootNamespaceTs extends Vue {
         address: `(self) ${formatAddress(this.address)}`,
       },
       ...this.multisigInfo.multisigAccounts
-            .map(({publicKey}) => ({
-              publicKey,
-              address: formatAddress(Address.createFromPublicKey(publicKey, this.networkType).plain()),
-            })),
+        .map(({publicKey}) => ({
+          publicKey,
+          address: formatAddress(Address.createFromPublicKey(publicKey, this.networkType).plain()),
+        })),
     ]
   }
 
@@ -128,18 +128,18 @@ export class CreateRootNamespaceTs extends Vue {
   }
 
   createRootNamespace(): NamespaceRegistrationTransaction {
-    const {networkType} =  this.wallet
+    const {networkType} = this.wallet
     const {rootNamespaceName, duration} = this.formItems
     const {feeAmount, feeDivider} = this
 
     return NamespaceRegistrationTransaction
-            .createRootNamespace(
-                Deadline.create(),
-                rootNamespaceName,
-                UInt64.fromUint(duration),
-                networkType,
-                UInt64.fromUint(feeAmount / feeDivider),
-            )
+      .createRootNamespace(
+        Deadline.create(),
+        rootNamespaceName,
+        UInt64.fromUint(duration),
+        networkType,
+        UInt64.fromUint(feeAmount / feeDivider),
+      )
   }
 
   async createBySelf() {
@@ -156,28 +156,28 @@ export class CreateRootNamespaceTs extends Vue {
 
     if (this.announceInLock) {
       this.transactionList = [createBondedMultisigTransaction(
-                [rootNamespaceTransaction],
-                multisigPublicKey,
-                networkType,
-                fee,
-            )]
+        [rootNamespaceTransaction],
+        multisigPublicKey,
+        networkType,
+        fee,
+      )]
       return
     }
 
     this.transactionList = [createCompleteMultisigTransaction(
-            [rootNamespaceTransaction],
-            multisigPublicKey,
-            networkType,
-            fee,
-        )]
+      [rootNamespaceTransaction],
+      multisigPublicKey,
+      networkType,
+      fee,
+    )]
   }
 
   confirmViaTransactionConfirmation() {
-    if (this.activeMultisigAccount) {
-      this.createByMultisig()
-    } else {
-      this.createBySelf()
-    }
+    if (this.activeMultisigAccount) 
+    {this.createByMultisig()}
+    else 
+    {this.createBySelf()}
+    
 
     try {
       signAndAnnounce({
@@ -202,11 +202,11 @@ export class CreateRootNamespaceTs extends Vue {
 
   async submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.confirmViaTransactionConfirmation()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.confirmViaTransactionConfirmation()
+      })
   }
 
   resetFields() {
@@ -214,7 +214,7 @@ export class CreateRootNamespaceTs extends Vue {
   }
 
   @Watch('formItems.multisigPublicKey')
-    onMultisigPublicKeyChange(newPublicKey, oldPublicKey) {
+  onMultisigPublicKeyChange(newPublicKey, oldPublicKey) {
     if (!newPublicKey || newPublicKey === oldPublicKey) return
     this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', newPublicKey)
   }

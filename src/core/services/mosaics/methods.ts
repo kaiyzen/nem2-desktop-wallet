@@ -1,11 +1,4 @@
-import {
-    AccountHttp,
-    Address,
-    MosaicAmountView,
-    MosaicService,
-    MosaicHttp,
-    MosaicId,
-} from 'nem2-sdk'
+import {AccountHttp, Address, MosaicAmountView, MosaicService, MosaicHttp, MosaicId} from 'nem2-sdk'
 import {AppMosaic, AppWallet, MosaicNamespaceStatusType, AppState, AppNamespace} from '@/core/model'
 import {Store} from 'vuex'
 import {mosaicSortType} from '@/config/view/mosaic'
@@ -15,58 +8,54 @@ import {mosaicSortType} from '@/config/view/mosaic'
  * @TODO: replace by SDK method when updated
  * https://github.com/nemtech/nem2-sdk-typescript-javascript/issues/247
  */
-export const mosaicsAmountViewFromAddress = (node: string, address: Address): Promise<MosaicAmountView[]> => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const accountHttp = new AccountHttp(node)
-      const mosaicHttp = new MosaicHttp(node)
-      const mosaicService = new MosaicService(accountHttp, mosaicHttp)
+export const mosaicsAmountViewFromAddress = async (node: string, address: Address): Promise<MosaicAmountView[]> => {
+  try {
+    const accountHttp = new AccountHttp(node)
+    const mosaicHttp = new MosaicHttp(node)
+    const mosaicService = new MosaicService(accountHttp, mosaicHttp)
 
-      const accountInfo = await accountHttp.getAccountInfo(address).toPromise()
-      if (!accountInfo.mosaics.length) return []
+    const accountInfo = await accountHttp.getAccountInfo(address).toPromise()
+    if (!accountInfo.mosaics.length) return []
 
-      const mosaics = accountInfo.mosaics.map(mosaic => mosaic)
-      const mosaicIds = mosaics.map(({id}) => new MosaicId(id.toHex()))
-      const mosaicViews = await mosaicService.mosaicsView(mosaicIds).toPromise()
+    const mosaics = accountInfo.mosaics.map(mosaic => mosaic)
+    const mosaicIds = mosaics.map(({id}) => new MosaicId(id.toHex()))
+    const mosaicViews = await mosaicService.mosaicsView(mosaicIds).toPromise()
 
-      const mosaicAmountViews = mosaics
-                .map(mosaic => {
-                  const mosaicView = mosaicViews
-                        .find(({mosaicInfo}) => mosaicInfo.id.toHex() === mosaic.id.toHex())
+    const mosaicAmountViews = mosaics
+      .map(mosaic => {
+        const mosaicView = mosaicViews
+          .find(({mosaicInfo}) => mosaicInfo.id.toHex() === mosaic.id.toHex())
 
-                  if (mosaicView === undefined) throw new Error('A MosaicView was not found')
-                  return new MosaicAmountView(mosaicView.mosaicInfo, mosaic.amount)
-                })
+        if (mosaicView === undefined) throw new Error('A MosaicView was not found')
+        return new MosaicAmountView(mosaicView.mosaicInfo, mosaic.amount)
+      })
 
-      resolve(mosaicAmountViews)
-    } catch (error) {
-      reject(error)
-    }
-  })
+    return mosaicAmountViews
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
-export const setMosaics = (wallet: AppWallet, store: Store<AppState>) => {
+export const setMosaics = async (wallet: AppWallet, store: Store<AppState>) => {
   const {node, networkCurrency} = store.state.account
   const address = Address.createFromRawAddress(wallet.address)
 
-  return new Promise(async (resolve, reject) => {
-    try {
-      const mosaicAmountViews = await mosaicsAmountViewFromAddress(node, address)
-      const appMosaics = mosaicAmountViews.map(x => AppMosaic.fromMosaicAmountView(x))
-      store.commit('UPDATE_MOSAICS', appMosaics)
-      const networkMosaic: AppMosaic = appMosaics.find(({hex}) => hex === networkCurrency.hex)
-      const balance = networkMosaic !== undefined && networkMosaic.balance
-                ? networkMosaic.balance : 0
+  try {
+    const mosaicAmountViews = await mosaicsAmountViewFromAddress(node, address)
+    const appMosaics = mosaicAmountViews.map(x => AppMosaic.fromMosaicAmountView(x))
+    store.commit('UPDATE_MOSAICS', appMosaics)
+    const networkMosaic: AppMosaic = appMosaics.find(({hex}) => hex === networkCurrency.hex)
+    const balance = networkMosaic !== undefined && networkMosaic.balance
+      ? networkMosaic.balance : 0
 
-      new AppWallet(wallet).updateAccountBalance(balance, store)
-      store.commit('SET_MOSAICS_LOADING', false)
-      resolve(true)
-    } catch (error) {
-      new AppWallet(wallet).updateAccountBalance(0, store)
-      store.commit('SET_MOSAICS_LOADING', false)
-      reject(error)
-    }
-  })
+    new AppWallet(wallet).updateAccountBalance(balance, store)
+    store.commit('SET_MOSAICS_LOADING', false)
+    return true
+  } catch (error) {
+    new AppWallet(wallet).updateAccountBalance(0, store)
+    store.commit('SET_MOSAICS_LOADING', false)
+    return error
+  }
 }
 
 export const sortByMosaicId = list => {
@@ -109,9 +98,9 @@ export const sortByMosaicSupplyMutable = list => {
 }
 export const sortByMosaicDuration = list => {
   return list.sort((a, b) => {
-    if (MosaicNamespaceStatusType.FOREVER === a.expirationHeight) {
-      return false
-    }
+    if (MosaicNamespaceStatusType.FOREVER === a.expirationHeight) 
+    {return false}
+    
     return b.expirationHeight - a.expirationHeight
   })
 }
@@ -146,6 +135,6 @@ const sortingRouter = {
 }
 
 export const sortMosaicList = (sortingType: number,
-                               list: AppNamespace[]): AppNamespace[] => {
+  list: AppNamespace[]): AppNamespace[] => {
   return sortingRouter[sortingType](list)
 }

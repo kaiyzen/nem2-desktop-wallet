@@ -37,8 +37,8 @@ export class FormInputTs extends Vue {
   }
 
   @Watch('fieldError')
-    onFieldErrorChanged(newValue: string) {
-        // Avoid flashing when the error Tooltip gets cleared
+  onFieldErrorChanged(newValue: string) {
+    // Avoid flashing when the error Tooltip gets cleared
     if (newValue !== undefined) this.displayedError = newValue
   }
 }

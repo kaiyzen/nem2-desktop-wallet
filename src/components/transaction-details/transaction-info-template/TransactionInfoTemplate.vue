@@ -88,6 +88,6 @@
 
 <script lang="ts">
 import {TransactionInfoTemplateTs} from '@/components/transaction-details/transaction-info-template/TransactionInfoTemplateTs.ts'
-import "./TransactionInfoTemplate.less"
+import './TransactionInfoTemplate.less'
 export default class TransactionInfoTemplate extends TransactionInfoTemplateTs {}
 </script>

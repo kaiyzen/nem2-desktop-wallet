@@ -40,8 +40,8 @@
 
 
 <script lang="ts">
-import "./CheckPasswordDialog.less"
-import { CheckPasswordDialogTs } from "@/components/check-password-dialog/CheckPasswordDialogTs.ts"
+import './CheckPasswordDialog.less'
+import { CheckPasswordDialogTs } from '@/components/check-password-dialog/CheckPasswordDialogTs.ts'
 
 export default class CheckPasswordDialog extends CheckPasswordDialogTs {}
 </script>

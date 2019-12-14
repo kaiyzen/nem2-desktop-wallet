@@ -8,8 +8,8 @@ export const getMultisigAccountMultisigAccountInfo = async (publicKey: string, s
 
   try {
     const multisigAccountInfo = await new MultisigHttp(node)
-            .getMultisigAccountInfo(Address.createFromRawAddress(accountAddress))
-            .toPromise()
+      .getMultisigAccountInfo(Address.createFromRawAddress(accountAddress))
+      .toPromise()
 
     store.commit('SET_MULTISIG_ACCOUNT_INFO', {
       address: accountAddress, multisigAccountInfo,

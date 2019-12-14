@@ -12,7 +12,7 @@ export class FormattedAggregateComplete extends FormattedTransaction {
     const {networkCurrency} = store.state.account
 
     this.formattedInnerTransactions = transactionFormatter(tx.innerTransactions,
-            store)
+      store)
     this.dialogDetailMap = {
       self: tx.signer ? tx.signer.address.pretty() : store.state.account.wallet.address,
       transaction_type: this.txHeader.tag,

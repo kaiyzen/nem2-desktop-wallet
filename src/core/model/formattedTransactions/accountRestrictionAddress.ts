@@ -16,7 +16,7 @@ export class FormattedAccountRestrictionAddress extends FormattedTransaction {
       fee: absoluteAmountToRelativeAmountWithTicker(tx.maxFee.compact(), networkCurrency),
       block: this.txHeader.block,
       hash: this.txHeader.hash,
-            // @MODAL
+      // @MODAL
     }
   }
   dialogDetailMap: any

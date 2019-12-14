@@ -1,17 +1,12 @@
 import {
-  NetworkType, Transaction, PublicAccount, AggregateTransaction,
-  Deadline, UInt64, HashLockTransaction,
-  Mosaic, MosaicId, Account, SignedTransaction,
+  NetworkType, Transaction, PublicAccount,
+  AggregateTransaction, Deadline, UInt64,
 } from 'nem2-sdk'
-import {Store} from 'vuex'
-import {AppState} from '@/core/model'
-import {defaultNetworkConfig} from '@/config'
-const {DEFAULT_LOCK_AMOUNT} = defaultNetworkConfig
 
 export const createCompleteMultisigTransaction = ( transactions: Transaction[],
-                                                   multisigPublicKey: string,
-                                                   networkType: NetworkType,
-                                                   fee: number) => {
+  multisigPublicKey: string,
+  networkType: NetworkType,
+  fee: number) => {
   const publicAccount = PublicAccount.createFromPublicKey(multisigPublicKey, networkType)
 
   return AggregateTransaction.createComplete(
@@ -24,17 +19,17 @@ export const createCompleteMultisigTransaction = ( transactions: Transaction[],
 }
 
 export const createBondedMultisigTransaction = ( transactions: Transaction[],
-                                                 multisigPublicKey: string,
-                                                 networkType: NetworkType,
-                                                 fee: number) => {
+  multisigPublicKey: string,
+  networkType: NetworkType,
+  fee: number) => {
   const publicAccount = PublicAccount.createFromPublicKey(multisigPublicKey, networkType)
 
   return AggregateTransaction.createBonded(
-     Deadline.create(),
-     transactions.map(tx => tx.toAggregate(publicAccount)),
-     networkType,
-     [],
-     UInt64.fromUint(fee),
-   )
+    Deadline.create(),
+    transactions.map(tx => tx.toAggregate(publicAccount)),
+    networkType,
+    [],
+    UInt64.fromUint(fee),
+  )
 }
 

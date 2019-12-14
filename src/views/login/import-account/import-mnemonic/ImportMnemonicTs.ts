@@ -14,7 +14,7 @@ import {Message} from '@/config'
   },
 })
 export default class ImportMnemonicTs extends Vue {
-  seed: string = ''
+  seed = ''
   activeAccount: StoreAccount
   app: AppInfo
 
@@ -37,7 +37,7 @@ export default class ImportMnemonicTs extends Vue {
       return false
     }
     try {
-      getAccountFromPathNumber(seed, 0, networkType)  // use for check mnemonic
+      getAccountFromPathNumber(seed, 0, networkType) // use for check mnemonic
     } catch (e) {
       this.$Notice.error({title: 'Invalid mnemonic'})
       return false
@@ -51,10 +51,10 @@ export default class ImportMnemonicTs extends Vue {
     const {seed, password} = this
     try {
       new AppWallet().createAccountFromMnemonic(
-                new Password(password),
-                seed,
-                this.$store,
-            )
+        new Password(password),
+        seed,
+        this.$store,
+      )
       this.$store.commit('SET_TEMPORARY_MNEMONIC', this.seed)
       this.$router.push('walletChoose')
     } catch (error) {

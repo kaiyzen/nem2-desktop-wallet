@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { CreateRemoteAccountTs } from "./CreateRemoteAccountTs"
+import { CreateRemoteAccountTs } from './CreateRemoteAccountTs'
 export default class CreateRemoteAccount extends CreateRemoteAccountTs {}
 </script>
 <style lang="less">

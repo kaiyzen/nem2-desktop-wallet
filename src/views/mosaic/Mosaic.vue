@@ -24,7 +24,7 @@
 
 <script lang="ts">
 export default {
-  name: "Mosaic"
+  name: 'Mosaic',
 }
 </script>
 <style scoped lang="less">

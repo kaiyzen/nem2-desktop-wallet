@@ -18,8 +18,8 @@ export class TransactionDetailsTs extends Vue {
 
   get transactionDetails() {
     return this.transaction.formattedInnerTransactions ?
-            this.transaction.formattedInnerTransactions.map(item => item.dialogDetailMap) :
-            [this.transaction.dialogDetailMap]
+      this.transaction.formattedInnerTransactions.map(item => item.dialogDetailMap) :
+      [this.transaction.dialogDetailMap]
   }
 
   getStatus(): string {

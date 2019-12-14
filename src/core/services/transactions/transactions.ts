@@ -4,14 +4,14 @@ import {AppState, TRANSACTIONS_CATEGORIES} from '@/core/model'
 import {Store} from 'vuex'
 
 // @TODO: refactor
-export const formatAndSave = (  transaction: Transaction,
-                                store: Store<AppState>,
-                                confirmed: boolean,
-                                transactionCategory: string): void => {
+export const formatAndSave = ( transaction: Transaction,
+  store: Store<AppState>,
+  confirmed: boolean,
+  transactionCategory: string): void => {
   const formattedTransactions = transactionFormat(
-        [transaction],
-        store,
-    )
+    [transaction],
+    store,
+  )
 
   if (transactionCategory === TRANSACTIONS_CATEGORIES.TO_COSIGN) {
     store.commit('ADD_TRANSACTION_TO_COSIGN', formattedTransactions)
@@ -32,19 +32,19 @@ export const setTransactionList = (address: string, store: Store<AppState>): voi
   const addressObject = Address.createFromRawAddress(address)
 
   accountHttp.getAccountTransactions(addressObject, new QueryParams(100)).subscribe(
-        (transactionList: Transaction[]) => {
-          const txList = transactionFormat(transactionList, store) .map(x => ({...x, isTxConfirmed: true}))
-          store.commit('SET_TRANSACTION_LIST', txList)
-          store.commit('SET_TRANSACTIONS_LOADING', false)
-        }, error => console.error('setTransactionList -> transactions -> error', error),
-    )
+    (transactionList: Transaction[]) => {
+      const txList = transactionFormat(transactionList, store) .map(x => ({...x, isTxConfirmed: true}))
+      store.commit('SET_TRANSACTION_LIST', txList)
+      store.commit('SET_TRANSACTIONS_LOADING', false)
+    }, error => console.error('setTransactionList -> transactions -> error', error),
+  )
 
   accountHttp.getAccountUnconfirmedTransactions(addressObject, new QueryParams(100)).subscribe(
-        (transactionList: Transaction[]) => {
-          const txList = transactionFormat(transactionList, store)
-                .map(x => ({...x, isTxConfirmed: false}))
+    (transactionList: Transaction[]) => {
+      const txList = transactionFormat(transactionList, store)
+        .map(x => ({...x, isTxConfirmed: false}))
 
-          store.commit('SET_UNCONFIRMED_TRANSACTION_LIST', txList)
-        }, error => console.error('setTransactionList -> unconfirmedTransactions -> error', error),
-    )
+      store.commit('SET_UNCONFIRMED_TRANSACTION_LIST', txList)
+    }, error => console.error('setTransactionList -> unconfirmedTransactions -> error', error),
+  )
 }

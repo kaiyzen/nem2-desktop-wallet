@@ -1,7 +1,7 @@
 import {Store} from 'vuex'
 import {FormattedTransaction, AppState} from '@/core/model'
 import {absoluteAmountToRelativeAmountWithTicker} from '@/core/utils'
-import {AddressAliasTransaction, AliasAction, Transaction} from 'nem2-sdk'
+import {AddressAliasTransaction, AliasAction} from 'nem2-sdk'
 
 export class FormattedAddressAlias extends FormattedTransaction {
 

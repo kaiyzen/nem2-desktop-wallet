@@ -1,10 +1,9 @@
 import {FormattedTransaction, AppState} from '@/core/model'
 import {absoluteAmountToRelativeAmountWithTicker} from '@/core/utils'
 import {Store} from 'vuex'
-import {SecretProofTransaction, Transaction} from 'nem2-sdk'
+import {SecretProofTransaction} from 'nem2-sdk'
 
 export class FormattedSecretProof extends FormattedTransaction {
-
   constructor(tx: SecretProofTransaction,
     store: Store<AppState>) {
     super(tx, store)

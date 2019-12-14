@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { PersistentDelegationRequestTs } from "./PersistentDelegationRequestTs"
+import { PersistentDelegationRequestTs } from './PersistentDelegationRequestTs'
 export default class PersistentDelegationRequest extends PersistentDelegationRequestTs {}
 </script>
 <style lang="less">

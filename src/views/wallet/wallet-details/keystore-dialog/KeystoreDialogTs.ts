@@ -30,9 +30,7 @@ export class KeystoreDialogTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('closeKeystoreDialog')
-    }
+    if (!val) this.$emit('closeKeystoreDialog')
   }
 
   get wallet() {
@@ -41,16 +39,16 @@ export class KeystoreDialogTs extends Vue {
 
   checkWalletPassword() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) {
-                this.$Notice.destroy()
-                this.$Notice.error({title: `${this.$t(this.errors.items[0].msg)}`})
-                return
-              }
+      .validate()
+      .then(valid => {
+        if (!valid) {
+          this.$Notice.destroy()
+          this.$Notice.error({title: `${this.$t(this.errors.items[0].msg)}`})
+          return
+        }
 
-              this.stepIndex = 1
-            })
+        this.stepIndex = 1
+      })
   }
 
   exportKeystore() {
@@ -73,7 +71,7 @@ export class KeystoreDialogTs extends Vue {
   }
 
   copyKeystore() {
-    copyTxt(this.keystoreText).then(data => {
+    copyTxt(this.keystoreText).then(() => {
       this.$Notice.success({
         title: `${this.$t(Message.COPY_SUCCESS)}`,
       })

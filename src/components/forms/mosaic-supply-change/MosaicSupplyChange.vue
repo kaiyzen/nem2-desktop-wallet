@@ -140,8 +140,8 @@
 </template>
 
 <script lang="ts">
-import "./MosaicSupplyChange.less"
-import {MosaicSupplyChangeTs} from "@/components/forms/mosaic-supply-change/MosaicSupplyChangeTs.ts"
+import './MosaicSupplyChange.less'
+import {MosaicSupplyChangeTs} from '@/components/forms/mosaic-supply-change/MosaicSupplyChangeTs.ts'
 
 export default class MosaicSupplyChange extends MosaicSupplyChangeTs {
 }

@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { MultisigCosignTs } from "./MultisigCosignTs"
+import { MultisigCosignTs } from './MultisigCosignTs'
 export default class MultisigCosign extends MultisigCosignTs {}
 </script>
 <style scoped lang="less">

@@ -14,12 +14,12 @@ export class CreateRemoteAccountTs extends Vue {
   @Provide() validator: any = this.$validator
   activeAccount: StoreAccount
   validation = validation
-  importAccount: boolean = false
-  showPrivateKey: boolean = false
+  importAccount = false
+  showPrivateKey = false
   showPasswordPrompt = false
-  hideForms: boolean = false
-  privateKey: string = ''
-  password: string = ''
+  hideForms = false
+  privateKey = ''
+  password = ''
 
   @Prop({default: false})
   visible: boolean
@@ -32,9 +32,9 @@ export class CreateRemoteAccountTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get wallet(): AppWallet {

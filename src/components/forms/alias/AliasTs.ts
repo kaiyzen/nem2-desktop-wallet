@@ -1,16 +1,16 @@
 import {formDataConfig, DEFAULT_FEES, FEE_GROUPS} from '@/config/index.ts'
 import {Component, Prop, Vue, Provide} from 'vue-property-decorator'
 import {
-    Address,
-    AliasAction,
-    NamespaceId,
-    Transaction,
-    MosaicId,
-    AddressAliasTransaction,
-    Deadline,
-    UInt64,
-    MosaicAliasTransaction,
-    EmptyAlias,
+  Address,
+  AliasAction,
+  NamespaceId,
+  Transaction,
+  MosaicId,
+  AddressAliasTransaction,
+  Deadline,
+  UInt64,
+  MosaicAliasTransaction,
+  EmptyAlias,
 } from 'nem2-sdk'
 import {mapState} from 'vuex'
 import {cloneData, getAbsoluteMosaicAmount} from '@/core/utils'
@@ -40,24 +40,24 @@ export class AliasTs extends Vue {
   formItems = cloneData(formDataConfig.alias)
   bindType: string = this.getBindType
 
-    /**
+  /**
      * The namespace name
      */
   alias: string = this.getAlias
 
-    /**
+  /**
      * The address or the mosaic hex Id
      */
   target: string = this.getTarget
 
   @Prop() visible: boolean
 
-    /**
+  /**
      * True for binding, false for unbinding
      */
   @Prop({required: true}) bind: boolean
 
-    /**
+  /**
      * Is the prop spawned from a click on a namespace?
      */
   @Prop({required: true}) fromNamespace: boolean
@@ -70,9 +70,9 @@ export class AliasTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get currentAccount() {
@@ -153,34 +153,34 @@ export class AliasTs extends Vue {
     const {currentHeight} = this
     const {address} = this.wallet
     const availableToBeLinked = AppMosaics()
-            .getAvailableToBeLinked(currentHeight, address, this.$store)
+      .getAvailableToBeLinked(currentHeight, address, this.$store)
     if (!availableToBeLinked.length) return []
     return availableToBeLinked
-            .filter(item => {
-              return currentHeight < item.expirationHeight
+      .filter(item => {
+        return currentHeight < item.expirationHeight
                     || item.expirationHeight === MosaicNamespaceStatusType.FOREVER
-            })
-            .map(({hex}) => hex)
+      })
+      .map(({hex}) => hex)
   }
 
   get linkableNamespaces(): string[] {
     const {currentHeight} = this
-        // @TODO handle namespace list loading state
+    // @TODO handle namespace list loading state
     return this.NamespaceList
-            .filter((namespace: AppNamespace) => {
-              return namespace.alias instanceof EmptyAlias
+      .filter((namespace: AppNamespace) => {
+        return namespace.alias instanceof EmptyAlias
                     && !namespace.expirationInfo(currentHeight).expired
-            })
-            .map(({name}) => name)
+      })
+      .map(({name}) => name)
   }
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.confirmViaTransactionConfirmation()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.confirmViaTransactionConfirmation()
+      })
   }
 
   transaction(): Transaction {
@@ -188,22 +188,22 @@ export class AliasTs extends Vue {
     const {networkType} = this.wallet
 
     return bindType === BindTypes.ADDRESS
-            ? AddressAliasTransaction.create(
-                Deadline.create(),
-                aliasAction,
-                new NamespaceId(alias),
-                Address.createFromRawAddress(target),
-                networkType,
-                UInt64.fromUint(feeAmount),
-            )
-            : MosaicAliasTransaction.create(
-                Deadline.create(),
-                aliasAction,
-                new NamespaceId(alias),
-                new MosaicId(target),
-                networkType,
-                UInt64.fromUint(feeAmount),
-            )
+      ? AddressAliasTransaction.create(
+        Deadline.create(),
+        aliasAction,
+        new NamespaceId(alias),
+        Address.createFromRawAddress(target),
+        networkType,
+        UInt64.fromUint(feeAmount),
+      )
+      : MosaicAliasTransaction.create(
+        Deadline.create(),
+        aliasAction,
+        new NamespaceId(alias),
+        new MosaicId(target),
+        networkType,
+        UInt64.fromUint(feeAmount),
+      )
   }
 
   confirmViaTransactionConfirmation() {

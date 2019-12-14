@@ -165,9 +165,9 @@
 </template>
 
 <script lang="ts">
-import "./KeystoreDialog.less"
-//@ts-ignore
-import {KeystoreDialogTs} from "@/views/wallet/wallet-details/keystore-dialog/KeystoreDialogTs.ts"
+import './KeystoreDialog.less'
+// @ts-ignore
+import {KeystoreDialogTs} from '@/views/wallet/wallet-details/keystore-dialog/KeystoreDialogTs.ts'
 
 export default class KeystoreDialog extends KeystoreDialogTs {
 }

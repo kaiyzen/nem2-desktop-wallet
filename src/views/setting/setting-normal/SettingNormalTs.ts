@@ -15,7 +15,7 @@ export class SettingNormalTs extends Vue {
   languageList: any = languageConfig
   coin = 'USD'
   timeZoneListData = timeZoneListData
-  showDebugConsole: boolean = false
+  showDebugConsole = false
 
   coinList = [
     {

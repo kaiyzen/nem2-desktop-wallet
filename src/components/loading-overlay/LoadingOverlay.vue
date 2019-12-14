@@ -2,34 +2,34 @@
   <div />
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
-import { AppInfo } from "@/core/model"
-import { mapState } from "vuex"
+import { Component, Vue } from 'vue-property-decorator'
+import { AppInfo } from '@/core/model'
+import { mapState } from 'vuex'
 
-@Component({ computed: { ...mapState({ app: "app" }) } })
+@Component({ computed: { ...mapState({ app: 'app' }) } })
 export default class LoadingOverlay extends Vue {
-  app: AppInfo;
+  app: AppInfo
 
   open() {
     // @ts-ignore
     this.$Spin.show({
       render: h => {
-        return h("div", [
-          h("div", this.app.loadingOverlay.message),
-          h("i", {
-            class: "ivu-icon ivu-icon-ios-close-circle icon"
+        return h('div', [
+          h('div', this.app.loadingOverlay.message),
+          h('i', {
+            class: 'ivu-icon ivu-icon-ios-close-circle icon',
           }),
           h(
-            "a",
+            'a',
             {
               on: {
-                click: this.closeScreen
-              }
+                click: this.closeScreen,
+              },
             },
-            "close"
-          )
+            'close'
+          ),
         ])
-      }
+      },
     })
 
     this
@@ -42,9 +42,9 @@ export default class LoadingOverlay extends Vue {
   closeScreen() {
     // @ts-ignore
     this.$Spin.hide()
-    this.$store.commit("SET_LOADING_OVERLAY", {
+    this.$store.commit('SET_LOADING_OVERLAY', {
       show: false,
-      message: ""
+      message: '',
     })
   }
 }

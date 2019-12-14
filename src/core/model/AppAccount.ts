@@ -12,58 +12,14 @@ const cryptoJSLib: any = CryptoJS.lib
 const PasswordBasedCipher: any = cryptoJSLib.PasswordBasedCipher
 
 
-export class AppAccount {
-  constructor(
-    public accountName: string,
-    public wallets: any[],
-    public password: string,
-    public hint: string,
-    public networkType: NetworkType,
-    public seed?: string,
-  ) { }
-
-  static create(
-    clearPassword: string,
-    accountName: string,
-    wallets: any[],
-    hint: string,
-    networkType: NetworkType,
-  )   {
-    const password = AppAccounts().encryptString(clearPassword, clearPassword)
-    return new AppAccount(
-            accountName,
-            wallets,
-            password,
-            hint,
-            networkType,
-        )
-  }
-
-  get currentAccount(): CurrentAccount {
-    return  {
-      name: this.accountName,
-      password: this.password,
-      networkType: this.networkType,
-    }
-  }
-
-  delete(): void {
-    const accountMap = localRead('accountMap') === ''
-            ? {} : JSON.parse(localRead('accountMap'))
-    delete accountMap[this.accountName]
-    localSave('accountMap', JSON.stringify(accountMap))
-  }
-}
-
-
 export const AppAccounts = () => ({
   accountName: '',
 
   getAccountFromLocalStorage(accountName) {
     const accountMapData = localRead('accountMap') || ''
-    if (!accountMapData) {
-      return ''
-    }
+    if (!accountMapData) 
+    {return ''}
+    
     const accountMap = JSON.parse(localRead('accountMap'))
     return accountMap[accountName]
   },
@@ -76,12 +32,12 @@ export const AppAccounts = () => ({
 
   deleteAccount(accountName: string) {
     const accountMap = localRead('accountMap') === ''
-            ? {} : JSON.parse(localRead('accountMap'))
+      ? {} : JSON.parse(localRead('accountMap'))
     delete accountMap[accountName]
     localSave('accountMap', JSON.stringify(accountMap))
   },
 
-    /**
+  /**
      * @description Save a new password in localStorage and store
      * @param {string} previousPassword
      * @param {string} newPassword
@@ -103,21 +59,21 @@ export const AppAccounts = () => ({
     const accountMap = JSON.parse(localRead('accountMap'))
     accountMap[accountName].password = newCipherPassword
     accountMap[accountName].wallets = accountMap[accountName].wallets
-            .filter(item => item.sourceType !== CreateWalletType.trezor)
-            .map(item => {
-              if (item.encryptedMnemonic) {
-                item.encryptedMnemonic = newEncryptedMnemonic
-              }
-              const privateKey = new AppWallet({simpleWallet: item.simpleWallet})
-                    .getAccount(new Password(previousPassword)).privateKey
+      .filter(item => item.sourceType !== CreateWalletType.trezor)
+      .map(item => {
+        if (item.encryptedMnemonic) 
+        {item.encryptedMnemonic = newEncryptedMnemonic}
+              
+        const privateKey = new AppWallet({simpleWallet: item.simpleWallet})
+          .getAccount(new Password(previousPassword)).privateKey
 
-              item.simpleWallet = SimpleWallet
-                    .createFromPrivateKey(item.name, new Password(newPassword), privateKey, item.networkType)
-              return item
-            })
+        item.simpleWallet = SimpleWallet
+          .createFromPrivateKey(item.name, new Password(newPassword), privateKey, item.networkType)
+        return item
+      })
 
     const newWallet = accountMap[accountName].wallets
-            .find(item => item.address === store.state.account.wallet.address)
+      .find(item => item.address === store.state.account.wallet.address)
 
     store.commit('SET_WALLET', newWallet)
     store.commit('SET_WALLET_LIST', accountMap[accountName].wallets)
@@ -125,7 +81,7 @@ export const AppAccounts = () => ({
   },
 
 
-    /**
+  /**
      * @description Encrypts a string
      * @param {string} toEncrypt
      * @param {string} password
@@ -136,7 +92,7 @@ export const AppAccounts = () => ({
     return PasswordBasedCipher.encrypt(defaultAlgo, encryptedWorkArray, password).toString()
   },
 
-    /**
+  /**
      * @description Decrypts a string
      * @param {string} toDecrypt
      * @param {string} password
@@ -147,7 +103,7 @@ export const AppAccounts = () => ({
     return CryptoJS.enc.Utf16.stringify(decrypted)
   },
 
-    /**
+  /**
      * @description Returns a cipher from localStorage
      * @returns {StoredCipher}
      */
@@ -155,10 +111,53 @@ export const AppAccounts = () => ({
     return JSON.parse(localRead('accountMap'))[accountName].password
   },
 
-    /**
+  /**
      * @description Removes a cipher from the localStorage
   */ deleteLock() {
     localRemove('lock')
   },
 
 })
+
+export class AppAccount {
+  constructor(
+    public accountName: string,
+    public wallets: any[],
+    public password: string,
+    public hint: string,
+    public networkType: NetworkType,
+    public seed?: string,
+  ) { }
+
+  static create(
+    clearPassword: string,
+    accountName: string,
+    wallets: any[],
+    hint: string,
+    networkType: NetworkType,
+  ) {
+    const password = AppAccounts().encryptString(clearPassword, clearPassword)
+    return new AppAccount(
+      accountName,
+      wallets,
+      password,
+      hint,
+      networkType,
+    )
+  }
+
+  get currentAccount(): CurrentAccount {
+    return {
+      name: this.accountName,
+      password: this.password,
+      networkType: this.networkType,
+    }
+  }
+
+  delete(): void {
+    const accountMap = localRead('accountMap') === ''
+      ? {} : JSON.parse(localRead('accountMap'))
+    delete accountMap[this.accountName]
+    localSave('accountMap', JSON.stringify(accountMap))
+  }
+}

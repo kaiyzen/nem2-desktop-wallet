@@ -1,6 +1,6 @@
 export class MosaicProperties {
 
-  constructor(    supplyMutable: boolean,
+  constructor( supplyMutable: boolean,
     transferable: boolean,
     divisibility: number,
     duration: number,

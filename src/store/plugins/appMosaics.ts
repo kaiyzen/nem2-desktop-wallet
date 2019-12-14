@@ -16,15 +16,15 @@ export const appMosaicsModule = store => {
     /**
      * Check for missing mosaicInfo in the mosaics added to store.account.mosaics
      */
-    if (mutation.type === 'UPDATE_MOSAICS') {
-      try {
-        const {mosaics} = state.account
-        AppMosaics().updateMosaicsInfo(mosaics, store)
-        AppMosaics().updateMosaicsName(mosaics, store)
-      } catch (error) {
-        console.error('appMosaicsModule -> error', error)
-      }
-    }
+    if (mutation.type === 'UPDATE_MOSAICS') 
+    {try {
+      const {mosaics} = state.account
+      AppMosaics().updateMosaicsInfo(mosaics, store)
+      AppMosaics().updateMosaicsName(mosaics, store)
+    } catch (error) {
+      console.error('appMosaicsModule -> error', error)
+    }}
+    
 
     if (mutation.type === 'UPDATE_NAMESPACES') {
       const {namespaces, mosaics} = state.account

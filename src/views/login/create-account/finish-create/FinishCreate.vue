@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import FinishCreateTs from "./FinishCreateTs"
+import FinishCreateTs from './FinishCreateTs'
 
 export default class FinishCreate extends FinishCreateTs {
 }

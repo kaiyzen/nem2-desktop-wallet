@@ -134,7 +134,7 @@
 <script lang="ts">
 // @ts-ignore
 import {TransactionListTs} from './TransactionListTs'
-import "./TransactionList.less"
+import './TransactionList.less'
 
 export default class TransactionList extends TransactionListTs {
 

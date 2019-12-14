@@ -63,11 +63,12 @@ export class TheWalletDeleteTs extends Vue {
       if (isPasswordCorrect) {
         new AppWallet(this.walletToDelete).delete(this.$store, this)
         this.$emit('closeCheckPWDialog')
-      } else {
-        this.$Notice.error({
-          title: `${this.$t(Message.WRONG_PASSWORD_ERROR)}`,
-        })
-      }
+      }           
+      this.$Notice.error({
+        title: `${this.$t(Message.WRONG_PASSWORD_ERROR)}`,
+      })
+      
+      
     } catch (error) {
       this.$Notice.error({
         title: `${this.$t(Message.WRONG_PASSWORD_ERROR)}`,
@@ -81,11 +82,12 @@ export class TheWalletDeleteTs extends Vue {
       if (isWalletNameCorrect) {
         new AppWallet(this.walletToDelete).delete(this.$store, this)
         this.$emit('closeCheckPWDialog')
-      } else {
-        this.$Notice.error({
-          title: `${this.$t(Message.WRONG_WALLET_NAME_ERROR)}`,
-        })
-      }
+      }                
+      this.$Notice.error({
+        title: `${this.$t(Message.WRONG_WALLET_NAME_ERROR)}`,
+      })
+      
+      
     } catch (error) {
       this.$Notice.error({
         title: `${this.$t(Message.WRONG_WALLET_NAME_ERROR)}`,
@@ -94,7 +96,7 @@ export class TheWalletDeleteTs extends Vue {
   }
 
   submit() {
-        // based on source of wallet, use different protection mechanisms
+    // based on source of wallet, use different protection mechanisms
     switch (this.getWallet.sourceType) {
     case 'Trezor':
       return this.deleteByWalletNameConfirmation()
@@ -104,7 +106,7 @@ export class TheWalletDeleteTs extends Vue {
   }
 
   @Watch('showCheckPWDialog')
-    onShowCheckPWDialogChange() {
+  onShowCheckPWDialogChange() {
     this.confirmation.value = ''
     this.show = this.showCheckPWDialog
   }

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import FinishImportTs from "./FinishImportTs"
+import FinishImportTs from './FinishImportTs'
 
 export default class FinishImport extends FinishImportTs {
 }

@@ -173,7 +173,7 @@
 
 <script lang="ts">
 // @ts-ignore
-import {MosaicCreationTs} from "@/components/forms/mosaic-creation/MosaicCreationTs.ts"
+import {MosaicCreationTs} from '@/components/forms/mosaic-creation/MosaicCreationTs.ts'
 
 export default class MosaicCreation extends MosaicCreationTs {
 }

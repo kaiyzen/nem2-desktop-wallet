@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import "./DisabledUiOverlay.less"
+import './DisabledUiOverlay.less'
 import {DisabledUiOverlayTs} from '@/components/disabled-ui-overlay/DisabledUiOverlayTs.ts'
 
 export default class DisabledUiOverlay extends DisabledUiOverlayTs {

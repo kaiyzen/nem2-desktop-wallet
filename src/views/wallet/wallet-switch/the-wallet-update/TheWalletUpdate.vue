@@ -36,7 +36,7 @@
 
 
 <script lang="ts">
-import "./TheWalletUpdate.less"
+import './TheWalletUpdate.less'
 import {TheWalletUpdateTs} from '@/views/wallet/wallet-switch/the-wallet-update/TheWalletUpdateTs.ts'
 export default class TheWalletUpdate extends TheWalletUpdateTs { }
 </script>

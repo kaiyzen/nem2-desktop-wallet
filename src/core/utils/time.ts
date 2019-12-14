@@ -32,15 +32,15 @@ export const formatSeconds = (second: number): string => {
     second = second % 60
   }
   let result = ''
-  if (m > 0 || h > 0 || d > 0) {
-    result = m + ' m ' + result
-  }
-  if (h > 0 || d > 0) {
-    result = h + ' h ' + result
-  }
-  if (d > 0) {
-    result = d + ' d ' + result
-  }
+  if (m > 0 || h > 0 || d > 0) 
+  {result = `${m } m ${ result}`}
+  
+  if (h > 0 || d > 0) 
+  {result = `${h } h ${ result}`}
+  
+  if (d > 0) 
+  {result = `${d } d ${ result}`}
+  
 
   return result
 }
@@ -66,17 +66,17 @@ export const durationToRelativeTime = (durationInBlocks: number): string => {
 export const formatDate = timestamp => {
   const now = new Date(Number(timestamp))
   const year = now.getFullYear()
-  let month = now.getMonth() + 1 + ''
-  month = Number(month) < 10 ? '0' + month : month
-  let date = now.getDate() + ''
-  date = Number(date) < 10 ? '0' + date : date
-  let hour = now.getHours() + ''
-  hour = Number(hour) < 10 ? '0' + hour : hour
-  let minute = now.getMinutes() + ''
-  minute = Number(minute) < 10 ? '0' + minute : minute
-  let second = now.getSeconds() + ''
-  second = Number(second) < 10 ? '0' + second : second
-  return year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second
+  let month = `${now.getMonth() + 1 }`
+  month = Number(month) < 10 ? `0${ month}` : month
+  let date = `${now.getDate() }`
+  date = Number(date) < 10 ? `0${ date}` : date
+  let hour = `${now.getHours() }`
+  hour = Number(hour) < 10 ? `0${ hour}` : hour
+  let minute = `${now.getMinutes() }`
+  minute = Number(minute) < 10 ? `0${ minute}` : minute
+  let second = `${now.getSeconds() }`
+  second = Number(second) < 10 ? `0${ second}` : second
+  return `${year }-${ month }-${ date } ${ hour }:${ minute }:${ second}`
 }
 
 export const getCurrentMonthFirst = (date: Date): Date => {

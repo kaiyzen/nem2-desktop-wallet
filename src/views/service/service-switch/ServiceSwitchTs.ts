@@ -11,13 +11,13 @@ export class ServiceSwitchTs extends Vue {
   }
 
   toPage(item) {
-    for (const i in this.serviceFnList) {
-      if (this.serviceFnList[i].name === item.name) {
-        this.serviceFnList[i].active = true
-      } else {
-        this.serviceFnList[i].active = false
-      }
-    }
+    for (const i in this.serviceFnList) 
+    {if (this.serviceFnList[i].name === item.name) 
+    {this.serviceFnList[i].active = true}
+    else 
+    {this.serviceFnList[i].active = false}}
+      
+    
     this.$router.push({path: item.to})
   }
 

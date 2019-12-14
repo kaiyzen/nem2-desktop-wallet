@@ -22,9 +22,7 @@ Vue.use(VueRx)
 // Introduced the global
 Vue.use(VeeValidate, veeValidateConfig)
 htmlRem()
-if (isWindows) {
-  resetFontSize()
-}
+if (isWindows) resetFontSize()
 
 Vue.config.productionTip = false
 /*
@@ -32,7 +30,7 @@ Vue.config.productionTip = false
 * input auto focus
 * */
 Vue.directive('focus', {
-  inserted(el, binding) {
+  inserted(el) {
     el.focus()
   },
 })

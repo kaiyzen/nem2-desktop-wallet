@@ -163,9 +163,9 @@
 </template>
 
 <script lang="ts">
-import "./PrivatekeyDialog.less"
-//@ts-ignore
-import { PrivatekeyDialogTs } from "@/views/wallet/wallet-details/privatekey-dialog/PrivatekeyDialogTs.ts"
+import './PrivatekeyDialog.less'
+// @ts-ignore
+import { PrivatekeyDialogTs } from '@/views/wallet/wallet-details/privatekey-dialog/PrivatekeyDialogTs.ts'
 
 export default class PrivatekeyDialog extends PrivatekeyDialogTs {}
 </script>

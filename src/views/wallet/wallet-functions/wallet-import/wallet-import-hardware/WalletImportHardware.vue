@@ -46,8 +46,8 @@
 </template>
 
 <script lang="ts">
-//@ts-ignore
+// @ts-ignore
 import { WalletImportHardwareTs } from '@/views/wallet/wallet-functions/wallet-import/wallet-import-hardware/WalletImportHardwareTs.ts'
-import "./WalletImportHardware.less"
+import './WalletImportHardware.less'
 export default class WalletImportHardware extends WalletImportHardwareTs { }
 </script>

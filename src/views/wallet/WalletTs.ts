@@ -1,4 +1,4 @@
-import {Component, Vue, Watch} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 import WalletFn from '@/views/wallet/wallet-functions/WalletFunctions.vue'
 import WalletSwitch from '@/views/wallet/wallet-switch/WalletSwitch.vue'
 import WalletDetails from '@/views/wallet/wallet-details/WalletDetails.vue'
@@ -55,24 +55,26 @@ export class WalletTs extends Vue {
   copyObj(obj) {
     const newObj: any = obj instanceof Array ? [] : {}
 
-        // tslint:disable-next-line:forin
+    // tslint:disable-next-line:forin
     for (const key in obj) {
       const value = obj[key]
-      if (value && 'object' === typeof value) {
-        newObj[key] = this.copyObj(value)
-      } else {
-        newObj[key] = value
-      }
+      if (value && 'object' === typeof value)  
+      {newObj[key] = this.copyObj(value)}
+      
+      else  
+      {newObj[key] = value}
+      
+      
     }
     return newObj
   }
 
-    // @ROUTING
+  // @ROUTING
   noHasWallet() {
     this.toCreate()
   }
 
-    // @ROUTING
+  // @ROUTING
   setDefaultPage() {
     const name = this.$route.params.name
     if (name === 'walletImportKeystore') {

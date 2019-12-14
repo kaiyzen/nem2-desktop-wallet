@@ -10,7 +10,7 @@ export class FormattedRegisterNamespace extends FormattedTransaction {
     super(tx, store)
     const {networkCurrency, wallet} = store.state.account
     const routeOrSub = tx.registrationType === NamespaceRegistrationType
-        .RootNamespace ? 'root' : 'sub'
+      .RootNamespace ? 'root' : 'sub'
     const namespaceName = `${tx.namespaceName}(${routeOrSub})`
 
     this.dialogDetailMap = {

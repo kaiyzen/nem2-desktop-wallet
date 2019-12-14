@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { GetNodePublicKeyTs } from "./GetNodePublicKeyTs"
+import { GetNodePublicKeyTs } from './GetNodePublicKeyTs'
 export default class GetNodePublicKey extends GetNodePublicKeyTs {}
 </script>
 <style lang="less">

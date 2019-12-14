@@ -24,7 +24,7 @@
 
 <script lang="ts">
 export default {
-  name: 'Namespace'
+  name: 'Namespace',
 }
 </script>
 

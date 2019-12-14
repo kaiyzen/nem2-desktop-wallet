@@ -1,7 +1,7 @@
 import {Component, Vue} from 'vue-property-decorator'
 import {formDataConfig, Message} from '@/config'
-import {cloneData, localRead} from '@/core/utils'
-import {AppAccounts, AppAccount, AppWallet, StoreAccount, CurrentAccount} from '@/core/model'
+import {cloneData} from '@/core/utils'
+import {AppAccounts, AppAccount, StoreAccount, CurrentAccount} from '@/core/model'
 import {networkTypeConfig} from '@/config/view/setting'
 import {mapState} from 'vuex'
 import {NetworkType} from 'nem2-sdk'
@@ -71,3 +71,4 @@ export class CreateAccountInfoTs extends Vue {
     this.$router.push('importMnemonic')
   }
 }
+

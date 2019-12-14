@@ -3,12 +3,12 @@ import {mapState} from 'vuex'
 import {Component, Vue, Prop} from 'vue-property-decorator'
 import {formatNumber, renderMosaics, formatExplorerUrl} from '@/core/utils'
 import {
-    FormattedTransaction,
-    AppInfo,
-    StoreAccount,
-    TRANSACTIONS_CATEGORIES,
-    AppWallet,
-    FormattedAggregateBonded,
+  FormattedTransaction,
+  AppInfo,
+  StoreAccount,
+  TRANSACTIONS_CATEGORIES,
+  AppWallet,
+  FormattedAggregateBonded,
 } from '@/core/model'
 import {defaultNetworkConfig} from '@/config'
 import {signAndAnnounce} from '@/core/services'
@@ -21,15 +21,15 @@ import TransactionModal from '@/components/transaction-modal/TransactionModal.vu
 export class TransactionListTs extends Vue {
   app: AppInfo
   activeAccount: StoreAccount
-  pageSize: number = 10
+  pageSize = 10
   highestPrice = 0
   isLoadingModalDetailsInfo = false
-  page: number = 1
+  page = 1
   formatNumber = formatNumber
   renderMosaics = renderMosaics
   TransactionType = TransactionType
   scroll: any
-  showDialog: boolean = false
+  showDialog = false
   activeTransaction: FormattedTransaction = null
   NamespaceId = NamespaceId
   formatExplorerUrl = formatExplorerUrl
@@ -45,9 +45,9 @@ export class TransactionListTs extends Vue {
   }
 
   get transactionList() {
-    if (this.mode && this.mode === TRANSACTIONS_CATEGORIES.TO_COSIGN) {
-      return this.activeAccount.transactionsToCosign || []
-    }
+    if (this.mode && this.mode === TRANSACTIONS_CATEGORIES.TO_COSIGN) 
+    {return this.activeAccount.transactionsToCosign || []}
+    
 
     return this.activeAccount.transactionList
   }
@@ -73,8 +73,8 @@ export class TransactionListTs extends Vue {
 
   get pageTitle() {
     return this.mode === TRANSACTIONS_CATEGORIES.TO_COSIGN
-            ? 'Transactions_to_cosign'
-            : 'transaction_record'
+      ? 'Transactions_to_cosign'
+      : 'transaction_record'
   }
 
   getName(namespaceId: NamespaceId) {
@@ -90,7 +90,7 @@ export class TransactionListTs extends Vue {
     if (!currentHeight) return `${transactionHeight}`
 
     const confirmations = currentHeight - transactionHeight + 1
-        /** Prevents a reactivity glitch */
+    /** Prevents a reactivity glitch */
     if (confirmations < 0) return `${transactionHeight}`
 
     const {networkConfirmations} = defaultNetworkConfig
@@ -98,12 +98,12 @@ export class TransactionListTs extends Vue {
     return `(${confirmations}/${networkConfirmations}) - ${transactionHeight.toLocaleString()}`
   }
 
-    // @TODO: move out from there
+  // @TODO: move out from there
   miniHash(hash: string): string {
     return `${hash.substring(0, 18).toLowerCase()}***${hash.substring(42).toLowerCase()}`
   }
 
-    // @TODO: Changing tab should reset the newly selected tab's pagination to 1
+  // @TODO: Changing tab should reset the newly selected tab's pagination to 1
   async changePage(page) {
     this.page = page
     this.scrollTop()

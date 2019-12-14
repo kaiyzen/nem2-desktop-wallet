@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/class-name-casing */
 // tslint:disable:class-name
 // tslint:disable:no-namespace
 // tslint:disable:no-module
@@ -6,86 +7,86 @@ import {VoteQuery} from '@/core/query/voteQuery'
 export declare namespace api {
     interface market {
       kline: (params: {
-        symbol: string,
-        period: string,
-        size: string,
+        symbol: string
+        period: string
+        size: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
 
       detail: (params: {
-        symbol: string,
+        symbol: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
 
       trade: (params: {
-        symbol: string,
-        size: string,
+        symbol: string
+        size: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
     }
 
     interface blog {
       list: (params: {
-        limit: string,
-        offset: string,
-        language: string,
+        limit: string
+        offset: string
+        language: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
       commentSave: (params: {
         cid: string
         comment: string
         address: string
         nickName: string
-        gtmCreate: string,
+        gtmCreate: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
       commentList: (params: {
-        cid: string,
-        limit: string,
-        offset: string,
+        cid: string
+        limit: string
+        offset: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
     }
 
     interface vote {
       list: (params: {
-        limit: string,
-        offset: string,
+        limit: string
+        offset: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
       listData: (params: {
-        voteid: string,   // vote id
-        id?: string,   // selection id
+        voteid: string // vote id
+        id?: string // selection id
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
       saveVote: (params: {
-        vote: VoteQuery,
+        vote: VoteQuery
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
       addVote: (params: {
-        address: string,
-        voteId: string,
-        voteDataIds: string[],
+        address: string
+        voteId: string
+        voteDataIds: string[]
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
 
       userAlready: (params: {
-        limit: string,   // 1
-        offset: string,    // 0
-        address: string,
-        voteId?: string,
+        limit: string // 1
+        offset: string // 0
+        address: string
+        voteId?: string
       }) => Promise<{
-        rst: any;
+        rst: any
       }>
 
     }

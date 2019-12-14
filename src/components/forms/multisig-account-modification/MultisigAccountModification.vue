@@ -182,7 +182,7 @@
 </template>
 
 <script lang="ts">
-import { MultisigAccountModificationTs } from "@/components/forms/multisig-account-modification/MultisigAccountModificationTs.ts"
-import "./MultisigAccountModification.less"
+import { MultisigAccountModificationTs } from '@/components/forms/multisig-account-modification/MultisigAccountModificationTs.ts'
+import './MultisigAccountModification.less'
 export default class MultisigAccountModification extends MultisigAccountModificationTs {}
 </script>

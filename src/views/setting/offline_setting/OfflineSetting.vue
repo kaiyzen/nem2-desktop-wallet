@@ -76,7 +76,7 @@
 
 <script lang="ts">
 import OfflineSettingTs from './OfflineSettingTs'
-import "./OfflineSetting.less"
+import './OfflineSetting.less'
 
 export default class OfflineSetting extends OfflineSettingTs {
 

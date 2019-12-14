@@ -4,10 +4,10 @@ export const echarts = {
       alwaysShowContent: true,
       padding: 0,
       position: 'right',
-      formatter: (params: any, copyIcon) => {
-        if (params.dataType === 'edge') {
-          return
-        }
+      formatter: (params: any) => {
+        if (params.dataType === 'edge') 
+        {return}
+        
         const template = `<div class="tooltip" >
                                         <div>${params.data.address.address}</div>
                                     </div>`
@@ -63,8 +63,8 @@ export const echarts = {
         name: 'vote',
         type: 'pie',
         data: [
-                    { value: 100, name: 'A 335 25%' },
-                    { value: 300, name: 'B 300 75%' },
+          { value: 100, name: 'A 335 25%' },
+          { value: 300, name: 'B 300 75%' },
         ],
         itemStyle: {
           emphasis: {

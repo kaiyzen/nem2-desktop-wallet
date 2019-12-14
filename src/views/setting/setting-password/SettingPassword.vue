@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { SettingPasswordTs } from "@/views/setting/setting-password/SettingPasswordTs.ts"
+import { SettingPasswordTs } from '@/views/setting/setting-password/SettingPasswordTs.ts'
 
 export default class SettingLock extends SettingPasswordTs {}
 </script>

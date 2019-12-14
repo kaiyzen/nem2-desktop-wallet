@@ -35,7 +35,6 @@ export default class WalletChooseTs extends Vue {
     return this.activeAccount.node
   }
 
-
   get networkType() {
     return this.activeAccount.currentAccount.networkType
   }
@@ -50,18 +49,17 @@ export default class WalletChooseTs extends Vue {
 
   get addressList() {
     const {node, networkCurrency} = this
-    const that = this
     const addressList = getTenAddressesFromMnemonic(this.seed, this.networkType)
 
     new AccountHttp(node).getAccountsInfo(addressList).subscribe(res => {
       res.forEach(item => {
         const defaultMosaic = item.mosaics.find(mosaic => mosaic.id.toHex() === networkCurrency.hex)
         if (defaultMosaic) {
-          that.addressMosaicMap[item.address.plain()] = getRelativeMosaicAmount(
-                        defaultMosaic.amount.compact(),
-                        networkCurrency.divisibility,
-                    )
-          that.$forceUpdate()
+          this.addressMosaicMap[item.address.plain()] = getRelativeMosaicAmount(
+            defaultMosaic.amount.compact(),
+            networkCurrency.divisibility,
+          )
+          this.$forceUpdate()
         }
       })
     })
@@ -96,13 +94,13 @@ export default class WalletChooseTs extends Vue {
     }
     walletList.forEach(item => {
       new AppWallet().createFromPath(
-                `Seed-${item.path}`,
-                new Password(password),
-                Number(item.path),
-                networkType,
-                this.$store,
-                item.balance,
-            )
+        `Seed-${item.path}`,
+        new Password(password),
+        Number(item.path),
+        networkType,
+        this.$store,
+        item.balance,
+      )
     })
     localSave('activeAccountName', accountName)
     this.$store.commit('REMOVE_TEMPORARY_INFO')

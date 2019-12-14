@@ -25,8 +25,8 @@ export class PersistentDelegationRequestTs extends Vue {
   showGetNodePublicKey = true
   newRemoteAccount: Account = null
   validation = validation
-  recipientPublicKey: string = ''
-  password: string = ''
+  recipientPublicKey = ''
+  password = ''
 
   @Prop({default: false})
     visible: boolean
@@ -36,9 +36,9 @@ export class PersistentDelegationRequestTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get wallet() {
@@ -74,11 +74,11 @@ export class PersistentDelegationRequestTs extends Vue {
 
   getTransaction(): PersistentDelegationRequestTransaction {
     return this.wallet.createPersistentDelegationRequestTransaction(
-            Deadline.create(),
-            this.recipientPublicKey,
-            UInt64.fromUint(this.feeAmount),
-            this.password,
-        )
+      Deadline.create(),
+      this.recipientPublicKey,
+      UInt64.fromUint(this.feeAmount),
+      this.password,
+    )
   }
 
   signAndAnnounce() {
@@ -97,10 +97,10 @@ export class PersistentDelegationRequestTs extends Vue {
 
   submit() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) return
-              this.signAndAnnounce()
-            })
+      .validate()
+      .then(valid => {
+        if (!valid) return
+        this.signAndAnnounce()
+      })
   }
 }

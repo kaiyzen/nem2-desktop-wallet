@@ -15,11 +15,11 @@ export class SignerSelectorTs extends Vue {
   }
 
   set inputValue(newPublicKey) {
-    if (newPublicKey === this.wallet.publicKey) {
-      this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', null)
-    } else {
-      this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', newPublicKey)
-    }
+    if (newPublicKey === this.wallet.publicKey) 
+    {this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', null)}
+    else 
+    {this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', newPublicKey)}
+    
     this.$emit('input', newPublicKey)
   }
 
@@ -66,8 +66,8 @@ export class SignerSelectorTs extends Vue {
   @Watch('wallet', {deep: true, immediate: true})
   onWalletChange(newVal, oldVal) {
     if (!newVal || !newVal.publicKey) return
-    if (!oldVal || newVal.publicKey !== oldVal.publicKey) {
-      this.inputValue = newVal.publicKey
-    }
+    if (!oldVal || newVal.publicKey !== oldVal.publicKey) 
+    {this.inputValue = newVal.publicKey}
+    
   }
 }

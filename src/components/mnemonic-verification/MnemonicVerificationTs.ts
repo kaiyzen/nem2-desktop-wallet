@@ -1,4 +1,4 @@
-import {Component, Prop, Vue, Watch} from 'vue-property-decorator'
+import {Component, Prop, Vue} from 'vue-property-decorator'
 import {randomizeMnemonicWordArray} from '@/core/utils'
 import {Message} from '@/config'
 import draggable from 'vuedraggable'
@@ -16,9 +16,9 @@ export class MnemonicVerificationTs extends Vue {
     mnemonicWordsList: string[]
 
   verificationSuccess() {
-    if (this.checkMnemonic()) {
-      this.$emit('verificationSuccess')
-    }
+    if (this.checkMnemonic()) 
+    {this.$emit('verificationSuccess')}
+    
   }
 
   toPreviousPage() {
@@ -46,7 +46,7 @@ export class MnemonicVerificationTs extends Vue {
     const {confirmedMnemonicList} = this
     if (JSON.stringify(confirmedMnemonicList) !== JSON.stringify(this.mnemonicWordsList)) {
       const message = confirmedMnemonicList.length < 1 ?
-            Message.PLEASE_ENTER_MNEMONIC_INFO : Message.MNEMONIC_INCONSISTENCY_ERROR
+        Message.PLEASE_ENTER_MNEMONIC_INFO : Message.MNEMONIC_INCONSISTENCY_ERROR
       this.$Notice.warning({ title: `${this.$t(message)}`})
       return false
     }

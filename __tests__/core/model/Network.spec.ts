@@ -1,14 +1,14 @@
-import {of, throwError} from 'rxjs';
-import {tap, map, mapTo, switchMap, catchError} from 'rxjs/operators';
+import {of, throwError} from 'rxjs'
+import {tap, map, mapTo, switchMap, catchError} from 'rxjs/operators'
 import {UInt64, NetworkType} from 'nem2-sdk'
-import flushPromises from 'flush-promises';
+import flushPromises from 'flush-promises'
 import {Network} from '@/core/model/Network.ts'
 import {BlockHttp} from 'nem2-sdk/dist/src/infrastructure/BlockHttp'
 import {ChainHttp} from 'nem2-sdk/dist/src/infrastructure/ChainHttp'
 import {NodeHttp} from 'nem2-sdk/dist/src/infrastructure/NodeHttp'
 import {NamespaceService} from 'nem2-sdk/dist/src/service/NamespaceService'
 import {Notice, ChainStatus} from '@/core/model'
-import {Message, networkConfig} from "@/config"
+import {Message} from '@/config'
 import {firstTransactionsNemXem, xemNamespace} from '../../../__mocks__/network/firstTransactionsNemXem'
 import {firstTransactionsCatCurrency, catNamespace} from '../../../__mocks__/network/firstTransactionsCatCurrency'
 import {block29248} from '../../../__mocks__/network/block29248'
@@ -26,10 +26,10 @@ const block1GenerationHash = block1.generationHash
 
 Notice.trigger = mockTriggerNotice
 
-const mockGetBlockByHeight = (blockNumber) => of(blockNumber).pipe(
+const mockGetBlockByHeight =blockNumber => of(blockNumber).pipe(
   tap(blockNumber => mockGetBlockByHeightCall(blockNumber)),
   switchMap(blockNumber => {
-    if (blockNumber === `29248`) return of(block29248)
+    if (blockNumber === '29248') return of(block29248)
     return of(block1)
   })
 )
@@ -39,7 +39,7 @@ const mockGetBlockTransactions = (...args) => of(args).pipe(
   mapTo((firstTransactionsNemXem)),
 )
 
-const mockGetNodeInfo = (...args) => of(('mock')).pipe(
+const mockGetNodeInfo = () => of(('mock')).pipe(
   tap(args => modeGetNodeInfoCall(args)),
   mapTo({networkIdentifier: NetworkType.TEST_NET}),
 )
@@ -57,21 +57,21 @@ const mockCatNamespace = (...args) => of(args).pipe(
   mapTo(catNamespace),
 )
 
-const mockGetBlockchainHeight = (...args) => of('mock').pipe(
+const mockGetBlockchainHeight = () => of('mock').pipe(
   mapTo(UInt64.fromUint(29248)),
 )
 
-const mockEmptyBlockHttp = (...args) => of('mock').pipe(
-  map(_ => {throw new Error('Couldn\'t get the network first block')}),
-  catchError((error) => throwError(error)),
+const mockEmptyBlockHttp = () => of('mock').pipe(
+  map(() => {throw new Error('Couldn\'t get the network first block')}),
+  catchError(error => throwError(error)),
 )
 
-const mockEmptyResponse = (...args) => of('mock').pipe(
+const mockEmptyResponse = () => of('mock').pipe(
   mapTo(({})),
 )
 
 jest.mock('nem2-sdk/dist/src/infrastructure/BlockHttp', () => ({
-  BlockHttp: jest.fn().mockImplementation((endpoint) => {
+  BlockHttp: jest.fn().mockImplementation(endpoint => {
     if (endpoint === 'http://errored.endpoint:3000') {
       return {
         getBlockByHeight: mockEmptyBlockHttp,
@@ -87,35 +87,35 @@ jest.mock('nem2-sdk/dist/src/infrastructure/BlockHttp', () => ({
       getBlockByHeight: mockGetBlockByHeight,
       getBlockTransactions: mockGetBlockTransactions,
     }
-  })
+  }),
 }))
 
 jest.mock('nem2-sdk/dist/src/infrastructure/ChainHttp', () => ({
-  ChainHttp: jest.fn().mockImplementation((endpoint) => {
+  ChainHttp: jest.fn().mockImplementation(endpoint => {
     if (endpoint === 'http://errored.endpoint:3000') {
       return {getBlockchainHeight: mockEmptyResponse}
     }
     return {getBlockchainHeight: mockGetBlockchainHeight}
-  })
+  }),
 }))
 
 jest.mock('nem2-sdk/dist/src/infrastructure/NodeHttp', () => ({
-  NodeHttp: jest.fn().mockImplementation((endpoint) => {
+  NodeHttp: jest.fn().mockImplementation(endpoint => {
     if (endpoint === 'http://errored.endpoint:3000') {
       return {getNodeInfo: mockEmptyResponse}
     }
     return {getNodeInfo: mockGetNodeInfo}
-  })
+  }),
 }))
 
 jest.mock('nem2-sdk/dist/src/service/NamespaceService', () => ({
-  NamespaceService: jest.fn().mockImplementation((namespaceHttp) => {
+  NamespaceService: jest.fn().mockImplementation(namespaceHttp => {
     const endpoint = namespaceHttp.namespaceRoutesApi._basePath
     if (endpoint === 'http://cat.currency:3000') {
       return {namespace: mockCatNamespace}
     }
     return {namespace: mockNamespace}
-  })
+  }),
 }))
 
 describe('switchNode', () => {
@@ -131,7 +131,7 @@ describe('switchNode', () => {
     mockDispatch.mockClear()
   })
 
-  it('should call the proper methods when the generationHash did not change', async (done) => {
+  it('should call the proper methods when the generationHash did not change', async done => {
     const store = {dispatch: mockDispatch}
     // @ts-ignore
     const network = Network.create(store)
@@ -157,7 +157,7 @@ describe('switchNode', () => {
     done()
   })
 
-  it('should set the network generation hash and network type', async (done) => {
+  it('should set the network generation hash and network type', async done => {
     const mockDispatch = jest.fn()
     const store = {dispatch: mockDispatch}
     // @ts-ignore
@@ -205,7 +205,7 @@ describe('switchNode', () => {
     done()
   })
 
-  it('should call reset if BlockHttp does not return a generation hash', async (done) => {
+  it('should call reset if BlockHttp does not return a generation hash', async done => {
     const mockDispatch = jest.fn()
     const store = {dispatch: mockDispatch}
     // @ts-ignore
@@ -265,7 +265,7 @@ describe('setNetworkMosaics', () => {
     BlockHttp.mockClear()
   })
 
-  it('should set network mosaic properly for a nem.xem network', async (done) => {
+  it('should set network mosaic properly for a nem.xem network', async done => {
     const mockDispatch = jest.fn()
     const store = {dispatch: mockDispatch}
     // @ts-ignore
@@ -281,7 +281,7 @@ describe('setNetworkMosaics', () => {
         ticker: 'XEM',
         name: 'nem.xem',
       },
-      endpoint: 'http://localhost:3000'
+      endpoint: 'http://localhost:3000',
     })
     expect(mockDispatch.mock.calls[7][0]).toEqual('UPDATE_MOSAICS')
     expect(mockDispatch.mock.calls[7][1]).not.toBeNull()
@@ -291,7 +291,7 @@ describe('setNetworkMosaics', () => {
     done()
   })
 
-  it('should set network mosaic properly for a cat.currency network', async (done) => {
+  it('should set network mosaic properly for a cat.currency network', async done => {
     const mockDispatch = jest.fn()
     const store = {dispatch: mockDispatch}
     // @ts-ignore
@@ -307,7 +307,7 @@ describe('setNetworkMosaics', () => {
         ticker: 'CURRENCY',
         name: 'cat.currency',
       },
-      endpoint: 'http://cat.currency:3000'
+      endpoint: 'http://cat.currency:3000',
     })
     expect(mockDispatch.mock.calls[7][0]).toEqual('UPDATE_MOSAICS')
     expect(mockDispatch.mock.calls[7][1]).not.toBeNull()
@@ -318,7 +318,7 @@ describe('setNetworkMosaics', () => {
   })
 
 
-  it('should throw if the getBlockTransactions returns an empty payload ', async (done) => {
+  it('should throw if the getBlockTransactions returns an empty payload ', async done => {
     const mockDispatch = jest.fn()
     const store = {dispatch: mockDispatch}
     // @ts-ignore
@@ -334,7 +334,7 @@ describe('setNetworkMosaics', () => {
         ticker: 'CURRENCY',
         name: 'cat.currency',
       },
-      endpoint: 'http://cat.currency:3000'
+      endpoint: 'http://cat.currency:3000',
     })
     expect(mockDispatch.mock.calls[7][0]).toEqual('UPDATE_MOSAICS')
     expect(mockDispatch.mock.calls[7][1]).not.toBeNull()
@@ -343,7 +343,7 @@ describe('setNetworkMosaics', () => {
 
     done()
   })
-});
+})
 
 
 describe('setChainHeight', () => {
@@ -361,7 +361,7 @@ describe('setChainHeight', () => {
   })
 
 
-  it('should dispatch SET_CHAIN_STATUS', async (done) => {
+  it('should dispatch SET_CHAIN_STATUS', async done => {
     const mockDispatch = jest.fn()
     const store = {dispatch: mockDispatch}
     // @ts-ignore

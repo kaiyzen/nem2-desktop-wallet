@@ -11,7 +11,7 @@ export class FormattedAggregateBonded extends FormattedTransaction {
     super(tx, store)
     const {networkCurrency} = store.state.account
     this.formattedInnerTransactions = transactionFormatter(tx.innerTransactions,
-            store)
+      store)
 
     this.dialogDetailMap = {
       self: tx.signer ? tx.signer.address.pretty() : store.state.account.wallet.address,

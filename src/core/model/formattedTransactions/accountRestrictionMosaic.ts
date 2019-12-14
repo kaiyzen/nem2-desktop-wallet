@@ -5,7 +5,7 @@ import {Store} from 'vuex'
 
 export class FormattedAccountRestrictionMosaic extends FormattedTransaction {
 
-  constructor(  tx: Transaction,
+  constructor( tx: Transaction,
     store: Store<AppState>) {
     super(tx, store)
     const {networkCurrency} = store.state.account
@@ -16,7 +16,7 @@ export class FormattedAccountRestrictionMosaic extends FormattedTransaction {
       fee: absoluteAmountToRelativeAmountWithTicker(tx.maxFee.compact(), networkCurrency),
       block: this.txHeader.block,
       hash: this.txHeader.hash,
-            // @MODAL
+      // @MODAL
     }
   }
   dialogDetailMap: any

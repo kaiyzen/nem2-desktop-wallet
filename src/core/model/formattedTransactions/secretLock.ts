@@ -1,6 +1,6 @@
 import {FormattedTransaction, AppState} from '@/core/model'
 import {absoluteAmountToRelativeAmountWithTicker} from '@/core/utils'
-import {SecretLockTransaction, NamespaceId, Address, Transaction} from 'nem2-sdk'
+import {SecretLockTransaction, NamespaceId, Address} from 'nem2-sdk'
 import {Store} from 'vuex'
 
 export class FormattedSecretLock extends FormattedTransaction {

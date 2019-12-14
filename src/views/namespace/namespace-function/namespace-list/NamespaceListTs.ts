@@ -24,14 +24,14 @@ export class NamespaceListTs extends Vue {
   activeAccount: StoreAccount
   app: AppInfo
   pageSize: number = networkConfig.namespaceListSize
-  page: number = 1
+  page = 1
   showNamespaceEditDialog = false
   showAliasDialog = false
   namespaceSortTypes = namespaceSortTypes
-  namespaceSortType: number = 1
+  namespaceSortType = 1
   showExpiredNamespaces = true
-  sortDirection: boolean = false
-  bind: boolean = false
+  sortDirection = false
+  bind = false
   namespace: AppNamespace = null
   mosaic: string = null
   address: string = null
@@ -49,14 +49,14 @@ export class NamespaceListTs extends Vue {
   get namespaceList(): AppNamespace[] {
     const {namespaces, isShowExpiredNamespace, currentHeight} = this
     return namespaces
-            .filter((item: AppNamespace ) => item.alias
+      .filter((item: AppNamespace ) => item.alias
                 && (isShowExpiredNamespace || !item.expirationInfo(currentHeight).expired))
   }
 
   get paginatedNamespaceList(): AppNamespace[] {
     const {namespaceList, namespaceSortType, sortDirection} = this
     return sortNamespaceList(namespaceSortType, namespaceList, sortDirection)
-            .slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
+      .slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
   }
 
   get namespaceLoading() {
@@ -77,10 +77,10 @@ export class NamespaceListTs extends Vue {
     if (!currentHeight) return {expired: false, time: '-'}
 
     const {
-            expired,
-            remainingBeforeExpiration,
-            remainingBeforeDeletion,
-        } = namespace.expirationInfo(currentHeight)
+      expired,
+      remainingBeforeExpiration,
+      remainingBeforeDeletion,
+    } = namespace.expirationInfo(currentHeight)
 
     return {
       expired,

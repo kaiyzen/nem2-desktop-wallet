@@ -121,9 +121,9 @@
 
 <script lang="ts">
 import {MenuBarTs} from '@/components/menu-bar/MenuBarTs.ts'
-import "./MenuCommon.less"
-import "./MenuBarMac.less"
-import "./MenuBarWindows.less"
+import './MenuCommon.less'
+import './MenuBarMac.less'
+import './MenuBarWindows.less'
 
 export default class MenuBar extends MenuBarTs {
 

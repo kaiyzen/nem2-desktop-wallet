@@ -8,12 +8,12 @@ import dashboardPublicKey from '@/common/img/monitor/dash-board/dashboardPublicK
 export const settingNetworkColorConfig = ['green_point', 'pink_point', 'purple_point', 'yellow_point']
 
 export const settingNetworkPointConfig: Array<{
-  name: string,
-  rpcUrl: string,
-  chainId: number,
-  symbol: string,
-  exploerUrl: string,
-  isSelected: boolean,
+  name: string
+  rpcUrl: string
+  chainId: number
+  symbol: string
+  exploerUrl: string
+  isSelected: boolean
 }> = [
   {
     name: 'NEM_PRIVATE_1',
@@ -41,8 +41,8 @@ export const settingNetworkPointConfig: Array<{
 ]
 
 export const networkTypeConfig: Array<{
-  value: NetworkType,
-  label: string,
+  value: NetworkType
+  label: string
 }> = [
   {
     value: NetworkType.MIJIN_TEST,
@@ -60,10 +60,10 @@ export const networkTypeConfig: Array<{
 ]
 
 export const networkStatusConfig: Array<{
-  icon: string,
-  descript: string,
-  data: number,
-  variable: string,
+  icon: string
+  descript: string
+  data: number
+  variable: string
 }> = [
   {
     icon: dashboardBlockHeight,

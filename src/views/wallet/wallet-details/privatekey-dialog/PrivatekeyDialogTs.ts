@@ -18,12 +18,12 @@ import {validation} from '@/core/validation'
   },
   subscriptions() {
     const qrCode$ = this
-            .$watchAsObservable('qrCodeArgs', {immediate: true})
-            .pipe(pluck('newValue'),
-                concatMap(args => {
-                  if (args instanceof AccountQR) return args.toBase64()
-                  return of(failureIcon)
-                }))
+      .$watchAsObservable('qrCodeArgs', {immediate: true})
+      .pipe(pluck('newValue'),
+        concatMap(args => {
+          if (args instanceof AccountQR) return args.toBase64()
+          return of(failureIcon)
+        }))
     return {qrCode$}
   },
 })
@@ -43,9 +43,7 @@ export class PrivatekeyDialogTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('closePrivatekeyDialog')
-    }
+    if (!val) this.$emit('closePrivatekeyDialog')
   }
 
   get wallet(): AppWallet {
@@ -74,7 +72,7 @@ export class PrivatekeyDialogTs extends Vue {
     const {generationHash} = this.activeAccount
     const {networkType} = wallet
     try {
-            // @ts-ignore
+      // @ts-ignore
       return new AccountQR(account, password, networkType, generationHash)
     } catch (e) {
       return null
@@ -83,16 +81,16 @@ export class PrivatekeyDialogTs extends Vue {
 
   checkPassword() {
     this.$validator
-            .validate()
-            .then(valid => {
-              if (!valid) {
-                this.$Notice.destroy()
-                this.$Notice.error({title: `${this.$t(this.errors.items[0].msg)}`})
-                return
-              }
+      .validate()
+      .then(valid => {
+        if (!valid) {
+          this.$Notice.destroy()
+          this.$Notice.error({title: `${this.$t(this.errors.items[0].msg)}`})
+          return
+        }
 
-              this.stepIndex = 1
-            })
+        this.stepIndex = 1
+      })
   }
 
   exportPrivatekey() {
@@ -110,7 +108,7 @@ export class PrivatekeyDialogTs extends Vue {
   }
 
   copyPrivatekey() {
-    copyTxt(this.privateKey).then(data => {
+    copyTxt(this.privateKey).then(() => {
       this.$Notice.success({
         title: `${this.$t(Message.COPY_SUCCESS)}`,
       })

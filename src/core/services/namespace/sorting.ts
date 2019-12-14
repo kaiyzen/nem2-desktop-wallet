@@ -12,16 +12,16 @@ export const namespaceSortTypes = {
 const sortByDuration = (list: AppNamespace[], direction: boolean): AppNamespace[] => {
   return list.sort((a, b) => {
     return direction
-         ? b.endHeight - a.endHeight
-         : a.endHeight - b.endHeight
+      ? b.endHeight - a.endHeight
+      : a.endHeight - b.endHeight
   })
 }
 
 const sortByName = (list: AppNamespace[], direction: boolean): AppNamespace[] => {
   return list.sort((a, b) => {
     return direction
-         ? a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-         : b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+      ? a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      : b.name.toLowerCase().localeCompare(a.name.toLowerCase())
   })
 }
 
@@ -29,24 +29,24 @@ const sortByName = (list: AppNamespace[], direction: boolean): AppNamespace[] =>
 const sortByOwnerShip = (list: AppNamespace[], direction: boolean): AppNamespace[] => {
   return list.sort((a, b) => {
     return direction
-         ? (a.isLinked === b.isLinked) ? 0 : a.isLinked ? -1 : 1
-         : (a.isLinked === b.isLinked) ? 0 : a.isLinked ? 1 : -1
+      ? (a.isLinked === b.isLinked) ? 0 : a.isLinked ? -1 : 1
+      : (a.isLinked === b.isLinked) ? 0 : a.isLinked ? 1 : -1
   })
 }
 
 const sortByBindType = (list: AppNamespace[], direction: boolean): AppNamespace[] => {
   return list.sort((a, b) => {
     return direction
-         ? b.alias.type - a.alias.type
-         : a.alias.type - b.alias.type
+      ? b.alias.type - a.alias.type
+      : a.alias.type - b.alias.type
   })
 }
 
 const sortByBindInfo = (list: AppNamespace[], direction: boolean): AppNamespace[] => {
   return list.sort((a, b) => {
     return direction
-         ? b.alias.type - a.alias.type
-         : a.alias.type - b.alias.type
+      ? b.alias.type - a.alias.type
+      : a.alias.type - b.alias.type
   })
 }
 
@@ -59,8 +59,8 @@ const sortingRouter = {
   [namespaceSortTypes.byExpired] : sortByDuration,
 }
 
-export const sortNamespaceList = (  namespaceSortType: number,
-                                    list: AppNamespace[],
-                                    direction: boolean): AppNamespace[] => {
+export const sortNamespaceList = ( namespaceSortType: number,
+  list: AppNamespace[],
+  direction: boolean): AppNamespace[] => {
   return sortingRouter[namespaceSortType](list, direction)
 }

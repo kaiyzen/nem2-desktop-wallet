@@ -2,10 +2,10 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class GenerateMnemonicTs extends Vue {
-  percent: number = 0
-  isSlidable: boolean = true
+  percent = 0
+  isSlidable = true
 
-  jumpToCreateMnemonic(positionX: number, positionY: number) {
+  jumpToCreateMnemonic() {
     this.$Notice.success({
       title: `${this.$t('Generate_entropy_increase_success')}`,
     })
@@ -14,12 +14,12 @@ export default class GenerateMnemonicTs extends Vue {
     }, 2000)
   }
 
-  handleMousemove(event: any) {
+  handleMousemove() {
     if (this.percent < 100) {
       this.percent++
     } else {
       this.isSlidable = false
-      this.jumpToCreateMnemonic(event.x, event.y)
+      this.jumpToCreateMnemonic()
     }
   }
 }

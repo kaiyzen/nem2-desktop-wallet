@@ -6,11 +6,10 @@ import {Store} from 'vuex'
 
 export class FormattedAccountRestrictionOperation extends FormattedTransaction {
 
-  constructor(    tx: Transaction,
+  constructor( tx: Transaction,
     store: Store<AppState>) {
     super(tx, store)
     const {networkCurrency} = store.state.account
-    const {divisibility, ticker} = networkCurrency
 
     this.dialogDetailMap = {
       self: tx.signer ? tx.signer.address.pretty() : store.state.account.wallet.address,
@@ -18,7 +17,6 @@ export class FormattedAccountRestrictionOperation extends FormattedTransaction {
       fee: absoluteAmountToRelativeAmountWithTicker(tx.maxFee.compact(), networkCurrency),
       block: this.txHeader.block,
       hash: this.txHeader.hash,
-            // @MODAL
     }
   }
   dialogDetailMap: any

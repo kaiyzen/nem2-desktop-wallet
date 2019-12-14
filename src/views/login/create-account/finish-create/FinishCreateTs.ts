@@ -1,6 +1,6 @@
 import {Vue, Component} from 'vue-property-decorator'
-import {AppInfo, AppWallet, CurrentAccount, StoreAccount} from '@/core/model'
-import {localRead, localSave} from '@/core/utils'
+import {AppInfo, AppWallet, StoreAccount} from '@/core/model'
+import {localSave} from '@/core/utils'
 import {Password} from 'nem2-sdk'
 import {mapState} from 'vuex'
 
@@ -36,12 +36,12 @@ export default class FinishCreateTs extends Vue {
     const {accountName, seed, networkType, password} = this
     try {
       new AppWallet().createFromMnemonic(
-                'SeedWallet',
-                new Password(password),
-                seed,
-                networkType,
-                this.$store,
-            )
+        'SeedWallet',
+        new Password(password),
+        seed,
+        networkType,
+        this.$store,
+      )
       localSave('activeAccountName', accountName)
       this.$store.commit('REMOVE_TEMPORARY_INFO')
       this.$router.push('/dashboard')

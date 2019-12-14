@@ -1,4 +1,7 @@
-import {Transaction, MultisigAccountInfo, SignedTransaction, CosignatureSignedTransaction, SimpleWallet} from 'nem2-sdk'
+import {
+  Transaction, MultisigAccountInfo, SignedTransaction,
+  CosignatureSignedTransaction, SimpleWallet, MosaicId, NamespaceId,
+} from 'nem2-sdk'
 import {AppNamespace} from './AppNamespace'
 import {AppMosaic} from './AppMosaic'
 import {FormattedTransaction} from './FormattedTransaction'
@@ -7,6 +10,12 @@ import {ChainStatus, AppWallet, LockParams, Log, CurrentAccount} from '.'
 export interface AddressAndTransaction {
   address: string
   transaction: Transaction
+}
+
+export interface MosaicInList {
+  name: string
+  hex: string
+  id: MosaicId | NamespaceId
 }
 
 export interface AddressAndNamespaces {
@@ -25,15 +34,15 @@ export interface AddressAndMultisigInfo {
 }
 
 export interface NetworkCurrency {
-  hex: string,
-  divisibility: number,
-  ticker: string,
-  name: string,
+  hex: string
+  divisibility: number
+  ticker: string
+  name: string
 }
 
 export interface RemoteAccount {
-  simpleWallet: SimpleWallet,
-  publicKey: string,
+  simpleWallet: SimpleWallet
+  publicKey: string
 }
 
 
@@ -42,7 +51,7 @@ export interface StoreAccount {
   wallet: AppWallet
   mosaics: Record<string, AppMosaic>
   namespaces: AppNamespace[]
-  addressAliasMap: any,
+  addressAliasMap: any
   generationHash: string
   transactionList: FormattedTransaction[]
   currentAccount: CurrentAccount
@@ -51,7 +60,7 @@ export interface StoreAccount {
   multisigAccountsNamespaces: Record<string, AppNamespace[]>
   multisigAccountsTransactions: Record<string, Transaction[]>
   multisigAccountInfo: Record<string, MultisigAccountInfo>
-  transactionsToCosign: FormattedTransaction[],
+  transactionsToCosign: FormattedTransaction[]
   activeWalletAddress: string
     /**
      *  The network currency, to be used for fees management,
@@ -65,31 +74,31 @@ export interface StoreAccount {
 }
 
 export interface LoadingOverlayObject {
-  show: boolean,
-  message: string,
-  networkMosaics?: Record<string, AppMosaic>,
+  show: boolean
+  message: string
+  networkMosaics?: Record<string, AppMosaic>
   temporaryInfo?: any
 }
 
 export interface AppInfo {
-  timeZone: number,
-  locale: string,
+  timeZone: number
+  locale: string
   walletList: AppWallet[]
-  isNodeHealthy: boolean,
-  mnemonic: string,
-  chainStatus: ChainStatus,
-  mosaicsLoading: boolean,
-  transactionsLoading: boolean,
-  xemUsdPrice: number,
+  isNodeHealthy: boolean
+  mnemonic: string
+  chainStatus: ChainStatus
+  mosaicsLoading: boolean
+  transactionsLoading: boolean
+  xemUsdPrice: number
   namespaceLoading: boolean
-  multisigLoading: boolean,
-  isUiDisabled: boolean,
-  uiDisabledMessage: string,
-  _ENABLE_TREZOR_: boolean,
-  stagedTransaction: StagedTransaction,
-  nodeNetworkType: string,
-  logs: Log[],
-  loadingOverlay: LoadingOverlayObject,
+  multisigLoading: boolean
+  isUiDisabled: boolean
+  uiDisabledMessage: string
+  _ENABLE_TREZOR_: boolean
+  stagedTransaction: StagedTransaction
+  nodeNetworkType: string
+  logs: Log[]
+  loadingOverlay: LoadingOverlayObject
   nodeLoading: boolean
 }
 
@@ -107,19 +116,19 @@ export interface SignTransaction {
 }
 
 export interface AppState {
-  app: AppInfo,
-  account: StoreAccount,
+  app: AppInfo
+  account: StoreAccount
 }
 
 export interface DefaultFee {
-  speed: string,
-  value: number,
+  speed: string
+  value: number
 }
 
 export interface Endpoint {
-  value: string,
-  name: string,
-  url: string,
+  value: string
+  name: string
+  url: string
   isSelected: boolean
 }
 

@@ -40,16 +40,16 @@ export const getObjectLength = targetObject => {
 
 
 export const isRefreshData = (localStorageName, refreshTime, borderlineTime) => {
-  if (localRead(localStorageName) === '') {
-    return true
-  }
+  if (localRead(localStorageName) === '') 
+  {return true}
+  
   const currentTime = new Date()
   const currentTimestamp = currentTime.getTime()
   const marketPriceDataList = JSON.parse(localRead(localStorageName))
   const timeDifference = Number(currentTimestamp) - Number(marketPriceDataList.timestamp)
-  if (refreshTime < timeDifference || borderlineTime === 0) {
-    return true
-  }
+  if (refreshTime < timeDifference || borderlineTime === 0) 
+  {return true}
+  
   return false
 }
 
@@ -73,14 +73,14 @@ export const httpToWs = (URL: string): string => {
   const isHttps = url.substring(0, 5) === 'https'
 
   return isHttps
-        ? url.replace('https', 'wss')
-        : url.replace('http', 'ws')
+    ? url.replace('https', 'wss')
+    : url.replace('http', 'ws')
 }
 
 export function getDefaultAccountNetworkType(): NetworkType {
   const accountMap = localRead('accountMap')
   if (accountMap === '') return defaultNetworkConfig.DEFAULT_NETWORK_TYPE
-    // use the last created account network type
+  // use the last created account network type
   const accounts: any[] = Object.values(JSON.parse(accountMap)).reverse()
   if (!accounts[0]) return defaultNetworkConfig.DEFAULT_NETWORK_TYPE
   return accounts[0].networkType

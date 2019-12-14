@@ -33,56 +33,56 @@ const getName = (appMosaic: AppMosaic, mosaicId: MosaicId | NamespaceId, store: 
   return appMosaic.hex || 'N/A'
 }
 
+export const getRelativeMosaicAmount = (amount: number, divisibility: number) => {
+  if (!amount) return 0
+  return amount / Math.pow(10, divisibility)
+}
+
 export const renderMosaicsAndReturnArray = (
-    mosaics: Mosaic[],
-    store: Store<AppState>): Array<{name: string, amount: string, hex: string}> => {
+  mosaics: Mosaic[],
+  store: Store<AppState>): Array<{name: string, amount: string, hex: string}> => {
   if (!mosaics.length) return null
 
   const mosaicList = store.state.account.mosaics
 
   const items = mosaics
-        .map(mosaic => {
-            const hex = mosaic.id.toHex()
-            const appMosaicHex = getAppMosaicHex(hex, store)
+    .map(mosaic => {
+      const hex = mosaic.id.toHex()
+      const appMosaicHex = getAppMosaicHex(hex, store)
 
-            if (!mosaicList[appMosaicHex] || !mosaicList[appMosaicHex].properties) return
-            const appMosaic = mosaicList[appMosaicHex]
-            const name = getName(appMosaic, mosaic.id, store)
-            const amount = formatNumber(
-                getRelativeMosaicAmount(mosaic.amount.compact(),
-                appMosaic.properties.divisibility),
-            )
+      if (!mosaicList[appMosaicHex] || !mosaicList[appMosaicHex].properties) return
+      const appMosaic = mosaicList[appMosaicHex]
+      const name = getName(appMosaic, mosaic.id, store)
+      const amount = formatNumber(
+        getRelativeMosaicAmount(mosaic.amount.compact(),
+          appMosaic.properties.divisibility),
+      )
 
-            return {name, amount, hex: appMosaicHex}
-        })
-        .filter(x => x)
+      return {name, amount, hex: appMosaicHex}
+    })
+    .filter(x => x)
 
   if (!items.length) return null
 
   const networkMosaicIndex = items.findIndex(({name}) => name === store.state.account.networkCurrency.name)
-  if (networkMosaicIndex <= 0) {
-    return items
-  }
+  if (networkMosaicIndex <= 0) 
+  {return items}
+  
   const networkCurrency = items.splice(networkMosaicIndex, 1)
   items.unshift(networkCurrency[0])
   return items
 }
 
 export const renderMosaics = (
-    mosaics: Mosaic[],
-    store: Store<AppState>,
-    isReceipt: boolean): any => {
+  mosaics: Mosaic[],
+  store: Store<AppState>,
+  isReceipt: boolean): any => {
   const result = renderMosaicsAndReturnArray(mosaics, store)
   if (!result) return 'N/A'
-    // @TODO: review
+  // @TODO: review
   if (!result.length) return null
   const prefix = isReceipt ? '' : '-'
   return result.map(({name, amount}) => `${prefix}${amount} [${name}]`).join(', ')
-}
-
-export const getRelativeMosaicAmount = (amount: number, divisibility: number) => {
-  if (!amount) return 0
-  return amount / Math.pow(10, divisibility)
 }
 
 export const getAbsoluteMosaicAmount = (amount: number, divisibility: number) => {
@@ -98,17 +98,17 @@ export const getAbsoluteMosaicAmount = (amount: number, divisibility: number) =>
  * @param store
  */
 export const renderMosaicNames = (mosaics: Mosaic[],
-                                  store: Store<AppState>): string => {
+  store: Store<AppState>): string => {
   const mosaicList = store.state.account.mosaics
   const items = mosaics
-        .map(mosaic => {
-            const hex = mosaic.id.toHex()
-            const appMosaicHex = getAppMosaicHex(hex, store)
-            if (!mosaicList[appMosaicHex] || !mosaicList[appMosaicHex].properties) return
-            const appMosaic = mosaicList[appMosaicHex]
-            return getName(appMosaic, mosaic.id, store)
-        })
-        .filter(x => x)
+    .map(mosaic => {
+      const hex = mosaic.id.toHex()
+      const appMosaicHex = getAppMosaicHex(hex, store)
+      if (!mosaicList[appMosaicHex] || !mosaicList[appMosaicHex].properties) return
+      const appMosaic = mosaicList[appMosaicHex]
+      return getName(appMosaic, mosaic.id, store)
+    })
+    .filter(x => x)
 
   if (!items.length) return 'N/A'
   const networkMosaicIndex = items.indexOf(store.state.account.networkCurrency.hex)

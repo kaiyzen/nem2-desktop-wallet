@@ -127,7 +127,7 @@
 
 <script lang="ts">
 import {WalletDetailsTs} from '@/views/wallet/wallet-details/WalletDetailsTs.ts'
-import "./WalletDetails.less"
+import './WalletDetails.less'
 
 export default class WalletDetails extends WalletDetailsTs {
 

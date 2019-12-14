@@ -30,17 +30,17 @@ const walletImportNavigationConfig = [
   },
 ]
 
-if (localRead && localRead('_ENABLE_TREZOR_') === 'true') {
-  walletImportNavigationConfig.push({
-    title: 'hardware',
-    name: 'walletImportHardware',
-    isSelected: false,
-  })
-}
+if (localRead && localRead('_ENABLE_TREZOR_') === 'true') 
+{walletImportNavigationConfig.push({
+  title: 'hardware',
+  name: 'walletImportHardware',
+  isSelected: false,
+})}
+
 
 export const walletFnNavConfig = [
-    {name: 'create', to: '/walletCreate', active: false},
-    {name: 'import', to: '/walletImportKeystore', active: true},
+  {name: 'create', to: '/walletCreate', active: false},
+  {name: 'import', to: '/walletImportKeystore', active: true},
 ]
 
 export const walletImportNavigatorConfig = walletImportNavigationConfig

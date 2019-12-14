@@ -45,7 +45,7 @@
 
 
 <script lang="ts">
-import "./TheWalletDelete.less"
+import './TheWalletDelete.less'
 import {TheWalletDeleteTs} from '@/views/wallet/wallet-switch/the-wallet-delete/TheWalletDeleteTs.ts'
 export default class TheWalletDelete extends TheWalletDeleteTs { }
 </script>

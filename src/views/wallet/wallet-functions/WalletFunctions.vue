@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import './WalletFunctions.less'
-//@ts-ignore
+// @ts-ignore
 import {WalletFunctionsTs} from '@/views/wallet/wallet-functions/WalletFunctionsTs.ts'
 
 export default class WalletFunctions extends WalletFunctionsTs {

@@ -1,6 +1,6 @@
 export const voteFilterConfig: Array<{
-  value: number,
-  label: string,
+  value: number
+  label: string
 }> = [
   {
     value: 0,
@@ -29,7 +29,7 @@ export const voteSelectionConfig = [
 
 export const voteActionConfig: Array<{
   name: string
-  isSelect: boolean,
+  isSelect: boolean
 }> = [
   {
     name: 'choose_to_vote',
