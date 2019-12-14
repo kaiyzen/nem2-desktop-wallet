@@ -8,7 +8,7 @@ import {AppState} from '@/core/model'
 import {defaultNetworkConfig} from '@/config'
 const {DEFAULT_LOCK_AMOUNT} = defaultNetworkConfig
 
-export const createCompleteMultisigTransaction = ( transactions: Array<Transaction>,
+export const createCompleteMultisigTransaction = ( transactions: Transaction[],
                                                    multisigPublicKey: string,
                                                    networkType: NetworkType,
                                                    fee: number) => {
@@ -19,22 +19,22 @@ export const createCompleteMultisigTransaction = ( transactions: Array<Transacti
     transactions.map(tx => tx.toAggregate(publicAccount)),
     networkType,
     [],
-    UInt64.fromUint(fee)
+    UInt64.fromUint(fee),
   )
 }
 
-export const createBondedMultisigTransaction = ( transactions: Array<Transaction>,
+export const createBondedMultisigTransaction = ( transactions: Transaction[],
                                                  multisigPublicKey: string,
                                                  networkType: NetworkType,
                                                  fee: number) => {
-   const publicAccount = PublicAccount.createFromPublicKey(multisigPublicKey, networkType)
+  const publicAccount = PublicAccount.createFromPublicKey(multisigPublicKey, networkType)
 
-   return AggregateTransaction.createBonded(
+  return AggregateTransaction.createBonded(
      Deadline.create(),
      transactions.map(tx => tx.toAggregate(publicAccount)),
      networkType,
      [],
-     UInt64.fromUint(fee)
+     UInt64.fromUint(fee),
    )
 }
 

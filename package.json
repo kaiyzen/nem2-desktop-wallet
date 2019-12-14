@@ -3,7 +3,7 @@
   "version": "0.8.8-beta",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve ",
+    "dev": "vue-cli-service serve",
     "build": "tsc && vue-cli-service build",
     "test": "vue-cli-service test:unit --coverage"
   },
@@ -68,6 +68,7 @@
     "postcss-pxtorem": "^4.0.1",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.1",
+    "tslint-eslint-rules": "^5.4.0",
     "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.10"
   }

@@ -1,3 +1,1 @@
-module.exports = {
-    isWin32: false
-}
+export const isWin32 = false

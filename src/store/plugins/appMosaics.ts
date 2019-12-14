@@ -1,6 +1,6 @@
 import {AppMosaics} from '@/core/services/mosaics'
 
-export const appMosaicsModule = (store) => {
+export const appMosaicsModule = store => {
   store.registerModule('appMosaics', appMosaicsModule)
 
   store.subscribe(async (mutation, state) => {
@@ -22,7 +22,7 @@ export const appMosaicsModule = (store) => {
         AppMosaics().updateMosaicsInfo(mosaics, store)
         AppMosaics().updateMosaicsName(mosaics, store)
       } catch (error) {
-        console.error("appMosaicsModule -> error", error)
+        console.error('appMosaicsModule -> error', error)
       }
     }
 

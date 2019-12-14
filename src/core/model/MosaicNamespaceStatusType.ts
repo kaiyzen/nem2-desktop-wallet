@@ -19,6 +19,6 @@ export enum MosaicNamespaceStatusType {
      * Mosaic or namespace status expired type.
      * @type {string}
      */
-    EXPIRED = 'Expired'
+    EXPIRED = 'Expired',
 
 }

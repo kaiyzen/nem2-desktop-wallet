@@ -10,7 +10,7 @@ export class CosignatoryModifications {
   constructor(public modifications: CosignatoryModification[]) {}
   /**
    * If the same PublicAccount is already in CosignatoryModifications, it will be overridden
-   * @param cosignatoryModification 
+   * @param cosignatoryModification
    */
   add(cosignatoryModification: CosignatoryModification) {
     const modificationsWithoutDuplicate = [...this.modifications]
@@ -32,7 +32,7 @@ export class CosignatoryModifications {
   }
 
   static createFromMultisigAccountModificationTransaction(
-    transaction: MultisigAccountModificationTransaction
+    transaction: MultisigAccountModificationTransaction,
   ): CosignatoryModifications {
     return new CosignatoryModifications([
       ...transaction.publicKeyAdditions.map(cosignatory => ({cosignatory, addOrRemove: AddOrRemove.ADD})),

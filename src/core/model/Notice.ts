@@ -1,5 +1,5 @@
-import {AppState} from './types';
-import {Store} from 'vuex';
+import {AppState} from './types'
+import {Store} from 'vuex'
 
 export enum NoticeType {
   success = 'success',
@@ -13,7 +13,7 @@ export class Notice {
     public type: NoticeType,
   ) {}
 
-  public static trigger(
+  static trigger(
     message: string,
     type: NoticeType,
     store: Store <AppState>,

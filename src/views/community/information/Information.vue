@@ -86,9 +86,9 @@
 
 <script lang="ts">
     //@ts-ignore
-    import {informationTs} from '@/views/community/information/InformationTs.ts'
+    import {InformationTs} from '@/views/community/information/InformationTs.ts'
 
-    export default class InputLock extends informationTs {
+    export default class InputLock extends InformationTs {
 
     }
 

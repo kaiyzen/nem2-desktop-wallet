@@ -1,0 +1,67 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint-eslint-rules"
+    ],
+    "jsRules": {},
+    "rules": {
+        "semicolon": [true, "never"],
+        "quotemark": [true, "single", "jsx-double"],
+        "member-access": [true, "no-public"],
+        "ordered-imports": false,
+        "no-consecutive-blank-lines": [true, 2],
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "no-console": [true, "log"],
+        "curly": [true, "ignore-same-line"],
+        "object-literal-sort-keys": false,
+        "prefer-template": true,
+        "ter-indent": [
+          true,
+          2,
+          {
+            "FunctionExpression": {
+              "parameters": 1,
+              "body": 1
+            },
+            "FunctionDeclaration": {
+              "type": "object",
+              "properties": {
+                "parameters": {
+                  "type": "number",
+                  "minimum": "2"
+                },
+                "body": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              }
+            },
+            "MemberExpression": {
+              "type": "number"
+            }
+          }
+        ],
+        "interface-name": false,
+        "member-ordering": [
+            true,
+            {
+              "order": [
+                "private-constructor",
+                "public-constructor",
+                "public-static-field",
+                "public-instance-field",
+                "private-static-field",
+                "private-instance-field",
+                "public-instance-method",
+                "protected-instance-method",
+                "private-instance-method"
+              ],
+              "alphabetize": false
+            }
+          ]
+    },
+    "rulesDirectory": [],
+    "linterOptions": {
+      "exclude": ["src/**/*.json"]
+    }
+}

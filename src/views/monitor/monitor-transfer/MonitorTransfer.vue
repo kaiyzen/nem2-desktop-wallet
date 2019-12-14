@@ -1,5 +1,5 @@
 <template>
-  <div class="transaction_content secondary_page_animate" @click="hideSearchDetail()">
+  <div class="transaction_content secondary_page_animate">
     <div class="left_container radius ">
       <DisabledForms></DisabledForms>
       <div class="bottom_transfer_info scroll ">

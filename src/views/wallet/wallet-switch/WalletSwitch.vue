@@ -72,9 +72,9 @@
 </template>
 
 <script lang="ts">
-    import "./WalletSwitch.less";
-    //@ts-ignore
-    import {WalletSwitchTs} from "@/views/wallet/wallet-switch/WalletSwitchTs.ts";
+    import './WalletSwitch.less';
+    // @ts-ignore
+    import {WalletSwitchTs} from '@/views/wallet/wallet-switch/WalletSwitchTs.ts'
 
     export default class WalletSwitch extends WalletSwitchTs {
     }
