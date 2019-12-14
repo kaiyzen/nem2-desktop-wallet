@@ -1,7 +1,7 @@
 <template>
   <Modal
-    :title="$t('Activate_remote_harvesting')"
     v-model="show"
+    :title="$t('Activate_remote_harvesting')"
     :transfer="false"
     class-name="dash_board_dialog text_select"
   >
@@ -11,8 +11,8 @@
 
     <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="submit">
       <div class="gray_input_content">
-        <span class="title">{{$t('Node_public_key')}}</span>
-        <ErrorTooltip fieldName="recipientPublicKey">
+        <span class="title">{{ $t('Node_public_key') }}</span>
+        <ErrorTooltip field-name="recipientPublicKey">
           <input
             v-model="recipientPublicKey"
             v-validate="validation.recipientPublicKey"
@@ -21,7 +21,7 @@
             :placeholder="$t('Node_public_key')"
             :data-vv-as="$t('Node_public_key')"
             data-vv-name="recipientPublicKey"
-          />
+          >
         </ErrorTooltip>
       </div>
       <div class="gray_input_content">
@@ -31,28 +31,31 @@
         >{{ showGetNodePublicKey ? $t('Hide') : $t('Show') }} {{ $t('helper') }}</span>
       </div>
       <div class="gray_input_content">
-        <span class="title">{{$t('password')}}</span>
-        <ErrorTooltip fieldName="password">
+        <span class="title">{{ $t('password') }}</span>
+        <ErrorTooltip field-name="password">
           <input
             v-model.lazy="password"
-            type="password"
             v-validate="validation.walletPassword"
+            type="password"
             data-vv-name="password"
             :data-vv-as="$t('password')"
             :placeholder="$t('password')"
-          />
+          >
         </ErrorTooltip>
-        <input v-show="false" v-model="wallet" v-validate disabled data-vv-name="wallet" />
+        <input
+          v-show="false" v-model="wallet" v-validate
+          disabled data-vv-name="wallet"
+        >
       </div>
       <div class="new_model_btn">
-        <span class="modal_btn pointer radius" @click="submit">{{$t('confirm')}}</span>
+        <span class="modal_btn pointer radius" @click="submit">{{ $t('confirm') }}</span>
       </div>
     </form>
   </Modal>
 </template>
 
 <script lang="ts">
-import { PersistentDelegationRequestTs } from "./PersistentDelegationRequestTs";
+import { PersistentDelegationRequestTs } from "./PersistentDelegationRequestTs"
 export default class PersistentDelegationRequest extends PersistentDelegationRequestTs {}
 </script>
 <style lang="less">

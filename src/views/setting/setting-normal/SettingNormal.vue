@@ -7,26 +7,30 @@
     <div class="normal_set">
       <ul>
         <li>
-          {{$t('switch_language')}}
+          {{ $t('switch_language') }}
           <div class="gray_content">
             <Select v-model="language">
-              <Option v-for="item in languageList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              <Option v-for="item in languageList" :key="item.value" :value="item.value">
+                {{ item.label }}
+              </Option>
             </Select>
           </div>
         </li>
         <li>
-          {{$t('currency_setting')}}
+          {{ $t('currency_setting') }}
           <div class="gray_content">
             <Select v-model="coin" :placeholder="$t('currency_setting')">
-              <Option v-for="item in coinList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+              <Option v-for="item in coinList" :key="item.value" :value="item.value">
+                {{ item.label }}
+              </Option>
             </Select>
           </div>
         </li>
         <li>
-          {{$t('Time_zone_setting')}}
+          {{ $t('Time_zone_setting') }}
           <div class="gray_content">
             <Select v-model="timeZone" :placeholder="$t('Time_zone_setting')">
-              <Option v-for="item in timeZoneListData" :value="item.value" :key="item.value">
+              <Option v-for="item in timeZoneListData" :key="item.value" :value="item.value">
                 {{ item.label }}
               </Option>
             </Select>
@@ -44,9 +48,9 @@
 </template>
 
 <script lang="ts">
-    import "./SettingNormal.less"
-    import {SettingNormalTs} from '@/views/setting/setting-normal/SettingNormalTs.ts';
-    export default class SettingNormal extends SettingNormalTs { }
+import "./SettingNormal.less"
+import {SettingNormalTs} from '@/views/setting/setting-normal/SettingNormalTs.ts'
+export default class SettingNormal extends SettingNormalTs { }
 </script>
 <style scoped lang="less">
 </style>

@@ -57,7 +57,7 @@ export const serviceSwitchFnConfig = [
     to: '/mosaic',
     iconDefault: mosaic1Icon,
     iconActive: mosaic2Icon,
-    introduce: 'NEM_Mosaic_is_a_smart_asset_with_rich_attributes_and_features_To_create_a_mosaic_you_must_provision_the_root_namespace_for_your_account',
+    introduce: 'NEM_Mosaic_is_a_smart_asset_with_rich_attributes_and',
     active: false,
   },
   {

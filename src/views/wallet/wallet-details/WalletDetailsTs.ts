@@ -1,8 +1,7 @@
 import {copyTxt} from '@/core/utils'
 import {ContactQR} from 'nem2-qr-library'
 import {AliasType, MultisigAccountInfo, PublicAccount} from 'nem2-sdk'
-import {Component, Vue, Watch} from 'vue-property-decorator'
-import AddressBook from '@/views/wallet/wallet-details/wallet-function/address-book/AddressBook.vue'
+import {Component, Vue} from 'vue-property-decorator'
 import KeystoreDialog from '@/views/wallet/wallet-details/keystore-dialog/KeystoreDialog.vue'
 import PrivatekeyDialog from '@/views/wallet/wallet-details/privatekey-dialog/PrivatekeyDialog.vue'
 import WalletHarvesting from '@/views/wallet/wallet-details/wallet-function/wallet-harvesting/WalletHarvesting.vue'
@@ -20,7 +19,6 @@ import TheWalletDelete from '@/views/wallet/wallet-switch/the-wallet-delete/TheW
     Alias,
     PrivatekeyDialog,
     KeystoreDialog,
-    AddressBook,
     WalletHarvesting,
     TheWalletUpdate,
     TheWalletDelete,
@@ -33,12 +31,12 @@ import TheWalletDelete from '@/views/wallet/wallet-switch/the-wallet-delete/TheW
   },
   subscriptions() {
     const qrCode$ = this
-            .$watchAsObservable('qrCodeArgs', {immediate: true})
-            .pipe(pluck('newValue'),
-                concatMap(args => {
-                  if (args instanceof ContactQR) return args.toBase64()
-                  return of(failureIcon)
-                }))
+      .$watchAsObservable('qrCodeArgs', {immediate: true})
+      .pipe(pluck('newValue'),
+        concatMap(args => {
+          if (args instanceof ContactQR) return args.toBase64()
+          return of(failureIcon)
+        }))
     return {qrCode$}
   },
 })
@@ -46,13 +44,13 @@ export class WalletDetailsTs extends Vue {
   activeAccount: StoreAccount
   app: AppInfo
   aliasList = []
-  showMnemonicDialog: boolean = false
-  showKeystoreDialog: boolean = false
-  showPrivatekeyDialog: boolean = false
+  showMnemonicDialog = false
+  showKeystoreDialog = false
+  showPrivatekeyDialog = false
   functionShowList = [false, true]
   showBindDialog = false
-  bind: boolean = true
-  fromNamespace: boolean = false
+  bind = true
+  fromNamespace = false
   activeNamespace: AppNamespace = null
   showUpdateDialog = false
   showDeleteDialog = false
@@ -67,7 +65,7 @@ export class WalletDetailsTs extends Vue {
     return multisigAccountInfo.cosignatories.length > 0
   }
 
-    // @TODO: false should not be an option, if false occurs, then it is a reactivity bug
+  // @TODO: false should not be an option, if false occurs, then it is a reactivity bug
   get getAddress(): string | false {
     return this.activeAccount.wallet ? this.activeAccount.wallet.address : false
   }
@@ -90,24 +88,24 @@ export class WalletDetailsTs extends Vue {
 
   get selfAliases(): AppNamespace[] {
     return this.NamespaceList
-            .filter(({alias}) =>
-                alias
+      .filter(({alias}) =>
+        alias
                 && alias.type === AliasType.Address
                 && alias.address.plain() === this.getAddress,
-            )
+      )
   }
 
   get qrCodeArgs(): ContactQR {
     try {
       const publicAccount: any = PublicAccount
-                .createFromPublicKey(this.wallet.publicKey, this.wallet.networkType)
+        .createFromPublicKey(this.wallet.publicKey, this.wallet.networkType)
 
       return new ContactQR(
-                this.wallet.name,
-                publicAccount,
-                this.wallet.networkType,
-                this.activeAccount.generationHash,
-            )
+        this.wallet.name,
+        publicAccount,
+        this.wallet.networkType,
+        this.activeAccount.generationHash,
+      )
     } catch (error) {
       return null
     }
@@ -118,7 +116,7 @@ export class WalletDetailsTs extends Vue {
     this.functionShowList[index] = true
   }
 
-    // @WALLETS refactor
+  // @WALLETS refactor
   changeMnemonicDialog() {
     if (!this.wallet.encryptedMnemonic) {
       this.$Notice.warning({

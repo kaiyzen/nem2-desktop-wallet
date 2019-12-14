@@ -1,22 +1,22 @@
 <template>
   <div class="servicePanelWrap clear">
     <div class="left serviceSwitch">
-      <ServiceSwitch></ServiceSwitch>
+      <ServiceSwitch />
     </div>
     <div class="left serviceFn">
-      <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-    import './Service.less'
-    // @ts-ignore
-    import {ServiceTs} from '@/views/service/ServiceTs.ts'
+import './Service.less'
+// @ts-ignore
+import {ServiceTs} from '@/views/service/ServiceTs.ts'
 
-    export default class Service extends ServiceTs {
+export default class Service extends ServiceTs {
 
-    }
+}
 </script>
 
 <style scoped>

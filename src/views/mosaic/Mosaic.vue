@@ -5,12 +5,12 @@
         <span
           :class="['name', $route.path === '/mosaicList' ? 'active' : '', 'pointer']"
           @click="$route.path === '/mosaicList' ? '' : $router.push('mosaicList')"
-        >{{$t('mosaic_list')}}</span>
+        >{{ $t('mosaic_list') }}</span>
 
         <span
           :class="['name', $route.path === '/createMosaic' ? 'active' : '', 'pointer']"
           @click="$route.path === '/createMosaic' ? '' : $router.push('createMosaic')"
-        >{{$t('create_mosaic')}}</span>
+        >{{ $t('create_mosaic') }}</span>
       </span>
     </div>
 
@@ -25,7 +25,7 @@
 <script lang="ts">
 export default {
   name: "Mosaic"
-};
+}
 </script>
 <style scoped lang="less">
 @import "Mosaic.less";

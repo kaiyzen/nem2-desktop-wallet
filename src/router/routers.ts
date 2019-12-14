@@ -22,22 +22,22 @@ const routers = [
           {
             path: '/dashBoard',
             name: 'dashBoard',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/monitor/monitor-dashboard/MonitorDashBoard.vue'),
           }, {
             path: '/transfer',
             name: 'transfer',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/monitor/monitor-transfer/MonitorTransfer.vue'),
           }, {
             path: '/invoice',
             name: 'Invoice',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/monitor/monitor-invoice/MonitorInvoice.vue'),
           }, {
             path: '/market',
             name: 'market',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/monitor/monitor-market/MonitorMarket.vue'),
           },
         ],
@@ -51,34 +51,34 @@ const routers = [
           icon: leftBarIcons.windowWallet,
           activeIcon: leftBarIcons.windowWalletActive,
         },
-                // @ts-ignore
+        // @ts-ignore
         component: () => import('@/views/wallet/Wallet.vue'),
         children: [
           {
             path: '/walletCreate',
             name: 'walletCreate',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/wallet/wallet-functions/wallet-create/WalletCreate.vue'),
           }, {
             path: '/walletCreated',
             name: 'walletCreated',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/wallet/wallet-functions/wallet-created/WalletCreated.vue'),
           }, {
             path: 'walletImport',
             name: 'walletImport',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/wallet/wallet-functions/wallet-import/WalletImport.vue'),
             children: [
               {
                 path: '/walletImportKeystore',
                 name: 'walletImportKeystore',
-                                // @ts-ignore
+                // @ts-ignore
                 component: () => import('@/views/wallet/wallet-functions/wallet-import/wallet-import-keystore/WalletImportKeystore.vue'),
               }, {
                 path: '/walletImportPrivatekey',
                 name: 'walletImportPrivatekey',
-                                // @ts-ignore
+                // @ts-ignore
                 component: () => import('@/views/wallet/wallet-functions/wallet-import/wallet-import-privatekey/WalletImportPrivatekey.vue'),
               },
             ],
@@ -121,7 +121,7 @@ const routers = [
           {
             path: '/namespaceList',
             name: 'Namespace_list',
-                        // tslint:disable-next-line:max-line-length
+            // tslint:disable-next-line:max-line-length
             component: () => import('@/views/namespace/namespace-function/namespace-list/NamespaceList.vue'),
           }, {
             path: '/createNamespace',
@@ -169,13 +169,13 @@ const routers = [
           icon: leftBarIcons.windowCommunity,
           activeIcon: leftBarIcons.windowCommunityActive,
         },
-                // @ts-ignore
+        // @ts-ignore
         component: () => import('@/views/community/Community.vue'),
         children: [
           {
             path: '/information',
             name: 'information',
-                        // @ts-ignore
+            // @ts-ignore
             component: () => import('@/views/community/information/Information.vue'),
           },
         ],

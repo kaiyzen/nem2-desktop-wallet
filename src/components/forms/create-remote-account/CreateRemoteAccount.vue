@@ -1,7 +1,7 @@
 <template>
   <Modal
-    :title="$t(modalTitle)"
     v-model="show"
+    :title="$t(modalTitle)"
     :transfer="false"
     class-name="dash_board_dialog text_select"
     on-cancel="this.emit('close')"
@@ -13,11 +13,11 @@
       >{{ $t('Your_remote_account_has_been_successfully_saved_in_the_wallet') }}</span>
 
       <div class="gray_input_content">
-        <span class="title">{{$t('Wallet_public_key')}}</span>
+        <span class="title">{{ $t('Wallet_public_key') }}</span>
         <span>{{ remoteAccountPublicKey }}</span>
       </div>
       <div v-if="showPrivateKey" class="gray_input_content">
-        <span class="title">{{$t('privatekey')}}</span>
+        <span class="title">{{ $t('privatekey') }}</span>
         <span v-if="showPrivateKey">{{ privateKey }}</span>
       </div>
       <div class="gray_input_content">
@@ -54,22 +54,25 @@
         @keyup.enter="getRemoteAccountPrivateKey"
       >
         <div class="gray_input_content">
-          <span class="title">{{$t('password')}}</span>
-          <ErrorTooltip fieldName="password">
+          <span class="title">{{ $t('password') }}</span>
+          <ErrorTooltip field-name="password">
             <input
               v-model.lazy="password"
-              type="password"
               v-validate="validation.walletPassword"
+              type="password"
               data-vv-name="password"
               :data-vv-as="$t('password')"
               placeholder="PLACEHOLDER_password"
-            />
+            >
           </ErrorTooltip>
-          <input v-show="false" v-model="wallet" v-validate disabled data-vv-name="wallet" />
+          <input
+            v-show="false" v-model="wallet" v-validate
+            disabled data-vv-name="wallet"
+          >
         </div>
         <div class="new_model_btn">
           <span class="modal_btn pointer radius" @click="getRemoteAccountPrivateKey">
-            {{$t('Show_private_key')}}
+            {{ $t('Show_private_key') }}
           </span>
         </div>
       </form>
@@ -80,14 +83,14 @@
         <span
           class="modal_btn pointer radius"
           @click="$emit('openAccountLinkTransaction')"
-        >{{$t('Link_now')}}</span>
+        >{{ $t('Link_now') }}</span>
       </div>
     </div>
   </Modal>
 </template>
 
 <script lang="ts">
-import { CreateRemoteAccountTs } from "./CreateRemoteAccountTs";
+import { CreateRemoteAccountTs } from "./CreateRemoteAccountTs"
 export default class CreateRemoteAccount extends CreateRemoteAccountTs {}
 </script>
 <style lang="less">

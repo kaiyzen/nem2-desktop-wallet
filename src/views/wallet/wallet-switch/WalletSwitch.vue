@@ -1,42 +1,49 @@
 <template>
   <div class="walletSwitchWrap">
     <div class="walletSwitchHead">
-      <p class="tit">{{$t('Wallet_management')}}</p>
-      <p class="back-up pointer" @click="showMnemonicDialog=true">{{$t('backup_mnemonic')}}</p>
+      <p class="tit">
+        {{ $t('Wallet_management') }}
+      </p>
+      <p class="back-up pointer" @click="showMnemonicDialog=true">
+        {{ $t('backup_mnemonic') }}
+      </p>
     </div>
 
-    <div class="walletList scroll" ref="walletScroll">
-      <div class="wallet_scroll_item" v-for="(item, index) in walletList" :key="index">
+    <div ref="walletScroll" class="walletList scroll">
+      <div v-for="(item, index) in walletList" :key="index" class="wallet_scroll_item">
         <div
-                :class="['walletItem', getWalletStyle(item), 'radius']"
-                @click="switchWallet(item.address)"
-                ref="walletsDiv"
+          ref="walletsDiv"
+          :class="['walletItem', getWalletStyle(item), 'radius']"
+          @click="switchWallet(item.address)"
         >
           <Row>
-            <Col span="15">
+            <i-Col span="15">
               <div>
-                <p class="walletName">{{item.name}}</p>
+                <p class="walletName">
+                  {{ item.name }}
+                </p>
                 <p class="walletAmount overflow_ellipsis">
                   {{ item.balance ? formatNumber(item.balance) : 0 }}
                   <span class="tails">{{ networkCurrency.ticker }}</span>
                 </p>
               </div>
-            </Col>
-            <Col span="9">
-
+            </i-Col>
+            <i-Col span="9">
               <div @click.stop>
-                <div class="walletTypeTxt">{{isMultisig(item.address) ? $t('Public_account') : ''}}</div>
+                <div class="walletTypeTxt">
+                  {{ isMultisig(item.address) ? $t('Public_account') : '' }}
+                </div>
                 <div class="options">
                   <span class="mosaics">
-                    <Icon type="logo-buffer"/>
-                    <span>{{ item.numberOfMosaics  ? formatNumber(item.numberOfMosaics ) : 0 }}</span>
+                    <Icon type="logo-buffer" />
+                    <span>{{ item.numberOfMosaics ? formatNumber(item.numberOfMosaics ) : 0 }}</span>
                   </span>
-                  <span @click="showDeleteDialog=true" class="delete">
-                    <Icon type="md-trash"/>
+                  <span class="delete" @click="showDeleteDialog=true">
+                    <Icon type="md-trash" />
                   </span>
                 </div>
               </div>
-            </Col>
+            </i-Col>
           </Row>
         </div>
       </div>
@@ -44,40 +51,48 @@
 
     <div class="walletMethod">
       <Row>
-        <Col span="12">
-          <div class="createBtn pointer" @click="toCreate">{{$t('from_seed')}}</div>
-        </Col>
-        <Col span="12">
-          <div class="importBtn pointer" @click="toImport">{{$t('from_privatekey')}}</div>
-        </Col>
+        <i-Col span="12">
+          <div class="createBtn pointer" @click="toCreate">
+            {{ $t('from_seed') }}
+          </div>
+        </i-Col>
+        <i-Col span="12">
+          <div class="importBtn pointer" @click="toImport">
+            {{ $t('from_privatekey') }}
+          </div>
+        </i-Col>
       </Row>
     </div>
 
     <CheckPasswordDialog
-            v-if="showCheckPWDialog"
-            :visible="showCheckPWDialog"
-            :returnPassword="true"
-            @close="showCheckPWDialog = false"
-            @passwordValidated="passwordValidated"></CheckPasswordDialog>
+      v-if="showCheckPWDialog"
+      :visible="showCheckPWDialog"
+      :return-password="true"
+      @close="showCheckPWDialog = false"
+      @passwordValidated="passwordValidated"
+    />
 
-    <MnemonicDialog v-if="showMnemonicDialog"
-                    :showMnemonicDialog="showMnemonicDialog"
-                    @closeMnemonicDialog="showMnemonicDialog = false"></MnemonicDialog>
+    <MnemonicDialog
+      v-if="showMnemonicDialog"
+      :show-mnemonic-dialog="showMnemonicDialog"
+      @closeMnemonicDialog="showMnemonicDialog = false"
+    />
     <TheWalletDelete
-            :showCheckPWDialog="showDeleteDialog"
-            :wallet-to-delete="wallet"
-            @closeCheckPWDialog="showDeleteDialog=false"
-            @on-cancel="showDeleteDialog = false"></TheWalletDelete>
+      :show-check-p-w-dialog="showDeleteDialog"
+      :wallet-to-delete="wallet"
+      @closeCheckPWDialog="showDeleteDialog=false"
+      @on-cancel="showDeleteDialog = false"
+    />
   </div>
 </template>
 
 <script lang="ts">
-    import './WalletSwitch.less';
-    // @ts-ignore
-    import {WalletSwitchTs} from '@/views/wallet/wallet-switch/WalletSwitchTs.ts'
+import './WalletSwitch.less'
+// @ts-ignore
+import {WalletSwitchTs} from '@/views/wallet/wallet-switch/WalletSwitchTs.ts'
 
-    export default class WalletSwitch extends WalletSwitchTs {
-    }
+export default class WalletSwitch extends WalletSwitchTs {
+}
 </script>
 
 <style scoped>

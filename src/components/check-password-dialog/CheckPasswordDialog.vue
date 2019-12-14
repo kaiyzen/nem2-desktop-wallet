@@ -8,24 +8,29 @@
       @on-cancel="$emit('close'); $emit('cancelled')"
     >
       <div slot="header" class="checkPWDialogHeader">
-        <span class="title">{{$t('confirm_information')}}</span>
+        <span class="title">{{ $t('confirm_information') }}</span>
       </div>
       <div class="checkPWDialogBody">
         <div class="stepItem1">
           <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="submit">
-            <ErrorTooltip fieldName="password">
+            <ErrorTooltip field-name="password">
               <input
-                v-focus
                 v-model.lazy="password"
-                type="password"
+                v-focus
                 v-validate="validation.accountPassword"
+                type="password"
                 data-vv-name="password"
                 :data-vv-as="$t('password')"
                 :placeholder="$t('please_enter_your_wallet_password')"
-              />
+              >
             </ErrorTooltip>
-            <input v-show="false" v-model="accountPassword" v-validate disabled data-vv-name="accountPassword" />
-            <Button type="success" @click="submit">{{$t('confirm')}}</Button>
+            <input
+              v-show="false" v-model="accountPassword" v-validate
+              disabled data-vv-name="accountPassword"
+            >
+            <Button type="success" @click="submit">
+              {{ $t('confirm') }}
+            </Button>
           </form>
         </div>
       </div>
@@ -35,8 +40,8 @@
 
 
 <script lang="ts">
-import "./CheckPasswordDialog.less";
-import { CheckPasswordDialogTs } from "@/components/check-password-dialog/CheckPasswordDialogTs.ts";
+import "./CheckPasswordDialog.less"
+import { CheckPasswordDialogTs } from "@/components/check-password-dialog/CheckPasswordDialogTs.ts"
 
 export default class CheckPasswordDialog extends CheckPasswordDialogTs {}
 </script>

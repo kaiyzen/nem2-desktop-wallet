@@ -1,10 +1,10 @@
 <template>
-  <div></div>
+  <div />
 </template>
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { AppInfo, StoreAccount, AppState } from "@/core/model";
-import { mapState } from "vuex";
+import { Component, Vue } from "vue-property-decorator"
+import { AppInfo } from "@/core/model"
+import { mapState } from "vuex"
 
 @Component({ computed: { ...mapState({ app: "app" }) } })
 export default class LoadingOverlay extends Vue {
@@ -28,24 +28,24 @@ export default class LoadingOverlay extends Vue {
             },
             "close"
           )
-        ]);
+        ])
       }
-    });
+    })
 
-    this;
+    this
   }
 
   mounted() {
-    this.open();
+    this.open()
   }
 
   closeScreen() {
     // @ts-ignore
-    this.$Spin.hide();
+    this.$Spin.hide()
     this.$store.commit("SET_LOADING_OVERLAY", {
       show: false,
       message: ""
-    });
+    })
   }
 }
 </script>
