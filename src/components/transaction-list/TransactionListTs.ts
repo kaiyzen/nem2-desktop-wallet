@@ -34,7 +34,7 @@ export class TransactionListTs extends Vue {
   NamespaceId = NamespaceId
   formatExplorerUrl = formatExplorerUrl
   @Prop({default: null})
-    mode: string
+  mode: string
 
   get wallet() {
     return new AppWallet(this.activeAccount.wallet)

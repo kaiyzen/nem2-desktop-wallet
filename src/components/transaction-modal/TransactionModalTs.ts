@@ -20,8 +20,6 @@ export class TransactionModalTs extends Vue {
   }
 
   set show(val) {
-    if (!val) 
-    {this.$emit('close')}
-    
+    if (!val) this.$emit('close')
   }
 }

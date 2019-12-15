@@ -15,7 +15,7 @@
             <span>{{ $t('pre_week') }}</span><span :class="riseRange < 0 ? 'red' : 'green'">{{ riseRange }}%</span>
           </span>
         </span>
-        <LineChart />
+        <LineChartByDay />
       </div>
       <div class="right_net_txs radius">
         <div class="top_select_conditions">

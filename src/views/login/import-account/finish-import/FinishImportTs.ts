@@ -8,5 +8,4 @@ export default class FinishImportTs extends Vue {
       path: '/dashboard',
     })
   }
-
 }

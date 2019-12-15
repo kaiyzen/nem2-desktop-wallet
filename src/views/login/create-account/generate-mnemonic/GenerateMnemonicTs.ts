@@ -16,7 +16,7 @@ export default class GenerateMnemonicTs extends Vue {
 
   handleMousemove() {
     if (this.percent < 100) {
-      this.percent++
+      this.percent ++
     } else {
       this.isSlidable = false
       this.jumpToCreateMnemonic()

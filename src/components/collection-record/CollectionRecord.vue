@@ -29,17 +29,6 @@
           <span>{{ $t('search') }}</span>
         </span>
       </div>
-      <div v-show="isShowSearchDetail" class="search_expand">
-        <span class="search_container">
-          <img src="@/common/img/monitor/market/marketSearch.png" alt="">
-          <input
-            v-model="transactionHash" type="text" class="absolute"
-            :placeholder="$t('enter_asset_type_alias_or_address_search')"
-            @click.stop
-          >
-        </span>
-        <span class="search_btn pointer " @click.stop="searchByasset">{{ $t('search') }}</span>
-      </div>
     </div>
 
     <!-- @TODO: merge this block with the confirmed transaction one -->

@@ -16,10 +16,10 @@ export class TheWalletUpdateTs extends Vue {
   }
 
   @Prop()
-    showUpdateDialog: boolean
+  showUpdateDialog: boolean
 
   @Prop()
-    walletToUpdate: AppWallet
+  walletToUpdate: AppWallet
 
   get accountName() {
     return this.activeAccount.currentAccount.name

@@ -86,7 +86,7 @@ export class MultisigAccountModificationTs extends Vue {
         ),
       }))
 
-    return this.hasCosignatories ? [selfPublicKeyItem, ...list] : list
+    return this.hasCosignatories ? [ selfPublicKeyItem, ...list ] : list
   }
 
   get announceType(): string {
@@ -170,7 +170,7 @@ export class MultisigAccountModificationTs extends Vue {
     cosigners: string
     minApproval: string
     minRemoval: string
-    } {
+  } {
     const {mode} = this
     const {maxCosignatoriesPerAccount} = networkConfig
 

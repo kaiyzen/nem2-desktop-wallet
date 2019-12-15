@@ -13,14 +13,14 @@
           @verificationSuccess="verificationSuccess"
           @toPreviousPage="$router.back()"
         />
-      </div>
-      <div class="check-mnemonic-right">
-        <p class="text1">
-          {{ $t('Tips') }}
-        </p>
-        <p class="text">
-          {{ $t('The_backup_is_wrong') }}
-        </p>
+        <div class="check-mnemonic-right">
+          <p class="text1">
+            {{ $t('Tips') }}
+          </p>
+          <p class="text">
+            {{ $t('The_backup_is_wrong') }}
+          </p>
+        </div>
       </div>
     </div>
   </div>

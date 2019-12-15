@@ -10,7 +10,7 @@ import {TransferTransaction, Address, NamespaceId} from 'nem2-sdk'
 })
 export class TransactionInfoTemplateTs extends Vue {
   activeAccount: StoreAccount
-  unusedAttributesList = ['from', 'cosignatories', 'hash', 'fee', 'block', 'sender', 'transaction_type', 'self', 'aims', 'tag', 'mosaics', 'namespace']
+  unusedAttributesList = [ 'from', 'cosignatories', 'hash', 'fee', 'block', 'sender', 'transaction_type', 'self', 'aims', 'tag', 'mosaics', 'namespace' ]
 
   getNamespaceNameFromNamespaceId = getNamespaceNameFromNamespaceId
   formatSenderOrRecipient = formatSenderOrRecipient
@@ -19,10 +19,10 @@ export class TransactionInfoTemplateTs extends Vue {
   NamespaceId = NamespaceId
 
   @Prop()
-    transactionDetails
+  transactionDetails
 
   @Prop()
-    cosignedBy: string[]
+  cosignedBy: string[]
 
   getFrom(): string {
     const {activeMultisigAccount, wallet} = this.activeAccount

@@ -1,13 +1,13 @@
 import {KlineQuery} from '@/core/query/klineQuery.ts'
 import {market} from '@/core/api'
 import {Component, Vue} from 'vue-property-decorator'
-import LineChart from '@/components/line-chart-by-day/LineChartByDay.vue'
+import LineChartByDay from '@/components/line-chart-by-day/LineChartByDay.vue'
 import {isRefreshData, localSave, localRead, formatDate} from '@/core/utils'
 import {formatNumber} from '@/core/utils'
 
 @Component({
   components: {
-    LineChart,
+    LineChartByDay,
   },
 })
 export class MonitorMarketTs extends Vue {
@@ -23,7 +23,7 @@ export class MonitorMarketTs extends Vue {
   isShowSearchDetail = false
   noTransactionRecord = false
   // tslint:disable-next-line:prefer-template
-  currentMonth = `${(new Date()).getFullYear() }-${ (new Date()).getMonth() + 1}`
+  currentMonth = `${(new Date()).getFullYear()}-${(new Date()).getMonth() + 1}`
 
   showSearchDetail() {
     this.isShowSearchDetail = true

@@ -1,8 +1,8 @@
 import {TransactionType, NetworkType} from 'nem2-sdk'
 import {DefaultFee, NetworkCurrency} from '@/core/model'
 
+export const isWindows = require('./packge.ts').isWin32
 export const WALLET_VERSION = '0.8.8-beta'
-export const isWindows = false
 export const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 export const apiServerConfig = {
@@ -131,7 +131,7 @@ export const networkConfig = {
   minNamespaceDuration: 30,
   maxNamespaceDuration: 365,
   namespaceGracePeriodDuration: 172800, // Blocks
-  reservedRootNamespaceNames: ['xem', 'nem', 'user', 'account', 'org', 'com', 'biz', 'net', 'edu', 'mil', 'gov', 'info'],
+  reservedRootNamespaceNames: [ 'xem', 'nem', 'user', 'account', 'org', 'com', 'biz', 'net', 'edu', 'mil', 'gov', 'info' ],
   namespaceRentalFeeSinkPublicKey: '3E82E1C1E4A75ADAA3CBA8C101C3CD31D9817A2EB966EB3B511FB2ED45B8E262',
   rootNamespaceRentalFeePerBlock: 1000000,
   childNamespaceRentalFee: 100,

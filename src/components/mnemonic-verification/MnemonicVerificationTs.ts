@@ -13,7 +13,7 @@ export class MnemonicVerificationTs extends Vue {
   confirmedIndexList = []
 
   @Prop({default: []})
-    mnemonicWordsList: string[]
+  mnemonicWordsList: string[]
 
   verificationSuccess() {
     if (this.checkMnemonic()) 

@@ -1,6 +1,6 @@
 <template>
   <div class="transfer" @click="isShowSubAlias = false">
-    <form @submit.prevent="validateForm('transfer-transaction')" @keyup.enter="submit">
+    <form onsubmit="event.preventDefault()" @keyup.enter="submit">
       <div v-if="!hasMultisigAccounts" class="flex_center">
         <span class="title">{{ $t('sender') }}</span>
         <span class="value no-border">{{ formatAddress(wallet.address) }}</span>

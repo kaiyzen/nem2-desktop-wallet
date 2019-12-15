@@ -95,6 +95,7 @@ module.exports = {
       "vue/no-parsing-error": ["error", {
         "invalid-first-character-of-tag-name": false
       }],
+      "vue/require-v-for-key": "error",
       "vue/space-infix-ops": "error",
       // "vue/no-v-html": "error",
     }

@@ -44,9 +44,9 @@ export class MnemonicDialogTs extends Vue {
   password = ''
   QRCode = ''
   fourStepsPictureList = fourStepsPictureList
-  stringOfSteps = ['input_password', 'backup_prompt', 'backup_mnemonic', 'confirm_backup']
+  stringOfSteps = [ 'input_password', 'backup_prompt', 'backup_mnemonic', 'confirm_backup' ]
   @Prop()
-    showMnemonicDialog: boolean
+  showMnemonicDialog: boolean
 
   get show() {
     return this.showMnemonicDialog

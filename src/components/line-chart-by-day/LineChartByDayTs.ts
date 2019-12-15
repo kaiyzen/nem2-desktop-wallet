@@ -13,7 +13,7 @@ export class LineChartByDayTs extends Vue {
   option = {
     rate: 1,
     legend: {
-      data: ['xem', 'btc', 'amount'],
+      data: [ 'xem', 'btc', 'amount' ],
       show: true,
       x: 'right',
       y: '-5px',
@@ -99,8 +99,8 @@ export class LineChartByDayTs extends Vue {
           formatter(timestamp) {
             let date: any = new Date(Number(timestamp))
             // tslint:disable-next-line:prefer-template
-            date = `${date.getMonth() + 1 }-${
-              date.getDate() }${date.getHours() }:${ date.getMinutes()}`
+            date = `${date.getMonth() + 1}-${
+              date.getDate()}${date.getHours()}:${date.getMinutes()}`
             return date
           },
         },
@@ -120,7 +120,7 @@ export class LineChartByDayTs extends Vue {
           formatter(timestamp) {
             let date: any = new Date(Number(timestamp))
             // tslint:disable-next-line:prefer-template
-            date = `${addZero(date.getHours()) }:${ addZero(date.getMinutes())}`
+            date = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`
             return date
           },
         },
@@ -173,7 +173,7 @@ export class LineChartByDayTs extends Vue {
     dataZoom: {
 
       type: 'inside',
-      xAxisIndex: [0, 1],
+      xAxisIndex: [ 0, 1 ],
     },
 
     series: [

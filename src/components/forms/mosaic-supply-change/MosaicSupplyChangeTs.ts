@@ -24,10 +24,10 @@ export class MosaicSupplyChangeTs extends Vue {
   formItems = cloneData(formDataConfig.mosaicEditForm)
 
   @Prop()
-    showMosaicEditDialog: boolean
+  showMosaicEditDialog: boolean
 
   @Prop()
-    itemMosaic: AppMosaic
+  itemMosaic: AppMosaic
 
   get show() {
     return this.showMosaicEditDialog

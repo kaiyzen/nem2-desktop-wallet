@@ -18,10 +18,10 @@ export class TheWalletDeleteTs extends Vue {
   }
 
   @Prop()
-    showCheckPWDialog: boolean
+  showCheckPWDialog: boolean
 
   @Prop()
-    walletToDelete: AppWallet
+  walletToDelete: AppWallet
 
   get getWallet() {
     return this.activeAccount.wallet
@@ -29,10 +29,10 @@ export class TheWalletDeleteTs extends Vue {
 
   get confirmationPrompt() {
     switch (this.getWallet.sourceType) {
-    case 'Trezor':
-      return 'please_confirm_your_wallet_name'
-    default:
-      return 'please_enter_your_wallet_password'
+      case 'Trezor':
+        return 'please_confirm_your_wallet_name'
+      default:
+        return 'please_enter_your_wallet_password'
     }
   }
 
@@ -98,10 +98,10 @@ export class TheWalletDeleteTs extends Vue {
   submit() {
     // based on source of wallet, use different protection mechanisms
     switch (this.getWallet.sourceType) {
-    case 'Trezor':
-      return this.deleteByWalletNameConfirmation()
-    default:
-      return this.deleteByPassword()
+      case 'Trezor':
+        return this.deleteByWalletNameConfirmation()
+      default:
+        return this.deleteByPassword()
     }
   }
 

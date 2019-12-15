@@ -32,10 +32,10 @@ export class NamespaceRegistrationTs extends Vue {
   formItems = cloneData(formDataConfig.namespaceEditForm)
 
   @Prop({default: false})
-    showNamespaceEditDialog: boolean
+  showNamespaceEditDialog: boolean
 
   @Prop()
-    currentNamespace: AppNamespace
+  currentNamespace: AppNamespace
 
   get show() {
     return this.showNamespaceEditDialog

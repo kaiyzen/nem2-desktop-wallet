@@ -34,9 +34,9 @@ export class PrivatekeyDialogTs extends Vue {
   stepIndex = 0
   password = ''
   threeStepsPictureList = threeStepsPictureList
-  stringOfSteps = ['input_password', 'backup_prompt', 'backup_private_key']
+  stringOfSteps = [ 'input_password', 'backup_prompt', 'backup_private_key' ]
   @Prop()
-    showPrivatekeyDialog: boolean
+  showPrivatekeyDialog: boolean
 
   get show() {
     return this.showPrivatekeyDialog
@@ -95,15 +95,15 @@ export class PrivatekeyDialogTs extends Vue {
 
   exportPrivatekey() {
     switch (this.stepIndex) {
-    case 0:
-      this.checkPassword()
-      break
-    case 1:
-      this.stepIndex = 2
-      break
-    case 2:
-      this.stepIndex = 3
-      break
+      case 0:
+        this.checkPassword()
+        break
+      case 1:
+        this.stepIndex = 2
+        break
+      case 2:
+        this.stepIndex = 3
+        break
     }
   }
 

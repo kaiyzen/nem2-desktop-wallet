@@ -25,5 +25,4 @@ export default class Step4Ts extends Vue {
   verificationSuccess() {
     this.$router.push('finishCreate')
   }
-
 }

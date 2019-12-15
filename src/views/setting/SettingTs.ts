@@ -15,7 +15,7 @@ export class SettingTs extends Vue {
   // update router
   jumpToView(n) {
     if (this.$route.matched.map(({path}) => path).includes(n.path)) return
-
+    if (n.name === 'settingNetwork') return
     this.$router.push({
       name: n.name,
     }).catch()

@@ -127,12 +127,12 @@ export class InformationTs extends Vue {
     const {abbreviation} = this
     let languageNumber = 1
     switch (abbreviation) {
-    case 'zh-CN':
-      languageNumber = 1
-      break
-    case 'en-US' :
-      languageNumber = 2
-      break
+      case 'zh-CN':
+        languageNumber = 1
+        break
+      case 'en-US' :
+        languageNumber = 2
+        break
     }
     return languageNumber
   }

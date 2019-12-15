@@ -32,7 +32,7 @@ export class CollectionRecordTs extends Vue {
       return TransferType.SENT
     },
   })
-    transactionType: number
+  transactionType: number
 
   get wallet() {
     return this.activeAccount.wallet

@@ -23,7 +23,7 @@ export class AccountLinkTransactionTs extends Vue {
   newRemoteAccount: Account = null
 
   @Prop({default: false})
-    visible: boolean
+  visible: boolean
 
   get show(): boolean {
     return this.visible

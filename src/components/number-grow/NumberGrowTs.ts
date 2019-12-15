@@ -5,10 +5,10 @@ import {formatNumber} from '@/core/utils'
 export class NumberGrowTs extends Vue {
 
   @Prop({default: 2})
-    time
+  time
 
   @Prop({default: 0})
-    value
+  value
 
   numValue = 0
   isAdd = true

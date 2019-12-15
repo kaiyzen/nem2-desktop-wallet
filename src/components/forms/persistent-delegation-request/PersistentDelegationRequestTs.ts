@@ -29,7 +29,7 @@ export class PersistentDelegationRequestTs extends Vue {
   password = ''
 
   @Prop({default: false})
-    visible: boolean
+  visible: boolean
 
   get show(): boolean {
     return this.visible

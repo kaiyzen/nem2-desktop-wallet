@@ -23,7 +23,7 @@ export class KeystoreDialogTs extends Vue {
   password = ''
 
   @Prop()
-    showKeystoreDialog: boolean
+  showKeystoreDialog: boolean
 
   get show() {
     return this.showKeystoreDialog
@@ -53,15 +53,15 @@ export class KeystoreDialogTs extends Vue {
 
   exportKeystore() {
     switch (this.stepIndex) {
-    case 0:
-      this.checkWalletPassword()
-      break
-    case 1:
-      this.generateKeystore()
-      break
-    case 2:
-      this.stepIndex = 3
-      break
+      case 0:
+        this.checkWalletPassword()
+        break
+      case 1:
+        this.generateKeystore()
+        break
+      case 2:
+        this.stepIndex = 3
+        break
     }
   }
 

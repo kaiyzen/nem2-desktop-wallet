@@ -11,7 +11,7 @@
 <script lang="ts">
 import {LineChartByDayTs} from '@/components/line-chart-by-day/LineChartByDayTs.ts'
 
-export default class LineChart extends LineChartByDayTs {
+export default class LineChartByDay extends LineChartByDayTs {
 }
 
 </script>

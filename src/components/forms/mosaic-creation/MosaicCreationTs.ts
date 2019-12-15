@@ -196,7 +196,7 @@ export class MosaicCreationTs extends Vue {
       networkType,
     )
 
-    return [mosaicDefinitionTx, mosaicSupplyChangeTx]
+    return [ mosaicDefinitionTx, mosaicSupplyChangeTx ]
   }
 
   createBySelf() {
@@ -206,7 +206,7 @@ export class MosaicCreationTs extends Vue {
 
     const transactions = mosaicDefinitionAndSupplyChange()
     const [mosaicDefinitionTx] = transactions
-    const [, mosaicSupplyChangeTx] = transactions
+    const [ , mosaicSupplyChangeTx ] = transactions
 
     this.transactionList = [
       AggregateTransaction.createComplete(
