@@ -8,7 +8,7 @@
     "test": "vue-cli-service test:unit --coverage",
     "lint:all": "npm run lint:ts && npm run lint:vue && npm run lint:tests",
     "lint:ts": "eslint __tests__/ --ext .ts",
-    "lint:vue": "eslint src/ --ext .vue --fix",
+    "lint:vue": "eslint src/ --ext .vue",
     "lint:tests": "eslint __tests__/ --ext .ts"
   },
   "dependencies": {
