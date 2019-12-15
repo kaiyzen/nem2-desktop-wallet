@@ -133,7 +133,7 @@
               <Icon v-else type="md-close" />
             </span>
             <span class="deadline overflow_ellipsis">
-              {{ durationLabel }}
+              {{ durationLabel(value) }}
             </span>
             <span class="alias text_select  overflow_ellipsis">
               {{ value.name ? value.name : 'N/A' }}
