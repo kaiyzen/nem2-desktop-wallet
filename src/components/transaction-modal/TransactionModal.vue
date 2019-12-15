@@ -7,7 +7,7 @@
       :transfer="false"
       class-name="transaction-modal-dialog text_select"
     >
-      <TransactionDetails :transaction="activeTransaction" />
+      		<TransactionDetails :transaction="activeTransaction" />
     </Modal>
   </div>
 </template>
