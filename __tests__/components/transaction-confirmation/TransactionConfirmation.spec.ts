@@ -104,7 +104,7 @@ describe('TransactionConfirmation when staged transaction is set', () => {
   const transaction = TransferTransaction.create(
     Deadline.create(),
     Address.createFromRawAddress('SBIWHDWZMPIXXM2BINCRXAK3H3MGA5VHB3D2PO5W'),
-    [new Mosaic(new MosaicId([2429385668, 814683207]), new UInt64([0, 0]))],
+    [new Mosaic(new MosaicId([ 2429385668, 814683207 ]), new UInt64([ 0, 0 ]))],
     PlainMessage.create(''),
     NetworkType.MIJIN_TEST,
   )
@@ -192,7 +192,7 @@ describe('TransactionConfirmation when staged transaction is a lock', () => {
   const transaction = TransferTransaction.create(
     Deadline.create(),
     Address.createFromRawAddress('SBIWHDWZMPIXXM2BINCRXAK3H3MGA5VHB3D2PO5W'),
-    [new Mosaic(new MosaicId([2429385668, 814683207]), new UInt64([0, 0]))],
+    [new Mosaic(new MosaicId([ 2429385668, 814683207 ]), new UInt64([ 0, 0 ]))],
     PlainMessage.create(''),
     NetworkType.MIJIN_TEST,
   )

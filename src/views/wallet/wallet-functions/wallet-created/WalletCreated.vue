@@ -1,6 +1,6 @@
 <template>
   <div class="walletCreatedWrap">
-    <div v-if="tags == 0" class="createdDiv1">
+    <div v-if="tags === 0" class="createdDiv1">
       <p class="pageTit">
         {{ $t('backup_mnemonic') }}
       </p>
@@ -34,7 +34,7 @@
         </Button>
       </div>
     </div>
-    <div v-if="tags == 1" class="createdDiv2">
+    <div v-if="tags === 1" class="createdDiv2">
       <p class="pageTit">
         {{ $t('Confirm_mnemonic') }}
       </p>
@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <div v-if="tags == 2" class="createdDiv3">
+    <div v-if="tags === 2" class="createdDiv3">
       <p class="pageTit">
         {{ $t('Congratulations_on_creating_a_wallet') }}
       </p>

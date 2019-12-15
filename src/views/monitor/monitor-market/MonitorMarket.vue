@@ -46,7 +46,7 @@
 
           <div v-for="(r, index) in recentTransactionList" :key="index" class="transaction_item">
             <img
-              v-if="r.type == 'XEM'" src="@/common/img/monitor/market/marketAssetLogo.png"
+              v-if="r.type === 'XEM'" src="@/common/img/monitor/market/marketAssetLogo.png"
               alt=""
             >
             <div>

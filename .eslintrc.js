@@ -33,6 +33,11 @@ module.exports = {
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/semi": [2, "never"],
+    "array-bracket-spacing": [
+      "error",
+      "always",
+      { "singleValue": false, "objectsInArrays": false },
+    ],
     "ban-ts-ignore": "off",
     "comma-dangle": ["error", "always-multiline"],
     "curly": ["error", "multi-line"],
@@ -63,6 +68,12 @@ module.exports = {
     "prefer-template": 2,
     "quotes": ["error", "single"],
     "spaced-comment": ["error", "always", { "markers": ["/"] }],
+    "vue/array-bracket-spacing": [
+      "error",
+      "always",
+      { "singleValue": false, "objectsInArrays": false },
+    ],
+    "vue/eqeqeq": "error",
     "vue/max-attributes-per-line": ["error", {
       "singleline": 3,
       "multiline": {
@@ -73,6 +84,6 @@ module.exports = {
     "vue/no-parsing-error": ["error", {
       "invalid-first-character-of-tag-name": false
     }],
-
+    // "vue/no-v-html": "error",
   }
 };

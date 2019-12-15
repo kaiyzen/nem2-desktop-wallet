@@ -495,7 +495,7 @@ describe('getSignedLockAndAggregateTransaction', () => {
   const transaction = sdk.TransferTransaction.create(
     sdk.Deadline.create(),
     sdk.Address.createFromRawAddress('SBIWHDWZMPIXXM2BINCRXAK3H3MGA5VHB3D2PO5W'),
-    [new sdk.Mosaic(new sdk.MosaicId([2429385668, 814683207]), new UInt64([0, 0]))],
+    [new sdk.Mosaic(new sdk.MosaicId([ 2429385668, 814683207 ]), new UInt64([ 0, 0 ]))],
     sdk.PlainMessage.create(''),
     sdk.NetworkType.MIJIN_TEST,
   )

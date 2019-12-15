@@ -68,7 +68,7 @@ describe('getAccountFromPathNumber', () => {
 
 describe('randomizeMnemonicWordArray', () => {
   it('should shuffle an array of string', () => {
-    const initialArray = ['a', 'b', 'c', 'd', 'e']
+    const initialArray = [ 'a', 'b', 'c', 'd', 'e' ]
     const randomizedArray = hdWallet.randomizeMnemonicWordArray([...initialArray])
     expect(randomizedArray.length).toBe(initialArray.length)
     initialArray.forEach((word) => randomizedArray.splice(randomizedArray.indexOf(word), 1))

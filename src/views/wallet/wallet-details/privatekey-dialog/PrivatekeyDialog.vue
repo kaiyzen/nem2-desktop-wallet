@@ -12,17 +12,17 @@
         <span class="title">{{ $t('export_private_key') }}</span>
       </div>
       <div class="privatekeyDialogBody">
-        <div v-if="stepIndex != 4" class="steps">
+        <div v-if="stepIndex !== 4" class="steps">
           <img :src="threeStepsPictureList[stepIndex]">
           <div class="steps-text-container">
             <span
               v-for="(title,index) in stringOfSteps"
               :key="index"
-              :class="['stepItem',stepIndex >= index?'before':'after']"
+              :class="[ 'stepItem',stepIndex >= index?'before':'after' ]"
             >{{ $t(title) }}</span>
           </div>
         </div>
-        <div v-if="stepIndex == 0" class="stepItem1">
+        <div v-if="stepIndex === 0" class="stepItem1">
           <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="exportPrivatekey">
             <Input
               v-model.lazy="password"
@@ -44,7 +44,7 @@
           </form>
         </div>
 
-        <div v-if="stepIndex == 1" class="stepItem2">
+        <div v-if="stepIndex === 1" class="stepItem2">
           <div class="step2Txt" @keyup.enter.native="exportPrivatekey">
             <Row>
               <i-Col span="9">
@@ -92,7 +92,7 @@
           </Button>
         </div>
 
-        <div v-if="stepIndex == 2" class="stepItem3" @keyup.enter.native="exportPrivatekey">
+        <div v-if="stepIndex === 2" class="stepItem3" @keyup.enter.native="exportPrivatekey">
           <p class="tit">
             {{ $t('please_accurately_copy_the_secure_backup_private_key') }}
           </p>
@@ -136,7 +136,7 @@
             </Button>
           </div>
         </div>
-        <div v-if="stepIndex == 3" class="stepItem4">
+        <div v-if="stepIndex === 3" class="stepItem4">
           <div class="QRCodeImg">
             <img :src="qrCode$">
           </div>

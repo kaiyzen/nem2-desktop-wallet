@@ -13,7 +13,7 @@
       <div v-for="(item, index) in walletList" :key="index" class="wallet_scroll_item">
         <div
           ref="walletsDiv"
-          :class="['walletItem', getWalletStyle(item), 'radius']"
+          :class="[ 'walletItem', getWalletStyle(item), 'radius' ]"
           @click="switchWallet(item.address)"
         >
           <Row>

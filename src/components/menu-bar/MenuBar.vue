@@ -1,5 +1,5 @@
 <template>
-  <div :class="[isWindows?'windows':'mac','wrap']">
+  <div :class="[ isWindows?'windows':'mac','wrap' ]">
     <div v-if="isNodeHealthy && nodeNetworkType && networkType">
       <Alert
         v-if="nodeNetworkType !== NetworkType[networkType] "
@@ -24,7 +24,7 @@
           v-for="(route, index) in routes"
           :key="index"
           :class="[ $route.matched.map(({path}) => path).includes(route.path) ? 'active_panel' : '',
-                    !walletList.length ? 'un_click' : 'pointer']"
+                    !walletList.length ? 'un_click' : 'pointer' ]"
           @click=" !walletList.length ?'': $router.push(route.path)"
         >
           <span

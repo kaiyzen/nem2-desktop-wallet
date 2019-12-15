@@ -6,7 +6,7 @@
           <li
             v-for="(item,index) in navList"
             :key="index"
-            :class="[item.active?'active':'','left',item.disabled?'disabled':'']"
+            :class="[ item.active?'active':'','left',item.disabled?'disabled':'' ]"
             @click="goToPage(item)"
           >
             {{ $t(item.name) }}

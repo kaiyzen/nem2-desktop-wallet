@@ -43,7 +43,7 @@
     </div>
 
     <!-- @TODO: merge this block with the confirmed transaction one -->
-    <div :class="['bottom_transfer_record_list','scroll']">
+    <div :class="[ 'bottom_transfer_record_list','scroll' ]">
       <Spin v-if="transactionsLoading" size="large" fix />
       <div
         v-for="(c, index) in unConfirmedTransactionList"
@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <div v-if="slicedConfirmedTransactionList.length == 0 && !transactionsLoading" class="no_data">
+      <div v-if="slicedConfirmedTransactionList.length === 0 && !transactionsLoading" class="no_data">
         {{ $t('no_confirmed_transactions') }}
       </div>
     </div>

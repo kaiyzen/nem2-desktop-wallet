@@ -14,7 +14,7 @@
           <span class="balance" @click="getSortType(mosaicSortType.byBalance)">
             {{ $t('my_balance') }}
             <Icon
-              v-if="mosaicSortType.byBalance == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.byBalance === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -22,7 +22,7 @@
           <span class="mosaic_id" @click="getSortType(mosaicSortType.byId)">
             {{ $t('mosaic_ID') }}
             <Icon
-              v-if="mosaicSortType.byId == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.byId === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -30,7 +30,7 @@
           <span class="available_quantity" @click="getSortType(mosaicSortType.bySupply)">
             {{ $t('available_quantity') }}
             <Icon
-              v-if="mosaicSortType.bySupply == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.bySupply === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -38,7 +38,7 @@
           <span class="mosaic_divisibility" @click="getSortType(mosaicSortType.byDivisibility)">
             {{ $t('mosaic_divisibility') }}
             <Icon
-              v-if="mosaicSortType.byDivisibility == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.byDivisibility === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -47,7 +47,7 @@
 
             {{ $t('transportability') }}
             <Icon
-              v-if="mosaicSortType.byTransferable == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.byTransferable === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
 
@@ -56,7 +56,7 @@
           <span class="variable_supply" @click="getSortType(mosaicSortType.bySupplyMutable)">
             {{ $t('variable_supply') }}
             <Icon
-              v-if="mosaicSortType.bySupplyMutable == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.bySupplyMutable === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -64,7 +64,7 @@
           <span class="Restrictable" @click="getSortType(mosaicSortType.byRestrictable)">
             {{ $t('Restrictable') }}
             <Icon
-              v-if="mosaicSortType.byRestrictable == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.byRestrictable === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -72,7 +72,7 @@
           <span class="deadline" @click="getSortType(mosaicSortType.byDuration)">
             {{ $t('deadline') }}
             <Icon
-              v-if="mosaicSortType.byDuration == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.byDuration === currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -80,7 +80,7 @@
           <span class="alias" @click="getSortType(mosaicSortType.byAlias)">
             {{ $t('alias') }}
             <Icon
-              v-if="mosaicSortType.byAlias == currentSortType" class="active_sort_type"
+              v-if="mosaicSortType.byAlias=== currentSortType" class="active_sort_type"
               :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
             />
           </span>
@@ -106,7 +106,7 @@
         <div
           v-for="(value, index) in currentMosaicList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
           :key="index"
-          :class="['listItem',value.mosaicInfo && value.mosaicInfo.owner.publicKey == publicKey?'owned_mosaic':'']"
+          :class="[ 'listItem',value.mosaicInfo && value.mosaicInfo.owner.publicKey === publicKey?'owned_mosaic':'' ]"
         >
           <Row>
             <span class="balance text_select overflow_ellipsis">{{ value.balance?formatNumber(value.balance):0 }}</span>
@@ -138,7 +138,7 @@
 
             <span class="poptip ">
               <div
-                v-if="value.mosaicInfo && value.mosaicInfo.owner.publicKey == publicKey
+                v-if="value.mosaicInfo && value.mosaicInfo.owner.publicKey === publicKey
                   && (computeDuration(value) > 0
                   || computeDuration(value) === MosaicNamespaceStatusType.FOREVER)"
                 class="listFnDiv"

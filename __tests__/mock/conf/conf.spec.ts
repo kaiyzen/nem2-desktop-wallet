@@ -52,9 +52,9 @@ export const mosaics = {
     ),
     'name': 'nem.xem',
     'mosaicInfo': new MosaicInfo(
-      new MosaicId([2429385668, 814683207]),
-      new UInt64([4130794368, 2095242]),
-      new UInt64([1, 0]),
+      new MosaicId([ 2429385668, 814683207 ]),
+      new UInt64([ 4130794368, 2095242 ]),
+      new UInt64([ 1, 0 ]),
       PublicAccount.createFromPublicKey(
         '30CA0A8179477777AB3407611405EAAE6C4BA12156035E4DF8A73BD7651D6D9C',
         NetworkType.MIJIN_TEST,
@@ -62,7 +62,7 @@ export const mosaics = {
       1,
       MosaicFlags.create(false, true, false),
       6,
-      new UInt64([0, 0])
+      new UInt64([ 0, 0 ])
     ),
     'balance': 17989.078442,
     'expirationHeight': 'Forever',

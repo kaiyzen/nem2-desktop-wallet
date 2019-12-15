@@ -6,17 +6,17 @@ import {
 
 const namespaceNamesMock = [
   new NamespaceName(
-    new NamespaceId([3147028180, 4167244227]),
+    new NamespaceId([ 3147028180, 4167244227 ]),
     'child',
-    new NamespaceId([2246869892, 2299530832])
+    new NamespaceId([ 2246869892, 2299530832 ])
   ),
   new NamespaceName(
-    new NamespaceId([2246869892, 2299530832]),
+    new NamespaceId([ 2246869892, 2299530832 ]),
     'parent',
-    new NamespaceId([1903945010, 2641873382])
+    new NamespaceId([ 1903945010, 2641873382 ])
   ),
   new NamespaceName(
-    new NamespaceId([1903945010, 2641873382]),
+    new NamespaceId([ 1903945010, 2641873382 ]),
     'grandparent',
   ),
 ]
@@ -30,16 +30,16 @@ const namespaceInfoMock = new NamespaceInfo(
   1,
   3,
   [
-    new NamespaceId([1903945010, 2641873382]),
-    new NamespaceId([2246869892, 2299530832]),
-    new NamespaceId([3147028180, 4167244227]),
+    new NamespaceId([ 1903945010, 2641873382 ]),
+    new NamespaceId([ 2246869892, 2299530832 ]),
+    new NamespaceId([ 3147028180, 4167244227 ]),
   ],
-  new NamespaceId([2246869892, 2299530832]),
+  new NamespaceId([ 2246869892, 2299530832 ]),
   PublicAccount.createFromPublicKey(
     '7B05E175646E759D9A484A8E2E100DBAB66A42F7D0D628EF94CC585B41741182', NetworkType.MIJIN_TEST,
   ),
-  new UInt64([22678, 0]),
-  new UInt64([1195478, 0]),
+  new UInt64([ 22678, 0 ]),
+  new UInt64([ 1195478, 0 ]),
   addressAlias,
 )
 
@@ -50,16 +50,16 @@ const namespaceInfoNoAliasMock = new NamespaceInfo(
   1,
   3,
   [
-    new NamespaceId([1903945010, 2641873382]),
-    new NamespaceId([2246869892, 2299530832]),
-    new NamespaceId([3147028180, 4167244227]),
+    new NamespaceId([ 1903945010, 2641873382 ]),
+    new NamespaceId([ 2246869892, 2299530832 ]),
+    new NamespaceId([ 3147028180, 4167244227 ]),
   ],
-  new NamespaceId([2246869892, 2299530832]),
+  new NamespaceId([ 2246869892, 2299530832 ]),
   PublicAccount.createFromPublicKey(
     '7B05E175646E759D9A484A8E2E100DBAB66A42F7D0D628EF94CC585B41741182', NetworkType.MIJIN_TEST,
   ),
-  new UInt64([22678, 0]),
-  new UInt64([1195478, 0]),
+  new UInt64([ 22678, 0 ]),
+  new UInt64([ 1195478, 0 ]),
   new EmptyAlias(),
 )
 

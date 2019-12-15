@@ -12,15 +12,15 @@
         <span class="title">{{ $t('export') }} Keystore</span>
       </div>
       <div class="keystoreDialogBody">
-        <div v-if="stepIndex != 4" class="steps">
-          <span :class="['stepItem',stepIndex == 0?'active':'']">{{ $t('input_password') }}</span>
-          <span :class="['stepItem',stepIndex == 1?'active':'']">{{ $t('backup_prompt') }}</span>
+        <div v-if="stepIndex !== 4" class="steps">
+          <span :class="[ 'stepItem',stepIndex === 0?'active':'' ]">{{ $t('input_password') }}</span>
+          <span :class="[ 'stepItem',stepIndex === 1?'active':'' ]">{{ $t('backup_prompt') }}</span>
           <span
-            :class="['stepItem',stepIndex == 2||stepIndex == 3?'active':'']"
+            :class="[ 'stepItem',stepIndex === 2||stepIndex === 3?'active':'' ]"
           >{{ $t('backup') }} Keystore</span>
         </div>
 
-        <div v-if="stepIndex == 0" class="stepItem1">
+        <div v-if="stepIndex === 0" class="stepItem1">
           <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="exportKeystore">
             <Input
               v-model.lazy="password"
@@ -42,7 +42,7 @@
           </form>
         </div>
 
-        <div v-if="stepIndex == 1" class="stepItem2" @keyup.enter.native="exportKeystore">
+        <div v-if="stepIndex === 1" class="stepItem2" @keyup.enter.native="exportKeystore">
           <div class="step2Txt">
             <Row>
               <i-Col span="8">
@@ -92,7 +92,7 @@
           </Button>
         </div>
 
-        <div v-if="stepIndex == 2" class="stepItem3">
+        <div v-if="stepIndex === 2" class="stepItem3">
           <Row>
             <i-Col span="15">
               <div class="keystoreCode">
@@ -133,7 +133,7 @@
           </Row>
         </div>
 
-        <div v-if="stepIndex == 3" class="stepItem4">
+        <div v-if="stepIndex === 3" class="stepItem4">
           <div class="QRCodeImg">
             <img :src="QRCode">
             <div class="imgBorder" />

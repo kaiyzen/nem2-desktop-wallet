@@ -37,7 +37,7 @@ config.logModifiedComponents = false
 
 const namespace = AppNamespace.fromNamespaceNames([
   new NamespaceName(
-    new NamespaceId([4082974126, 2563399553]),
+    new NamespaceId([ 4082974126, 2563399553 ]),
     'testnamespace',
   ),
 ])[0]

@@ -28,7 +28,7 @@
               </span>
               <span class="tit">{{ $t('importance') }}</span>
               <span v-if="wallet">
-                <span v-if="importance != 0">
+                <span v-if="importance !== 0">
                   {{ importance.substring(0,1)+'.'+importance.substring(1) }}*10
                   <sup>{{ (importance+'').length-1 }}</sup>
                 </span>
@@ -80,15 +80,15 @@
     <div ref="accountFn" class="accountFn radius">
       <div class="accountFnNav">
         <ul class="navList clear">
-          <li :class="['left',functionShowList[1]?'active':''] " @click="showFunctionIndex(1)">
+          <li :class="[ 'left',functionShowList[1]?'active':'' ] " @click="showFunctionIndex(1)">
             <img src="@/common/img/wallet/wallet-detail/walletHarvesting.png">
             {{ $t('Harvesting') }}
           </li>
-          <li :class="['left',functionShowList[2]?'active':'','other'] ">
+          <li :class="[ 'left',functionShowList[2]?'active':'','other' ] ">
             <img src="@/common/img/wallet/wallet-detail/walletDetailsFilter.png">
             {{ $t('Filter_management') }}
           </li>
-          <li :class="['left',functionShowList[3]?'active':'','other'] ">
+          <li :class="[ 'left',functionShowList[3]?'active':'','other' ] ">
             <img src="@/common/img/wallet/wallet-detail/walletDetailsMetaData.png">
             {{ $t('meta_data') }}
           </li>

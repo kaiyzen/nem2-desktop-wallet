@@ -79,11 +79,11 @@ describe('WalletSwitch', () => {
   it('getPathNumber should return the appropriate value', () => {
     const seedPathList1 = []
     expect(wrapper.vm.getPathNumber(seedPathList1)).toBe(0)
-    const seedPathList2 = ['1', '2', '3']
+    const seedPathList2 = [ '1', '2', '3' ]
     expect(wrapper.vm.getPathNumber(seedPathList2)).toBe(0)
-    const seedPathList3 = ['0', '1', '2', '3']
+    const seedPathList3 = [ '0', '1', '2', '3' ]
     expect(wrapper.vm.getPathNumber(seedPathList3)).toBe(4)
-    const seedPathList4 = ['0', '1', '3']
+    const seedPathList4 = [ '0', '1', '3' ]
     expect(wrapper.vm.getPathNumber(seedPathList4)).toBe(2)
   })
 })

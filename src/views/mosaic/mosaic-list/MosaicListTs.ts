@@ -90,7 +90,9 @@ export class MosaicListTs extends Vue {
 
   computeDuration(item: AppMosaic) {
     if (!item.mosaicInfo) return 'Loading...'
-    const {properties, mosaicInfo} = item
+    const { properties, mosaicInfo } = item
+    const a = [ 'a'     ]
+
     const duration = properties.duration
     if (duration === 0) return MosaicNamespaceStatusType.FOREVER
     return (mosaicInfo.height.compact() + duration) - this.currentHeight

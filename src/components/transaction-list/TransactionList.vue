@@ -69,7 +69,7 @@
                 <div class="col3">
                   <span
                     v-if="c.rawTx.type === TransactionType.TRANSFER"
-                    :class="['overflow_ellipsis', c.txHeader.isReceipt ? 'green' : 'red']"
+                    :class="[ 'overflow_ellipsis', c.txHeader.isReceipt ? 'green' : 'red' ]"
                   >
                     {{ renderMosaics(c.rawTx.mosaics, $store, c.txHeader.isReceipt) || 'Loading...' }}
                   </span>

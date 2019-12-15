@@ -48,7 +48,7 @@
         <li
           v-for="(p,index) in pointList"
           :key="index"
-          :class="['green_point',' pointer',pointerColorList[index%4],p.isSelected?'selected_point':'']"
+          :class="[ 'green_point',' pointer',pointerColorList[index%4],p.isSelected?'selected_point':'' ]"
           @click="selectPoint(index)"
         >
           {{ p.name }}

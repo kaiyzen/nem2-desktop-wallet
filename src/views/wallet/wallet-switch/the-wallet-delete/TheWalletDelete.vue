@@ -18,7 +18,7 @@
           <p class="checkRemind">
             {{ $t('delete_wallet_tip', {walletName :walletToDelete.name}) }}
           </p>
-          <p v-if="walletList.length == 1" class="checkRemind orange">
+          <p v-if="walletList.length === 1" class="checkRemind orange">
             {{ $t('this_account_will_be_logged_out_after_the_wallet_is_successfully_deleted') }}
           </p>
           <Form :model="confirmation">

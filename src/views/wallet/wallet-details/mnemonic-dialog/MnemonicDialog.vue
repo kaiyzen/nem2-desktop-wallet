@@ -12,18 +12,18 @@
         <span class="title">{{ $t('export_mnemonic') }}</span>
       </div>
       <div class="mnemonicDialogBody">
-        <div v-if="stepIndex != 4" class="steps">
+        <div v-if="stepIndex !== 4" class="steps">
           <img :src="fourStepsPictureList[stepIndex]">
           <div class="steps-text-container">
             <span
               v-for="(title,index) in stringOfSteps"
               :key="index"
-              :class="['stepItem',stepIndex >= index?'before':'after']"
+              :class="[ 'stepItem',stepIndex >= index?'before':'after' ]"
             >{{ $t(title) }}</span>
           </div>
         </div>
 
-        <div v-if="stepIndex == 0" class="stepItem1">
+        <div v-if="stepIndex === 0" class="stepItem1">
           <form
             class="centered"
             @submit.prevent="validateForm('mnemonic-dialog')"
@@ -55,7 +55,7 @@
           </form>
         </div>
 
-        <div v-if="stepIndex == 1" class="stepItem2">
+        <div v-if="stepIndex === 1" class="stepItem2">
           <div class="step2Txt" @keyup.enter.native="stepIndex = 2">
             <Row>
               <i-Col span="9">
@@ -99,7 +99,7 @@
           </div>
         </div>
 
-        <div v-if="stepIndex == 2" class="stepItem3">
+        <div v-if="stepIndex === 2" class="stepItem3">
           <p class="tit">
             {{ $t('please_accurately_copy_the_safety_backup_mnemonic') }}
           </p>
@@ -120,7 +120,7 @@
           </div>
         </div>
 
-        <div v-if="stepIndex == 3" class="stepItem4">
+        <div v-if="stepIndex === 3" class="stepItem4">
           <p class="tit">
             {{ $t('please_click_on_the_mnemonic_in_order_to_confirm_that_you_are_backing_up_correctly') }}
           </p>
@@ -131,7 +131,7 @@
           />
         </div>
 
-        <div v-if="stepIndex == 4" class="stepItem5">
+        <div v-if="stepIndex === 4" class="stepItem5">
           <div class="backupImg">
             <img src="@/common/img/wallet/exportSuccess.png">
           </div>
@@ -144,7 +144,7 @@
             </Button>
           </div>
         </div>
-        <div v-if="stepIndex == 5" class="stepItem6">
+        <div v-if="stepIndex === 5" class="stepItem6">
           <div class="backupImg">
             <img :src="qrCode$">
           </div>
