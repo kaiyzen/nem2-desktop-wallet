@@ -6,29 +6,29 @@
       <span> {{ $t('Linked_account_key') }}: {{ wallet.linkedAccountKey }}</span>
     </div>
     <div class="gray_input_content">
-      <span class="title">{{$t('privatekey')}}</span>
-      <ErrorTooltip fieldName="privateKey">
+      <span class="title">{{ $t('privatekey') }}</span>
+      <ErrorTooltip field-name="privateKey">
         <input
           v-model="privateKey"
-          type="password"
           v-validate="'required|remoteAccountPrivateKey:wallet'"
+          type="password"
           data-vv-name="privateKey"
           :data-vv-as="$t('privatekey')"
           :placeholder="$t('privatekey')"
-        />
+        >
       </ErrorTooltip>
     </div>
     <div class="gray_input_content">
-      <span class="title">{{$t('password')}}</span>
-      <ErrorTooltip fieldName="password">
+      <span class="title">{{ $t('password') }}</span>
+      <ErrorTooltip field-name="password">
         <input
           v-model.lazy="password"
-          type="password"
           v-validate="validation.walletPassword"
+          type="password"
           data-vv-name="password"
           :data-vv-as="$t('password')"
           :placeholder="$t('password')"
-        />
+        >
       </ErrorTooltip>
       <input
         v-show="false"
@@ -36,7 +36,7 @@
         v-validate=""
         disabled
         data-vv-name="wallet"
-      />
+      >
     </div>
     <span
       v-if="!wallet.linkedAccountKey"
@@ -45,13 +45,13 @@
       {{ $t('Create_new_remote_account') }}
     </span>
     <div class="new_model_btn">
-      <span class="modal_btn pointer radius" @click="submit">{{$t('confirm')}}</span>
+      <span class="modal_btn pointer radius" @click="submit">{{ $t('confirm') }}</span>
     </div>
   </form>
 </template>
 
 <script lang="ts">
-import { ImportFormTs } from "./ImportFormTs";
+import { ImportFormTs } from './ImportFormTs'
 export default class ImportForm extends ImportFormTs {}
 </script>
 <style lang="less">

@@ -1,7 +1,7 @@
 import * as hdWallet from '@/core/utils/hdWallet.ts'
 
 // @ts-ignore
-import {hdAccount, hdAccountData, hdAccountTestNet} from "@@/mock/conf/conf.spec"
+import {hdAccount, hdAccountData, hdAccountTestNet} from '@@/mock/conf/conf.spec'
 import {NetworkType, Address} from 'nem2-sdk'
 import {Network} from 'nem2-hd-wallets'
 
@@ -13,21 +13,21 @@ describe('hdWallet', () => {
 
 describe('getPath', () => {
   it('should return a correct value', () => {
-    expect(hdWallet.getPath(0)).toBe(`m/44'/43'/0'/0'/0'`)
-    expect(hdWallet.getPath(1)).toBe(`m/44'/43'/1'/0'/0'`)
-    expect(hdWallet.getPath(2)).toBe(`m/44'/43'/2'/0'/0'`)
-    expect(hdWallet.getPath(3)).toBe(`m/44'/43'/3'/0'/0'`)
-    expect(hdWallet.getPath(4)).toBe(`m/44'/43'/4'/0'/0'`)
-    expect(hdWallet.getPath(5)).toBe(`m/44'/43'/5'/0'/0'`)
-    expect(hdWallet.getPath(6)).toBe(`m/44'/43'/6'/0'/0'`)
-    expect(hdWallet.getPath(7)).toBe(`m/44'/43'/7'/0'/0'`)
-    expect(hdWallet.getPath(8)).toBe(`m/44'/43'/8'/0'/0'`)
-    expect(hdWallet.getPath(9)).toBe(`m/44'/43'/9'/0'/0'`)
+    expect(hdWallet.getPath(0)).toBe('m/44\'/43\'/0\'/0\'/0\'')
+    expect(hdWallet.getPath(1)).toBe('m/44\'/43\'/1\'/0\'/0\'')
+    expect(hdWallet.getPath(2)).toBe('m/44\'/43\'/2\'/0\'/0\'')
+    expect(hdWallet.getPath(3)).toBe('m/44\'/43\'/3\'/0\'/0\'')
+    expect(hdWallet.getPath(4)).toBe('m/44\'/43\'/4\'/0\'/0\'')
+    expect(hdWallet.getPath(5)).toBe('m/44\'/43\'/5\'/0\'/0\'')
+    expect(hdWallet.getPath(6)).toBe('m/44\'/43\'/6\'/0\'/0\'')
+    expect(hdWallet.getPath(7)).toBe('m/44\'/43\'/7\'/0\'/0\'')
+    expect(hdWallet.getPath(8)).toBe('m/44\'/43\'/8\'/0\'/0\'')
+    expect(hdWallet.getPath(9)).toBe('m/44\'/43\'/9\'/0\'/0\'')
   })
 
   it('should throw when incorrect params are provided', () => {
-    expect(() => {hdWallet.getPath(null)}).toThrow();
-    expect(() => {hdWallet.getPath(undefined)}).toThrow();
+    expect(() => {hdWallet.getPath(null)}).toThrow()
+    expect(() => {hdWallet.getPath(undefined)}).toThrow()
   })
 })
 
@@ -68,8 +68,8 @@ describe('getAccountFromPathNumber', () => {
 
 describe('randomizeMnemonicWordArray', () => {
   it('should shuffle an array of string', () => {
-    const initialArray = ['a', 'b', 'c', 'd', 'e']
-    let randomizedArray = hdWallet.randomizeMnemonicWordArray([...initialArray])
+    const initialArray = [ 'a', 'b', 'c', 'd', 'e' ]
+    const randomizedArray = hdWallet.randomizeMnemonicWordArray([...initialArray])
     expect(randomizedArray.length).toBe(initialArray.length)
     initialArray.forEach((word) => randomizedArray.splice(randomizedArray.indexOf(word), 1))
     expect(randomizedArray.length).toBe(0)
@@ -86,9 +86,9 @@ describe('getNetworkFromNetworkType', () => {
   })
 
   it('should throw when provided an invalid networkType', () => {
-    expect(() => {hdWallet.getNetworkFromNetworkType(0)}).toThrow();
-    expect(() => {hdWallet.getNetworkFromNetworkType(null)}).toThrow();
-    expect(() => {hdWallet.getNetworkFromNetworkType(undefined)}).toThrow();
+    expect(() => {hdWallet.getNetworkFromNetworkType(0)}).toThrow()
+    expect(() => {hdWallet.getNetworkFromNetworkType(null)}).toThrow()
+    expect(() => {hdWallet.getNetworkFromNetworkType(undefined)}).toThrow()
   })
 })
 

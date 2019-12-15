@@ -1,7 +1,7 @@
 import {Component, Prop, Vue, Watch} from 'vue-property-decorator'
-import {Address, MultisigAccountInfo} from "nem2-sdk"
-import {mapState} from "vuex"
-import {StoreAccount, AppInfo, AppWallet} from "@/core/model"
+import {Address, MultisigAccountInfo} from 'nem2-sdk'
+import {mapState} from 'vuex'
+import {StoreAccount, AppInfo, AppWallet} from '@/core/model'
 
 @Component({computed: {...mapState({activeAccount: 'account', app: 'app'})}})
 export class SignerSelectorTs extends Vue {
@@ -15,11 +15,11 @@ export class SignerSelectorTs extends Vue {
   }
 
   set inputValue(newPublicKey) {
-    if (newPublicKey === this.wallet.publicKey) {
-      this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', null)
-    } else {
-      this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', newPublicKey)
-    }
+    if (newPublicKey === this.wallet.publicKey) 
+    {this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', null)}
+    else 
+    {this.$store.commit('SET_ACTIVE_MULTISIG_ACCOUNT', newPublicKey)}
+    
     this.$emit('input', newPublicKey)
   }
 
@@ -48,7 +48,7 @@ export class SignerSelectorTs extends Vue {
     return this.multisigInfo.multisigAccounts.length > 0
   }
 
-  get multisigPublicKeyList(): {publicKey: string, label: string}[] {
+  get multisigPublicKeyList(): Array<{publicKey: string, label: string}> {
     if (!this.hasMultisigAccounts) return null
     return [
       {
@@ -58,7 +58,7 @@ export class SignerSelectorTs extends Vue {
       ...this.multisigInfo.multisigAccounts
         .map(({publicKey}) => ({
           publicKey,
-          label: this.getMultisigAccountLabel(publicKey)
+          label: this.getMultisigAccountLabel(publicKey),
         })),
     ]
   }
@@ -66,8 +66,8 @@ export class SignerSelectorTs extends Vue {
   @Watch('wallet', {deep: true, immediate: true})
   onWalletChange(newVal, oldVal) {
     if (!newVal || !newVal.publicKey) return
-    if (!oldVal || newVal.publicKey !== oldVal.publicKey) {
-      this.inputValue = newVal.publicKey
-    }
+    if (!oldVal || newVal.publicKey !== oldVal.publicKey) 
+    {this.inputValue = newVal.publicKey}
+    
   }
 }

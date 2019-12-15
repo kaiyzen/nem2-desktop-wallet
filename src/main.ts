@@ -9,7 +9,7 @@ import router from '@/router/index.ts'
 import iView from 'view-design'
 import 'view-design/dist/styles/iview.css'
 import htmlRem from '@/core/utils/rem.ts'
-import {isWindows} from "@/config/index.ts"
+import {isWindows} from '@/config/index.ts'
 import {resetFontSize} from '@/core/utils/electron.ts'
 import VeeValidate from 'vee-validate'
 import locale from 'view-design/dist/locale/en-US'
@@ -19,12 +19,10 @@ Vue.use(iView, {locale})
 Vue.use(moment as any)
 Vue.use(Router)
 Vue.use(VueRx)
-//Introduced the global
+// Introduced the global
 Vue.use(VeeValidate, veeValidateConfig)
 htmlRem()
-if (isWindows) {
-    resetFontSize()
-}
+if (isWindows) resetFontSize()
 
 Vue.config.productionTip = false
 /*
@@ -32,14 +30,14 @@ Vue.config.productionTip = false
 * input auto focus
 * */
 Vue.directive('focus', {
-    inserted: function (el, binding) {
-        el.focus()
-    }
+  inserted(el) {
+    el.focus()
+  },
 })
 export default new Vue({
-    el: '#app',
-    router,
-    store,
-    i18n,
-    render: h => h(App)
+  el: '#app',
+  router,
+  store,
+  i18n,
+  render: h => h(App),
 })

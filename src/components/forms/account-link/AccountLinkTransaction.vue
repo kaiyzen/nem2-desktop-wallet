@@ -1,7 +1,7 @@
 <template>
   <Modal
-    :title="$t('remote_replay')"
     v-model="show"
+    :title="$t('remote_replay')"
     :transfer="false"
     class-name="dash_board_dialog text_select"
   >
@@ -11,37 +11,37 @@
     <div v-if="!wallet.isLinked()">
       <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="submit">
         <div class="gray_input_content">
-          <span class="title">{{$t('remote_modal_pul')}}</span>
-            <input
-              v-focus
-              type="text"
-              :placeholder="$t('remote_modal_place1')"
-              v-model="remotePublicKey"
-              disabled
-            />
+          <span class="title">{{ $t('remote_modal_pul') }}</span>
+          <input
+            v-model="remotePublicKey"
+            v-focus
+            type="text"
+            :placeholder="$t('remote_modal_place1')"
+            disabled
+          >
         </div>
 
         <div class="gray_input_content">
-          <span class="title">{{$t('fee')}}</span>
+          <span class="title">{{ $t('fee') }}</span>
           <span class="type value radius flex_center">
             <Select
-              data-vv-name="mosaic"
               v-model="formItems.feeSpeed"
               v-validate="'required'"
+              data-vv-name="mosaic"
               :data-vv-as="$t('fee')"
               :placeholder="$t('fee')"
             >
               <Option
                 v-for="item in defaultFees"
-                :value="item.speed"
                 :key="item.speed"
-              >{{$t(item.speed)}} {{ `(${item.value} ${networkCurrency.ticker})` }}</Option>
+                :value="item.speed"
+              >{{ $t(item.speed) }} {{ `(${item.value} ${networkCurrency.ticker})` }}</Option>
             </Select>
           </span>
         </div>
 
         <div class="new_model_btn">
-          <span class="modal_btn pointer radius" @click="submit">{{$t('send')}}</span>
+          <span class="modal_btn pointer radius" @click="submit">{{ $t('send') }}</span>
         </div>
       </form>
     </div>
@@ -50,15 +50,15 @@
     <div v-if="wallet.isLinked()">
       <form action="submit" onsubmit="event.preventDefault()" @keyup.enter="submit">
         <div class="gray_input_content">
-          <span class="title" v-focus>{{$t('Unlink')}}</span>
-          <span>{{this.wallet.address}} ({{this.wallet.name}})</span>
+          <span v-focus class="title">{{ $t('Unlink') }}</span>
+          <span>{{ wallet.address }} ({{ wallet.name }})</span>
         </div>
         <div class="gray_input_content">
-          <span class="title" v-focus>{{$t('from')}}</span>
-          <span>{{this.linkedAccountKey}}</span>
+          <span v-focus class="title">{{ $t('from') }}</span>
+          <span>{{ linkedAccountKey }}</span>
         </div>
         <div class="new_model_btn">
-          <span class="modal_btn pointer radius" @click="submit">{{$t('remote_modal_confirm')}}</span>
+          <span class="modal_btn pointer radius" @click="submit">{{ $t('remote_modal_confirm') }}</span>
         </div>
       </form>
     </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { AccountLinkTransactionTs } from "./AccountLinkTransactionTs";
+import { AccountLinkTransactionTs } from './AccountLinkTransactionTs'
 export default class AccountLinkTransaction extends AccountLinkTransactionTs {}
 </script>
 <style lang="less">

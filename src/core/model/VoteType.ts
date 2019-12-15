@@ -15,5 +15,5 @@ export enum VoteType {
      * vote multiple type.
      * @type {number}
      */
-    MULTIPLE = 0
+    MULTIPLE = 0,
 }

@@ -1,13 +1,13 @@
-import { NetworkType } from 'nem2-sdk';
+import { NetworkType } from 'nem2-sdk'
 
 export class CurrentAccount {
   constructor(
-   public name: string,
-   public password: string,
-   public networkType: NetworkType,
+    public name: string,
+    public password: string,
+    public networkType: NetworkType,
   ) { }
 
-  public static default() {
+  static default() {
     return new CurrentAccount(null, null, null)
   }
 }

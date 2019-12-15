@@ -1,5 +1,5 @@
 import {Vue, Component, Prop, Provide} from 'vue-property-decorator'
-import {mapState} from "vuex"
+import {mapState} from 'vuex'
 import {StoreAccount, AppWallet} from '@/core/model'
 import {validation} from '@/core/validation'
 import CreationForm from './creation-form/CreationForm.vue'
@@ -8,18 +8,18 @@ import ErrorTooltip from '@/components/other/forms/errorTooltip/ErrorTooltip.vue
 
 @Component({
   computed: {...mapState({activeAccount: 'account'})},
-  components: {CreationForm, ImportForm, ErrorTooltip}
+  components: {CreationForm, ImportForm, ErrorTooltip},
 })
 export class CreateRemoteAccountTs extends Vue {
   @Provide() validator: any = this.$validator
   activeAccount: StoreAccount
   validation = validation
-  importAccount: boolean = false
-  showPrivateKey: boolean = false
+  importAccount = false
+  showPrivateKey = false
   showPasswordPrompt = false
-  hideForms: boolean = false
-  privateKey: string = ''
-  password: string = ''
+  hideForms = false
+  privateKey = ''
+  password = ''
 
   @Prop({default: false})
   visible: boolean
@@ -32,9 +32,9 @@ export class CreateRemoteAccountTs extends Vue {
   }
 
   set show(val) {
-    if (!val) {
-      this.$emit('close')
-    }
+    if (!val) 
+    {this.$emit('close')}
+    
   }
 
   get wallet(): AppWallet {
@@ -75,7 +75,7 @@ export class CreateRemoteAccountTs extends Vue {
   getRemoteAccountPrivateKey() {
     this.$validator
       .validate()
-      .then((valid) => {
+      .then(valid => {
         if (!valid) return
         this.privateKey = this.wallet.getRemoteAccountPrivateKey(this.password)
         this.showPasswordPrompt = false

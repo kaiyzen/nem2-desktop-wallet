@@ -5,7 +5,8 @@ import {NamespaceExpirationInfo} from './types'
 const {namespaceGracePeriodDuration} = networkConfig
 
 export class AppNamespace {
-  constructor(public id: NamespaceId,
+  constructor(
+    public id: NamespaceId,
     public hex: string,
     public namespaceInfo: NamespaceInfo,
     public isActive: boolean,
@@ -67,7 +68,7 @@ export class AppNamespace {
 
   static fromNamespaceUpdate(oldNamespace: AppNamespace, newNamespace: AppNamespace): AppNamespace {
     const newObject: any = {...oldNamespace, ...newNamespace}
-    
+
     return new AppNamespace(
       newObject.id,
       newObject.hex,
@@ -80,15 +81,17 @@ export class AppNamespace {
     )
   }
 
-  static extractFullNamespace(namespace: NamespaceInfo,
-    namespaceNames: NamespaceName[]): string {
-    return namespace.levels.map((level) => {
-      const namespaceName = namespaceNames.find((name) => name.namespaceId.equals(level));
+  static extractFullNamespace(
+    namespace: NamespaceInfo,
+    namespaceNames: NamespaceName[],
+  ): string {
+    return namespace.levels.map(level => {
+      const namespaceName = namespaceNames.find(name => name.namespaceId.equals(level))
       if (namespaceName === undefined) throw new Error('Not found')
-      return namespaceName;
+      return namespaceName
     })
       .map((namespaceName: NamespaceName) => namespaceName.name)
-      .join('.');
+      .join('.')
   }
 
   isLinked(): boolean {
@@ -105,11 +108,11 @@ export class AppNamespace {
       expired,
       remainingBeforeExpiration: {
         blocks: expiredIn,
-        time: durationToRelativeTime(expiredIn)
+        time: durationToRelativeTime(expiredIn),
       },
       remainingBeforeDeletion: {
         blocks: deletedIn,
-        time: durationToRelativeTime(deletedIn)
+        time: durationToRelativeTime(deletedIn),
       },
     }
   }

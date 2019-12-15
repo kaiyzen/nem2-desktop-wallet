@@ -2,44 +2,44 @@ import {Component, Vue, Prop, Watch, Inject} from 'vue-property-decorator'
 
 @Component
 export class ErrorTooltipTs extends Vue {
-    @Prop() fieldName!: string
-    @Prop() formModel!: object
-    @Prop() placementOverride!: string
+  @Prop() fieldName!: string
+  @Prop() formModel!: object
+  @Prop() placementOverride!: string
 
-    @Inject('$validator') public $validator!: any
-    @Inject() validator!: any
+  @Inject('$validator') $validator!: any
+  @Inject() validator!: any
 
-    displayedError: string = ''
-    
-    get errors() {
-        return this.$validator.errors
-    }
+  displayedError = ''
 
-    get errorItem(): string {
-        const {items} = this.errors
-        if (!items.length) return null
-        const item = items.find(({field}) => field === this.fieldName)
-        if (item === undefined) return null
-        return item.msg
-    }
+  get errors() {
+    return this.$validator.errors
+  }
 
-    get errored() {
-        if (!this.errors.items.length) return false
-        if (!this.errors) return false
-        return this.errorItem !== null
-    }
+  get errorItem(): string {
+    const {items} = this.errors
+    if (!items.length) return null
+    const item = items.find(({field}) => field === this.fieldName)
+    if (item === undefined) return null
+    return item.msg
+  }
 
-    get fieldError() {
-        return this.errorItem || ''
-    }
+  get errored() {
+    if (!this.errors.items.length) return false
+    if (!this.errors) return false
+    return this.errorItem !== null
+  }
 
-    get placement() {
-        return this.placementOverride || 'bottom-start'
-    }
+  get fieldError() {
+    return this.errorItem || ''
+  }
 
-    @Watch('fieldError')
-    onFieldErrorChanged(newValue: string) {
-        // Avoid flashing when the error Tooltip gets cleared
-        if (newValue !== '') this.displayedError = newValue
-    }
+  get placement() {
+    return this.placementOverride || 'bottom-start'
+  }
+
+  @Watch('fieldError')
+  onFieldErrorChanged(newValue: string) {
+    // Avoid flashing when the error Tooltip gets cleared
+    if (newValue !== '') this.displayedError = newValue
+  }
 }

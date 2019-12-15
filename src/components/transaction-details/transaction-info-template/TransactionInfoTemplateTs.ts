@@ -1,34 +1,34 @@
 import {Component, Prop, Vue} from 'vue-property-decorator'
-import {StoreAccount} from "@/core/model"
-import {mapState} from "vuex"
-import {renderMosaicsAndReturnArray} from "@/core/utils"
+import {StoreAccount} from '@/core/model'
+import {mapState} from 'vuex'
+import {renderMosaicsAndReturnArray} from '@/core/utils'
 import {getNamespaceNameFromNamespaceId, formatSenderOrRecipient} from '@/core/services'
 import {TransferTransaction, Address, NamespaceId} from 'nem2-sdk'
 
 @Component({
-    computed: {...mapState({activeAccount: 'account'})},
+  computed: {...mapState({activeAccount: 'account'})},
 })
 export class TransactionInfoTemplateTs extends Vue {
-    activeAccount: StoreAccount
-    unusedAttributesList = ['from', 'cosignatories', 'hash', 'fee', 'block', 'sender', 'transaction_type', 'self', 'aims', 'tag', 'mosaics', 'namespace']
+  activeAccount: StoreAccount
+  unusedAttributesList = [ 'from', 'cosignatories', 'hash', 'fee', 'block', 'sender', 'transaction_type', 'self', 'aims', 'tag', 'mosaics', 'namespace' ]
 
-    getNamespaceNameFromNamespaceId = getNamespaceNameFromNamespaceId
-    formatSenderOrRecipient = formatSenderOrRecipient
-    renderMosaicsAndReturnArray = renderMosaicsAndReturnArray
-    TransferTransaction = TransferTransaction
-    NamespaceId = NamespaceId
-    
-    @Prop()
-    transactionDetails
+  getNamespaceNameFromNamespaceId = getNamespaceNameFromNamespaceId
+  formatSenderOrRecipient = formatSenderOrRecipient
+  renderMosaicsAndReturnArray = renderMosaicsAndReturnArray
+  TransferTransaction = TransferTransaction
+  NamespaceId = NamespaceId
 
-    @Prop()
-    cosignedBy: string[]
+  @Prop()
+  transactionDetails
 
-    getFrom(): string {
-        const {activeMultisigAccount, wallet} = this.activeAccount
+  @Prop()
+  cosignedBy: string[]
 
-        return this.activeAccount.activeMultisigAccount
-            ? Address.createFromPublicKey(activeMultisigAccount, wallet.networkType).pretty()
-            : Address.createFromRawAddress(wallet.address).pretty()
-    }
+  getFrom(): string {
+    const {activeMultisigAccount, wallet} = this.activeAccount
+
+    return this.activeAccount.activeMultisigAccount
+      ? Address.createFromPublicKey(activeMultisigAccount, wallet.networkType).pretty()
+      : Address.createFromRawAddress(wallet.address).pretty()
+  }
 }

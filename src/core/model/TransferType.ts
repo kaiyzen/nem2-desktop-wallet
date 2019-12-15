@@ -13,5 +13,5 @@ export enum TransferType {
      * Transfer sent type.
      * @type {number}
      */
-        SENT = 0
+        SENT = 0,
 }
