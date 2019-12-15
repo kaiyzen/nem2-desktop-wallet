@@ -88,14 +88,18 @@ export class MosaicListTs extends Vue {
     this.showMosaicEditDialog = true
   }
 
-  computeDuration(item: AppMosaic) {
+  computeDuration(item: AppMosaic): number | string {
     if (!item.mosaicInfo) return 'Loading...'
     const { properties, mosaicInfo } = item
-    const a = [ 'a'     ]
-
     const duration = properties.duration
     if (duration === 0) return MosaicNamespaceStatusType.FOREVER
     return (mosaicInfo.height.compact() + duration) - this.currentHeight
+  }
+
+  durationLabel(item: AppMosaic): string {
+    const duration = this.computeDuration(item)
+    if (typeof duration === 'string') return `${this.$t(duration)}`
+    return formatNumber(duration)
   }
 
   getSortType(type: number) {

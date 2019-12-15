@@ -14,7 +14,7 @@
         <div
           v-for="(a,index) in articleList"
           :key="index"
-          :class="[ 'article_summary_item',a.isSelect?'selected':'','pointer' ]"
+          :class="[ 'article_summary_item',a.isSelect ? 'selected' : '','pointer' ]"
           @click="switchArticle(index)"
         >
           <div class="title">
@@ -80,7 +80,7 @@
                 class="comment_item"
               >
                 <div class="account_name">
-                  {{ c.nickName === ''? $t('anonymous_user'):c.nickName }}
+                  {{ c.nickName === '' ? $t('anonymous_user') : c.nickName }}
                 </div>
                 <div class="comment_content">
                   {{ c.comment }}

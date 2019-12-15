@@ -1,5 +1,5 @@
 <template>
-  <div :class="[ isWindows?'windows':'mac','wrap' ]">
+  <div :class="[ isWindows ? 'windows' : 'mac','wrap' ]">
     <div v-if="isNodeHealthy && nodeNetworkType && networkType">
       <Alert
         v-if="nodeNetworkType !== NetworkType[networkType] "
@@ -25,7 +25,7 @@
           :key="index"
           :class="[ $route.matched.map(({path}) => path).includes(route.path) ? 'active_panel' : '',
                     !walletList.length ? 'un_click' : 'pointer' ]"
-          @click=" !walletList.length ?'': $router.push(route.path)"
+          @click=" !walletList.length ? '' : $router.push(route.path)"
         >
           <span
             :style="$route.matched.map(({path}) => path).includes(route.path)
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div v-if="walletList.length !==0" class="quit_account pointer" @click="accountQuit">
+      <div v-if="walletList.length !== 0" class="quit_account pointer" @click="accountQuit">
         <img src="@/common/img/window/windowAccountQuit.png" alt="">
         <span class="account_name overflow_ellipsis">{{ accountName }}</span>
       </div>
@@ -59,7 +59,7 @@
 
 
         <div class="app_controller clear">
-          <div :class="[isNodeHealthy?'point_healthy':'point_unhealthy']">
+          <div :class="[isNodeHealthy ? 'point_healthy' : 'point_unhealthy']">
             <Spin v-if="nodeLoading" class="absolute un_click" />
             <Poptip placement="bottom-end">
               <i class="pointer point" @click="showNodeList = !showNodeList" />

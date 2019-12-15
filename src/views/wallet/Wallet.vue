@@ -12,8 +12,8 @@
         <WalletDetails />
       </div>
     </div>
-    <div v-if="tabIndex!==-1" class="walletMethods">
-      <WalletFn v-if="tabIndex!==-1" @toWalletDetails="toWalletDetails" />
+    <div v-if="tabIndex !== -1" class="walletMethods">
+      <WalletFn v-if="tabIndex !== -1" @toWalletDetails="toWalletDetails" />
     </div>
   </div>
 </template>

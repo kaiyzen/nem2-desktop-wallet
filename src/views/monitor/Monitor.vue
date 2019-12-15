@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="exchange">
-          {{ xemUsdPrice > 0 ? `$${formatNumber(balance*xemUsdPrice)}` : '' }}
+          {{ xemUsdPrice > 0 ? `$${formatNumber(balance * xemUsdPrice)}` : '' }}
         </div>
       </div>
       <div ref="bottomAccountInfo" class="bottom_account_info radius">
@@ -69,7 +69,7 @@
               <div class="toggle_all_checked ">
                 <span @click="toggleAllChecked()">
                   <div :class="[ 'choose', isChecked ? 'true' : 'false' ]" />
-                  {{ !isChecked ? $t('select_all'):$t('all_unchecked') }}
+                  {{ !isChecked ? $t('select_all') : $t('all_unchecked') }}
                 </span>
                 <span @click="toggleShowExpired()">
                   <div :class="[ 'choose', showExpiredMosaics ? 'true' : 'false' ]" />
@@ -79,12 +79,12 @@
               <div
                 v-for="(mosaic, index) in mosaicList"
                 :key="index"
-                :class="[ 'mosaic_data',index === 0?'padding_top_0':'' ]"
+                :class="[ 'mosaic_data',index === 0 ? 'padding_top_0' : '' ]"
                 class="mosaic_data pointer text_select"
                 @click="toggleShowMosaic(mosaic)"
               >
                 <span class="namege_img ">
-                  <img class="small_icon " :src="mosaic.hide?monitorUnselected:monitorSelected">
+                  <img class="small_icon " :src="mosaic.hide ? monitorUnselected : monitorSelected">
                   <img
                     v-if="index === 0" class="mosaicIcon"
                     src="@/common/img/monitor/monitorMosaicIcon.png"

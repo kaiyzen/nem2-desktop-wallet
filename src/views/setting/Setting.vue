@@ -11,7 +11,7 @@
             @click="jumpToView(n)"
           >
             <span
-              :class="[ routeName === n.name ? 'selected_title':'',n.meta.disabled?'disabled':'' ]"
+              :class="[ routeName === n.name ? 'selected_title' : '',n.meta.disabled ? 'disabled' : '' ]"
             >{{ $t(n.meta.title) }}</span>
           </div>
         </div>

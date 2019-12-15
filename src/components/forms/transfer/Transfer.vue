@@ -1,5 +1,5 @@
 <template>
-  <div class="transfer" @click="isShowSubAlias=false">
+  <div class="transfer" @click="isShowSubAlias = false">
     <form @submit.prevent="validateForm('transfer-transaction')" @keyup.enter="submit">
       <div v-if="!hasMultisigAccounts" class="flex_center">
         <span class="title">{{ $t('sender') }}</span>
@@ -71,7 +71,7 @@
         <span class="mosaic_amount overflow_ellipsis">{{ $t('amount') }}</span>
         <div class="scroll">
           <div
-            v-if="formItems.mosaicTransferList.length <1"
+            v-if="formItems.mosaicTransferList.length < 1"
             class="no_data"
           >
             {{ $t('please_input_mosaic_and_amount') }}

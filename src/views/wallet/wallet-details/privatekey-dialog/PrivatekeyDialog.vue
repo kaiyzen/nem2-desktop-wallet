@@ -18,7 +18,7 @@
             <span
               v-for="(title,index) in stringOfSteps"
               :key="index"
-              :class="[ 'stepItem',stepIndex >= index?'before':'after' ]"
+              :class="[ 'stepItem',stepIndex >= index ? 'before' : 'after' ]"
             >{{ $t(title) }}</span>
           </div>
         </div>

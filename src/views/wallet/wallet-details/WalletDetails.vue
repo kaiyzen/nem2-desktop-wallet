@@ -24,13 +24,13 @@
             <p>
               <span class="tit">{{ $t('Wallet_type') }}</span>
               <span v-if="wallet" class="walletType">
-                {{ isMultisig ? $t('Public_account'):$t('Private_account') }}
+                {{ isMultisig ? $t('Public_account') : $t('Private_account') }}
               </span>
               <span class="tit">{{ $t('importance') }}</span>
               <span v-if="wallet">
                 <span v-if="importance !== 0">
-                  {{ importance.substring(0,1)+'.'+importance.substring(1) }}*10
-                  <sup>{{ (importance+'').length-1 }}</sup>
+                  {{ importance.substring(0,1) + '.' + importance.substring(1) }}*10
+                  <sup>{{ (importance + '').length - 1 }}</sup>
                 </span>
                 <span v-else>0</span>
               </span>
@@ -80,15 +80,15 @@
     <div ref="accountFn" class="accountFn radius">
       <div class="accountFnNav">
         <ul class="navList clear">
-          <li :class="[ 'left',functionShowList[1]?'active':'' ] " @click="showFunctionIndex(1)">
+          <li :class="[ 'left',functionShowList[1] ? 'active' : '' ] " @click="showFunctionIndex(1)">
             <img src="@/common/img/wallet/wallet-detail/walletHarvesting.png">
             {{ $t('Harvesting') }}
           </li>
-          <li :class="[ 'left',functionShowList[2]?'active':'','other' ] ">
+          <li :class="[ 'left',functionShowList[2] ? 'active' : '','other' ] ">
             <img src="@/common/img/wallet/wallet-detail/walletDetailsFilter.png">
             {{ $t('Filter_management') }}
           </li>
-          <li :class="[ 'left',functionShowList[3]?'active':'','other' ] ">
+          <li :class="[ 'left',functionShowList[3] ? 'active' : '','other' ] ">
             <img src="@/common/img/wallet/wallet-detail/walletDetailsMetaData.png">
             {{ $t('meta_data') }}
           </li>
@@ -99,12 +99,12 @@
     <PrivatekeyDialog
       v-if="showPrivatekeyDialog"
       :show-privatekey-dialog="showPrivatekeyDialog"
-      @closePrivatekeyDialog="showPrivatekeyDialog=false"
+      @closePrivatekeyDialog="showPrivatekeyDialog = false"
     />
     <KeystoreDialog
       v-if="showKeystoreDialog"
       :show-keystore-dialog="showKeystoreDialog"
-      @closeKeystoreDialog="showKeystoreDialog=false"
+      @closeKeystoreDialog="showKeystoreDialog = false"
     />
     <Alias
       v-if="showBindDialog"

@@ -9,7 +9,7 @@ module.exports = {
   outputDir: './www',
   assetsDir: 'static',
   // eslint-loader check
-  lintOnSave: true,
+  lintOnSave: "error",
   // webpack
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {

@@ -7,11 +7,11 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/recommended',
-    '@vue/typescript'
+    '@vue/typescript',
   ],
   plugins: [
     "vue",
-    "@typescript-eslint"
+    "@typescript-eslint",
   ],
   rules: {
     "@typescript-eslint/ban-ts-ignore": "off",
@@ -28,7 +28,7 @@ module.exports = {
           "requireLast": false
         }
       }
-    ]  ,
+    ],
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": "off",
@@ -67,23 +67,35 @@ module.exports = {
     "prefer-const": "error",
     "prefer-template": 2,
     "quotes": ["error", "single"],
-    "spaced-comment": ["error", "always", { "markers": ["/"] }],
-    "vue/array-bracket-spacing": [
-      "error",
-      "always",
-      { "singleValue": false, "objectsInArrays": false },
-    ],
-    "vue/eqeqeq": "error",
-    "vue/max-attributes-per-line": ["error", {
-      "singleline": 3,
-      "multiline": {
-        "max": 3,
-        "allowFirstLine": false
-      }
-    }],
-    "vue/no-parsing-error": ["error", {
-      "invalid-first-character-of-tag-name": false
-    }],
-    // "vue/no-v-html": "error",
-  }
-};
+    "space-infix-ops": "error",
+    "space-unary-ops": [
+      2, {
+        "words": true,
+        "nonwords": false,
+        "overrides": {
+          "new": false,
+          "++": true
+        }
+      }],
+      "spaced-comment": ["error", "always", { "markers": ["/"] }],
+      "template-curly-spacing": "error",
+      "vue/array-bracket-spacing": [
+        "error",
+        "always",
+        { "singleValue": false, "objectsInArrays": false },
+      ],
+      "vue/eqeqeq": "error",
+      "vue/max-attributes-per-line": ["error", {
+        "singleline": 3,
+        "multiline": {
+          "max": 3,
+          "allowFirstLine": false
+        }
+      }],
+      "vue/no-parsing-error": ["error", {
+        "invalid-first-character-of-tag-name": false
+      }],
+      "vue/space-infix-ops": "error",
+      // "vue/no-v-html": "error",
+    }
+  };

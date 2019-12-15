@@ -26,7 +26,7 @@ const block1GenerationHash = block1.generationHash
 
 Notice.trigger = mockTriggerNotice
 
-const mockGetBlockByHeight =blockNumber => of(blockNumber).pipe(
+const mockGetBlockByHeight = blockNumber => of(blockNumber).pipe(
   tap(blockNumber => mockGetBlockByHeightCall(blockNumber)),
   switchMap(blockNumber => {
     if (blockNumber === '29248') return of(block29248)

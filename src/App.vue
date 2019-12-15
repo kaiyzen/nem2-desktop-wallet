@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="[isWindows?'windows':'mac']">
+  <div id="app" :class="[isWindows ? 'windows' : 'mac']">
     <router-view />
     <DisabledUiOverlay />
     <TransactionConfirmation />

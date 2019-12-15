@@ -25,7 +25,7 @@
               <div v-if="!(index in selectedAccountMap)" class="table-item pointer">
                 <span class="address-id">{{ index }}</span>
                 <span class="address-value">{{ miniHash(a.plain()) }}</span>
-                <span class="address-balance overflow_ellipsis">{{ addressMosaicMap[a.plain()]||'N/A' }}</span>
+                <span class="address-balance overflow_ellipsis">{{ addressMosaicMap[a.plain()] || 'N/A' }}</span>
               </div>
             </div>
           </div>
@@ -52,7 +52,7 @@
             >
               <span class="address-id"> {{ index }} </span>
               <span class="address-value">{{ miniHash(value.plain()) }}</span>
-              <span class="address-balance overflow_ellipsis">{{ addressMosaicMap[value.plain()]||'N/A' }}</span>
+              <span class="address-balance overflow_ellipsis">{{ addressMosaicMap[value.plain()] || 'N/A' }}</span>
               <span class="remove-icon"><img src="@/common/img/Invisible@2x.png"></span>
             </div>
           </div>

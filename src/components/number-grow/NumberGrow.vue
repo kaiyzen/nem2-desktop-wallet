@@ -2,9 +2,9 @@
   <div class="number-grow-warp">
     <span
       v-if="isAdd" ref="numberGrow" :data-time="time"
-      class="number-grow" :data-value="value?value:0"
+      class="number-grow" :data-value="value ? value : 0"
     />
-    <span v-else>{{ formatNumber(numValue)||0 }}</span>
+    <span v-else>{{ formatNumber(numValue) || 0 }}</span>
   </div>
 </template>
 

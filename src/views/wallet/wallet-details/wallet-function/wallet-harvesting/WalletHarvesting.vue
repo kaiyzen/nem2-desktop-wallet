@@ -23,9 +23,9 @@
           <div class="state_class">
             <div class="div_cer">
               <span class="remote_public_key">{{ $t('Remote_state') }}：</span>
-              <span>{{ $t(isLinked?'Linked':'Not_linked') }}</span>
+              <span>{{ $t(isLinked ? 'Linked' : 'Not_linked') }}</span>
               <button
-                :class="[ isLinked?'toggle_link_button_to_unlink':'toggle_link_button_to_link','pointer' ]"
+                :class="[ isLinked ? 'toggle_link_button_to_unlink' : 'toggle_link_button_to_link','pointer' ]"
                 @click="linkAccountClicked"
               >
                 {{ $t(getActionButtonText()) }}

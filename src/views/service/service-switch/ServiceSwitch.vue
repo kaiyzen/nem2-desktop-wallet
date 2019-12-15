@@ -7,7 +7,7 @@
     </div>
     <div class="serviceList">
       <div
-        v-for="(item,index) in serviceFnList" :key="index" :class="[ 'serviceItem', item.active?'active':'' ]"
+        v-for="(item,index) in serviceFnList" :key="index" :class="[ 'serviceItem', item.active ? 'active' : '' ]"
         @click="toPage(item)"
       >
         <div class="serviceName">

@@ -8,7 +8,7 @@
           class="navigator_item pointer"
           @click="jumpToView(n,index)"
         >
-          <span :class="n.isSelected ? 'selected_title':''">{{ $t(n.title) }}</span>
+          <span :class="n.isSelected ? 'selected_title' : ''">{{ $t(n.title) }}</span>
         </div>
       </div>
       <div class="right_view scroll right">

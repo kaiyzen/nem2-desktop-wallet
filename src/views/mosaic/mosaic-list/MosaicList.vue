@@ -15,7 +15,7 @@
             {{ $t('my_balance') }}
             <Icon
               v-if="mosaicSortType.byBalance === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
@@ -23,7 +23,7 @@
             {{ $t('mosaic_ID') }}
             <Icon
               v-if="mosaicSortType.byId === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
@@ -31,7 +31,7 @@
             {{ $t('available_quantity') }}
             <Icon
               v-if="mosaicSortType.bySupply === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
@@ -39,7 +39,7 @@
             {{ $t('mosaic_divisibility') }}
             <Icon
               v-if="mosaicSortType.byDivisibility === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
@@ -48,7 +48,7 @@
             {{ $t('transportability') }}
             <Icon
               v-if="mosaicSortType.byTransferable === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
 
           </span>
@@ -57,7 +57,7 @@
             {{ $t('variable_supply') }}
             <Icon
               v-if="mosaicSortType.bySupplyMutable === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
@@ -65,7 +65,7 @@
             {{ $t('Restrictable') }}
             <Icon
               v-if="mosaicSortType.byRestrictable === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
@@ -73,15 +73,15 @@
             {{ $t('deadline') }}
             <Icon
               v-if="mosaicSortType.byDuration === currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
           <span class="alias" @click="getSortType(mosaicSortType.byAlias)">
             {{ $t('alias') }}
             <Icon
-              v-if="mosaicSortType.byAlias=== currentSortType" class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              v-if="mosaicSortType.byAlias === currentSortType" class="active_sort_type"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
 
@@ -104,23 +104,28 @@
           {{ $t('no_data') }}
         </div>
         <div
-          v-for="(value, index) in currentMosaicList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+          v-for="(value, index) in currentMosaicList.slice((currentPage - 1) * pageSize,currentPage * pageSize)"
           :key="index"
-          :class="[ 'listItem',value.mosaicInfo && value.mosaicInfo.owner.publicKey === publicKey?'owned_mosaic':'' ]"
+          :class="[
+            'listItem',
+            value.mosaicInfo && value.mosaicInfo.owner.publicKey === publicKey ? 'owned_mosaic' : '' 
+          ]"
         >
           <Row>
-            <span class="balance text_select overflow_ellipsis">{{ value.balance?formatNumber(value.balance):0 }}</span>
+            <span class="balance text_select overflow_ellipsis">
+              {{ value.balance ? formatNumber(value.balance) : 0 }}
+            </span>
             <span class="mosaic_id text_select overflow_ellipsis">{{ value.hex }}</span>
             <span class="available_quantity overflow_ellipsis">{{ mosaicSupplyAmount(value) }}</span>
             <span class="mosaic_divisibility overflow_ellipsis">
-              {{ value.properties?value.properties.divisibility:0 }}
+              {{ value.properties ? value.properties.divisibility : 0 }}
             </span>
             <span class="transportability overflow_ellipsis">
-              <Icon v-if="value.properties?value.properties.transferable:0" type="md-checkmark" />
+              <Icon v-if="value.properties ? value.properties.transferable : 0" type="md-checkmark" />
               <Icon v-else type="md-close" />
             </span>
             <span class="variable_supply overflow_ellipsis">
-              <Icon v-if="value.properties?value.properties.supplyMutable:0" type="md-checkmark" />
+              <Icon v-if="value.properties ? value.properties.supplyMutable : 0" type="md-checkmark" />
               <Icon v-else type="md-close" />
             </span>
             <span class="Restrictable overflow_ellipsis">
@@ -128,12 +133,10 @@
               <Icon v-else type="md-close" />
             </span>
             <span class="deadline overflow_ellipsis">
-              {{ computeDuration(value) <= 0 ? $t('overdue') : (computeDuration(value) === 'Forever'?
-                $t('forever') : formatNumber(computeDuration(value))) }}
+              {{ durationLabel }}
             </span>
-
             <span class="alias text_select  overflow_ellipsis">
-              {{ value.name?value.name:'N/A' }}
+              {{ value.name ? value.name : 'N/A' }}
             </span>
 
             <span class="poptip ">
@@ -147,7 +150,7 @@
                   <i class="moreFn" />
                   <div slot="content" class="updateFn">
                     <p
-                      v-if="value.properties?value.properties.supplyMutable:false"
+                      v-if="value.properties ? value.properties.supplyMutable : false"
                       class="fnItem"
                       @click="showEditDialog(value)"
                     >

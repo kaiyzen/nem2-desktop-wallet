@@ -7,7 +7,7 @@
       :width="1000"
       :transfer="false"
       @keyup.enter.native="submit"
-      @on-cancel="show=false"
+      @on-cancel="show = false"
     >
       <DisabledForms />
 

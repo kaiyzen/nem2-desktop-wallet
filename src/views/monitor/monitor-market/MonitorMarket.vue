@@ -12,7 +12,7 @@
           </span>
           <span class="price_item">
             <span>{{ $t('average_price') }}</span><span class="black">${{ averagePrice }} </span>
-            <span>{{ $t('pre_week') }}</span><span :class="riseRange < 0 ? 'red':'green'">{{ riseRange }}%</span>
+            <span>{{ $t('pre_week') }}</span><span :class="riseRange < 0 ? 'red' : 'green'">{{ riseRange }}%</span>
           </span>
         </span>
         <LineChart />
@@ -59,7 +59,7 @@
             </div>
             <div class="right">
               <div class="top coin_amount">
-                {{ r.direction === 'sell'? '+':'-' }}{{ formatNumber(r.amount.toFixed(6)) }}
+                {{ r.direction === 'sell' ? '+' : '-' }}{{ formatNumber(r.amount.toFixed(6)) }}
               </div>
               <div class="bottom coin_cost">
                 USD {{ r.result }}

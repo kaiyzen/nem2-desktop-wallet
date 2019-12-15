@@ -2,11 +2,11 @@
   <div>
     <div>
       <span class="green">{{ $t('min_approval') }}:</span>
-      {{ currentAccountMultisigInfo?currentAccountMultisigInfo.minApproval:0 }}
+      {{ currentAccountMultisigInfo ? currentAccountMultisigInfo.minApproval : 0 }}
     </div>
     <div>
       <span class="green">{{ $t('min_removal') }}:</span>
-      {{ currentAccountMultisigInfo?currentAccountMultisigInfo.minRemoval:0 }}
+      {{ currentAccountMultisigInfo ? currentAccountMultisigInfo.minRemoval : 0 }}
     </div>
     <Tree
       v-if="multisigTreeData"

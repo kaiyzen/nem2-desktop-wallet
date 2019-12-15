@@ -4,7 +4,7 @@
       <p class="tit">
         {{ $t('Wallet_management') }}
       </p>
-      <p class="back-up pointer" @click="showMnemonicDialog=true">
+      <p class="back-up pointer" @click="showMnemonicDialog = true">
         {{ $t('backup_mnemonic') }}
       </p>
     </div>
@@ -38,7 +38,7 @@
                     <Icon type="logo-buffer" />
                     <span>{{ item.numberOfMosaics ? formatNumber(item.numberOfMosaics ) : 0 }}</span>
                   </span>
-                  <span class="delete" @click="showDeleteDialog=true">
+                  <span class="delete" @click="showDeleteDialog = true">
                     <Icon type="md-trash" />
                   </span>
                 </div>
@@ -80,7 +80,7 @@
     <TheWalletDelete
       :show-check-p-w-dialog="showDeleteDialog"
       :wallet-to-delete="wallet"
-      @closeCheckPWDialog="showDeleteDialog=false"
+      @closeCheckPWDialog="showDeleteDialog = false"
       @on-cancel="showDeleteDialog = false"
     />
   </div>

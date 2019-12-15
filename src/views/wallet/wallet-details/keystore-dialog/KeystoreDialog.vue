@@ -13,10 +13,10 @@
       </div>
       <div class="keystoreDialogBody">
         <div v-if="stepIndex !== 4" class="steps">
-          <span :class="[ 'stepItem',stepIndex === 0?'active':'' ]">{{ $t('input_password') }}</span>
-          <span :class="[ 'stepItem',stepIndex === 1?'active':'' ]">{{ $t('backup_prompt') }}</span>
+          <span :class="[ 'stepItem',stepIndex === 0 ? 'active' : '' ]">{{ $t('input_password') }}</span>
+          <span :class="[ 'stepItem',stepIndex === 1 ? 'active' : '' ]">{{ $t('backup_prompt') }}</span>
           <span
-            :class="[ 'stepItem',stepIndex === 2||stepIndex === 3?'active':'' ]"
+            :class="[ 'stepItem',stepIndex === 2 || stepIndex === 3 ? 'active' : '' ]"
           >{{ $t('backup') }} Keystore</span>
         </div>
 

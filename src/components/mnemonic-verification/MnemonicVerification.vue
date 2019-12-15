@@ -1,7 +1,7 @@
 <template>
   <div class="mnemonic_container" @keyup.enter="verificationSuccess">
     <div class="mnemonicWordDiv clear scroll">
-      <draggable v-model="confirmedMnemonicList" ghost-class="ghost" @end="drag=false">
+      <draggable v-model="confirmedMnemonicList" ghost-class="ghost" @end="drag = false">
         <transition-group>
           <span v-for="(c,index) in confirmedMnemonicList" :key="c">
             <Tag closable @on-close="removeConfirmedWord(index)">{{ c }}</Tag>
@@ -13,7 +13,7 @@
       <span
         v-for="(item,index) in mnemonicRandomList"
         :key="index"
-        :class="confirmedIndexList[index]?'confirmed_word':''"
+        :class="confirmedIndexList[index] ? 'confirmed_word' : ''"
         @click="sureWord(index)"
       >
         {{ item }}

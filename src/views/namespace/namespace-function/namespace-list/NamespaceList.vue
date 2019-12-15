@@ -32,7 +32,7 @@
             <Icon
               v-if="namespaceSortType === namespaceSortTypes.byName"
               class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
           <span
@@ -43,7 +43,7 @@
             <Icon
               v-if="namespaceSortType === namespaceSortTypes.byDuration"
               class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
           <span
@@ -54,7 +54,7 @@
             <Icon
               v-if="namespaceSortType === namespaceSortTypes.byExpired"
               class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
           <span
@@ -65,7 +65,7 @@
             <Icon
               v-if="namespaceSortType === namespaceSortTypes.byBindType"
               class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
           <span
@@ -76,7 +76,7 @@
             <Icon
               v-if="namespaceSortType === namespaceSortTypes.byBindInfo"
               class="active_sort_type"
-              :type="sortDirection?'md-arrow-dropdown':'md-arrow-dropup'"
+              :type="sortDirection ? 'md-arrow-dropdown' : 'md-arrow-dropup'"
             />
           </span>
           <span class="more" />

@@ -29,7 +29,7 @@
           <Select
             v-model="formItems.currentAccountName"
             placeholder=" "
-            :class="[ 'select_wallet', accountList.length === 0?'un_click':'' ]"
+            :class="[ 'select_wallet', accountList.length === 0 ? 'un_click' : '' ]"
           >
             <Option v-for="walletName in accountList" :key="walletName.value" :value="walletName.value">
               {{
@@ -45,7 +45,7 @@
               v-model.lazy="formItems.password"
               v-focus
               v-validate="validation.accountPassword"
-              :class="[accountList.length === 0?'un_click':'']"
+              :class="[accountList.length === 0 ? 'un_click' : '']"
               :disabled="accountList.length === 0"
               type="password"
               data-vv-name="password"
